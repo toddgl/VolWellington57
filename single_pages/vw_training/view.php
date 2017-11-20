@@ -180,8 +180,6 @@ if(valid) {
 	} else {
 		volContact.inv = 0;
 	}
-	volContact.redate = new Date().toISOString().slice(0,10);
-	//volContact.redate = new Date();
 	jsonData.push({volContact: volContact});
 	//alert (JSON.stringify(jsonData));
 	$.ajax({

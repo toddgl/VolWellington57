@@ -151,7 +151,7 @@ class VolRequest extends PageController
     } else {
       $reqReimbursement='No';
     }
-    $reqDateposted = $inputs[0]['volrContact']['redate'];
+    $reqDateposted = date('Y-m-d');
     $reqDayshours = filter_var($inputs[0]['volrContact']['dayshours'],$filters['dayshours'], $options['dayshours']);
     $reqPersonality = filter_var($inputs[0]['volrContact']['personality'],$filters['personality'], $options['personality']);
     $rawPoliceck = filter_var($inputs[0]['volrContact']['policeck'],$filters['policeck'], $options['policeck']);

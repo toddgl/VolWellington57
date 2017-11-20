@@ -115,8 +115,6 @@ function sendMbrRegister() {
 		} else {
 			mbrContact.vref = 0;
 		}
-		mbrContact.redate = new Date().toISOString().slice(0,10);
-		//mbrContact.redate = new Date();
 		jsonData.push({mbrContact: mbrContact});
 		//alert (JSON.stringify(jsonData));
 

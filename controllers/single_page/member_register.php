@@ -170,7 +170,7 @@ class MemberRegister extends PageController
     $orgSuburb = filter_var($inputs[0]['mbrContact']['suburb'],$filters['suburb'], $options['suburb']);
     $orgCity = filter_var($inputs[0]['mbrContact']['city'],$filters['city'], $options['city']);
     $orgPcode = filter_var($inputs[0]['mbrContact']['pcode'],$filters['pcode'], $options['pcode']);
-    $orgJoindate = $inputs[0]['mbrContact']['redate'];
+    $orgJoindate = date('Y-m-d');
     $orgPhone = filter_var($inputs[0]['mbrContact']['phone'],$filters['phone'], $options['phone']);
     $orgMobile = filter_var($inputs[0]['mbrContact']['mobile'],$filters['mobile'], $options['mobile']);
     $orgEmail = filter_var($inputs[0]['mbrContact']['email'],$filters['email'], $options['email']);

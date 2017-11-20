@@ -112,8 +112,6 @@ function sendVolRequest() {
 		} else {
 			volrContact.edte = formatDate(edteTmp);
 		} 
-		volrContact.redate = new Date().toISOString().slice(0,10);
-		//volrContact.redate = new Date();
 		jsonData.push({volrContact: volrContact});
 		//alert (JSON.stringify(jsonData));
 

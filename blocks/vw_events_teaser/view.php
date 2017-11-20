@@ -40,7 +40,6 @@ $nh = Loader::helper('navigation');
 	?>
 	<div class="blue">
 	<a href="<?php echo $link_url; ?>"><?php echo $link_text; ?></a>
-	</a>
 	</div>
 </td>
 </tr>

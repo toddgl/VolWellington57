@@ -188,7 +188,6 @@ defined('C5_EXECUTE') or die('Access Denied.')
 			volContact.evetel = $("#inputEveningTel").val();
 			volContact.mobile = $("#inputMobile").val();
 			volContact.email = $("#inputEmail").val();
-			volContact.redate = new Date().toISOString().slice(0,10);
 			volContact.gender = $("#genderList").val();
 			volContact.ageband = $("#ageBand").val();
 			volContact.ethnicity = $("#ethnicityList").val();

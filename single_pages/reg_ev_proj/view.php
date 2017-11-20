@@ -72,9 +72,7 @@ function regEVProject() {
 		} else {
 			evProject.ischallenge = 0;
 		}
-		evProject.redate = new Date().toISOString().slice(0,10);
     evProject.currentyear = new Date().getFullYear();
-		//evProject.redate = new Date();
 		jsonData.push({evProject: evProject});
 		//alert (JSON.stringify(jsonData));
 

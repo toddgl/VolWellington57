@@ -390,7 +390,8 @@ class JobSearch extends PageController
 		$volEthnicity=filter_var($inputs[0]['volContact']['ethnicity'], $filters['ethnicity'], $options['ethnicity']);
 		$volMigrant=filter_var($inputs[0]['volContact']['migrant'], $filters['migrant'], $options['migrant']);
 		$volRefugee=filter_var($inputs[0]['volContact']['refugee'], $filters['refugee'], $options['refugee']);
-    		$volCreateDate = new \DateTime($inputs[0]['volContact']['redate']);
+		$volReDate = date('Y-m-d');
+    	$volCreateDate = new \DateTime($volReDate);
 		$displayCreateDate = $volCreateDate->format('d/m/Y');
 
 
@@ -452,7 +453,7 @@ class JobSearch extends PageController
 				'evetel'=>$volEvetel,
 				'mobile'=>$volMobile,
 				'email'=>$volEmail,
-				'createdate' => $inputs[0]['volContact']['redate'],
+				'createdate' => $volReDate,
 				'emvol'=>$rawEmergency,
 				'gender'=>$volGender,
 				'ageband'=>$volAgeband,
@@ -545,7 +546,7 @@ class JobSearch extends PageController
 							'webvol' => $reg_id,
 							'jobID' => $job_id,
 							'agencyID' => $agency_id,
-							'referdate' => $inputs[0]['volContact']['redate'],
+							'referdate' => $volReDate,
 							'reflocation' => $ref_location
 						)
 					);

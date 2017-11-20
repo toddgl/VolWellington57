@@ -153,7 +153,7 @@ class VwTraining extends PageController
         'ib' => $ib,
         'chq' => $chq,
         'inv' => $inv,
-        'regdate' => $inputs[0]['volContact']['redate'],
+        'regdate' => date('Y-m-d'),
         'paid' => 0
       ));
       for ($x = 1; $x <= 5; $x++) {

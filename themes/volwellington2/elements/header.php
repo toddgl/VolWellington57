@@ -7,6 +7,10 @@ defined('C5_EXECUTE') or die('Access Denied.')
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="canonical" href="https://volunteerwellington.nz/">
+		<!--HTML5 shim, for IE6-8 support of HTML5 elements -->
+		<!--[if lte IE 8]>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+		<![endif]-->
 		<link rel="stylesheet" href="<?php echo $this->getThemePath()?>/css/bootstrap.min.css" >
 		<link rel="stylesheet" type="text/css" href="<?php echo $view->getStylesheet('main.less')?>" >
 		<script src="<?php echo $this->getThemePath()?>/js/jquery.min.js"></script>
@@ -16,10 +20,6 @@ defined('C5_EXECUTE') or die('Access Denied.')
     		$('.dropdown-toggle').dropdown();
 				});
 		</script>
-		<!--HTML5 shim, for IE6-8 support of HTML5 elements -->
-		<!-- [if 1t IE 9]>
-			<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-		<![endif]-->
 		<?php Loader::element('header_required');?>
 	</head>
 	<body>

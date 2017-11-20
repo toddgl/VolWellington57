@@ -146,7 +146,7 @@ class RegEvProj extends PageController
     $supervisor = filter_var($inputs[0]['evProject']['supervisor'],$filters['supervisor'], $options['supervisor']);
     $tel = filter_var($inputs[0]['evProject']['tel'],$filters['tel'], $options['tel']);
     $email = filter_var($inputs[0]['evProject']['email'],$filters['email'], $options['email']);
-    $dateposted = $inputs[0]['evProject']['redate'];
+    $dateposted = date('Y-m-d');
     $calyear = $inputs[0]['evProject']['currentyear'];
     $dayshours = filter_var($inputs[0]['evProject']['dayshours'],$filters['dayshours'], $options['dayshours']);
     $ischallenge = filter_var($inputs[0]['evProject']['ischallenge'],$filters['ischallenge'], $options['ischallenge']);

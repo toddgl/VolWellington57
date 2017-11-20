@@ -128,7 +128,7 @@ class VwForum extends PageController
         'city' => $city,
         'tel' => $tel,
         'email' => $email,
-        'regdate' => $inputs[0]['volContact']['redate'],
+        'regdate' => date('Y-m-d'),
         'status' => 0
       ));
 

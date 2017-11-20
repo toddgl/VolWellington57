@@ -22,7 +22,7 @@ $nh = Loader::helper('navigation');
 		</span>
 <?php if (!empty($field_4_textbox_text)): ?>
 	<span class="add-label">
-			<h4><strong><?php echo htmlentities($field_4_textbox_text, ENT_QUOTES, APP_CHARSET); ?></h4>
+			<h4><strong><?php echo htmlentities($field_4_textbox_text, ENT_QUOTES, APP_CHARSET); ?></strong></h4>
 	</span>
 <?php endif; ?>
 </div>
