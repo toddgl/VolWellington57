@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<schema version="0.3">
+	<table name="btDCVwNav">
+		<field name="bID" type="I"><key /><unsigned /></field>
+
+		<field name="field_1_link_cID" type="I"></field>
+		<field name="field_1_link_text" type="C" size="255"></field>
+
+		<field name="field_2_link_cID" type="I"></field>
+		<field name="field_2_link_text" type="C" size="255"></field>
+
+		<field name="field_3_link_cID" type="I"></field>
+		<field name="field_3_link_text" type="C" size="255"></field>
+
+		<field name="field_4_link_cID" type="I"></field>
+		<field name="field_4_link_text" type="C" size="255"></field>
+
+
+	</table>
+</schema>

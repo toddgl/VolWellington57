@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<styles version="1.0">
+	<set name="Full page">
+		<style name="Primary Header Color" variable="primary-header" type="color" />
+		<style name="Secondary Header Color" variable="secondary-header" type="color" />
+		<style name="Tertiary Header Color" variable="tertiary-header" type="color" />
+		<style name="Primary Spacing" variable="primary-header" type="size" />
+	</set>
+	<set name="Header">
+		<style name="Header" variable="header" type="type" />
+	</set>
+	<set name='Form'>
+		<style name="Form" variable="form" type="type" />
+		<style name="Form Header Color" variable="form-header" type="color" />
+	</set>
+	<set name="Menu">
+		<style name="Menu" variable="menu" type="type" />
+	</set>
+	<set name="Link">
+		<style name="Link" variable="link" type="type" />
+	</set>
+	<set name="Body">
+		<style name="Body" variable="body" type="type" />
+		<style name="Primary Body Color" variable="primary-body" type="color" />
+	</set>
+	<set name="Footer">
+		<style name="Primary Footer Color" variable="primary-footer" type="color" />
+		<style name="Footer Header Color" variable="footer-header" type="color" />
+	</set>
+</styles>

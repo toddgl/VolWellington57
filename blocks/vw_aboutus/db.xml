@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<schema version="0.3">
+	<table name="btDCVwAboutus">
+		<field name="bID" type="I"><key /><unsigned /></field>
+
+		<field name="field_1_textarea_text" type="X"></field>
+
+		<field name="field_2_wysiwyg_content" type="X2"></field>
+
+		<field name="field_3_wysiwyg_content" type="X2"></field>
+
+		<field name="field_4_link_cID" type="I"></field>
+		<field name="field_4_link_text" type="C" size="255"></field>
+
+
+	</table>
+</schema>

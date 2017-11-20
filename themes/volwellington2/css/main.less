@@ -1,0 +1,497 @@
+@import "presets/defaults.less";
+//@import ~"@{preset-fonts-file}";
+
+@font-face {
+   font-family: 'Open Sans', sans-serif;
+   src: url(../fonts/OpenSans-Regular.ttf)
+}
+
+@font-face {
+   font-family: 'Oxygen', sans-serif;
+   src: url(../fonts/Oxygen-Regular.ttf)
+}
+
+/* set a max-width for horizontal fluid layout and make is centered */
+.container-fluid {
+  margin-right: auto;
+  margin-left: auto;
+  max-width: 1600px;
+}
+
+body {
+	font-family: 'Open Sans', sans-serif;
+  font-size: @body-type-font-size;
+  margin: 0px !important;
+  padding: 0px;
+}
+h4 {
+  color: @form-header-color;
+  font-weight: @header-type-font-weight;
+}
+h3 {
+  color: @form-header-color;
+  font-weight: @header-type-font-weight;
+}
+h2 {
+  color: @form-header-color;
+  font-weight: @header-type-font-weight;
+}
+li {
+  font-size: @body-type-font-size;
+}
+table.resources td {
+    	padding: 20px;
+}
+.vol-font{
+	font-family: 'Open Sans', sans-serif;
+}
+.white{
+	color:white;
+}
+.black{
+	color:black;
+}
+.red {
+	background-color: @primary-header-color;
+}
+hr {
+    border-top: 3px solid @seperator-primary-color;
+}
+b, p {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.nav a {
+  font-family: 'Oxygen', sans-serif;
+	color: white;
+  font-size: @header-type-font-size;
+  font-weight: @header-type-font-weight;
+}
+a:focus, a:hover {
+    color: black;
+}
+.icon-bar {
+	background-color: white;
+}
+.nav li{
+	display: inline-block;
+	list-style: none;
+}
+.navbar .navbar-nav {
+    display: inline-block;
+    margin-bottom: 0px;  // override bootstrap.min.css
+    float: none;
+}
+.navbar .navbar-collapse {
+    text-align: center;
+    margin-bottom: 0px; // override bootstrap.min.css
+}
+//.navbar-right.nav-upper {
+//  height: 50px;
+//}
+//.navbar-right.nav-upper ul {
+//  float: right;
+//  display: table;
+//}
+//.navbar-right.nav-upper .navbar-upper > li {
+//  display: table-cell;
+//  font-size: 14px;
+//}
+.navbar-right.nav-upper .navbar-upper > li > a {
+  color: #777;
+}
+//@media (min-width: 768px) {
+  //.navbar.navbar-lower .navbar-nav {
+  //  margin-left: 100px;
+//  }
+//}
+.navbar-logo {
+  width: 50px;
+  height: 50px;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 0px;
+  left: 15px;
+  margin-top: 5px;
+  z-index: 10;
+}
+.navbar-text {
+  color:white;
+  margin-left: 105px;
+}
+
+// Override to get the pagelist to display horizonatally
+.section_nav div.ccm-block-page-list-page-entry {
+    margin-top: 10px;
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+    display: inline-block;
+    float: left;
+    width: 25%;
+}
+
+.section_nav a {
+  font-family: 'Oxygen', sans-serif;
+  font-size: 1.4em;
+  font-size: 1.4vw;
+  color: black;
+}
+
+.nav_separator>hr {
+  margin-top: 5px;
+}
+
+.footer_header{
+	background-color:	none;
+	/*background:none;*/
+	background:@footer-header-color;
+	max-height: 50px;
+	height:100%;
+}
+.row-fluid {
+  text-align:center;
+}
+.img-responsive {
+  margin:0 auto;
+  margin-top: -20px;
+}
+.marginRow{
+     margin:0px !important;
+   }
+.no-padding {
+  padding-left: 0;
+  padding-right: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.section_hdr {
+  font-family: 'Oxygen', sans-serif;
+	color: @primary-header-color;
+  font-size: @header-type-font-size;
+  font-weight: @header-type-font-weight;
+  padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+.stretch-image {
+    background-size: cover; /* will stretch the image to your div size while maintaining aspect ratio */
+}
+.bg-connect {
+	background: @primary-footer-color;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+.bg-black {
+  background: black;
+}
+
+.bg-separator {
+  background: @seperator-block-color;
+  height:50px;
+	padding-left: 10px;
+	padding-top: 2px;
+	padding-bottom: 10px;
+}
+.bg-separator>h3 {
+  font-family: 'Oxygen', sans-serif;
+  font-weight: bold;
+  font-size: 2.5em;
+  color: white;
+  text-align: left;
+  padding-left: 30px;
+  padding-top: 5px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.bg-secondary {
+	background: @secondary-header-color;
+	font-family: 'Open Sans', sans-serif;
+	padding-left: 10px;
+	padding-top: 2px;
+	padding-bottom: 10px;
+}
+.bg-secondary>h3 {
+  text-align: center;;
+  padding-top: 5px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+.bg-tertiary {
+	background: @tertiary-header-color;
+	height:60px;
+	font-family: 'Open Sans', sans-serif;
+	padding-left: 10px;
+	padding-top: 2px;
+	padding-bottom: 10px;
+}
+.bn-secondary {
+	background: @secondary-header-color;
+}
+.bg-search{
+	border-top-right-radius: 40px;
+	background: @secondary-header-color;
+	height:60px;
+}
+/* Form */
+select {
+  height: 1.5em;
+}
+
+/* Story */
+.story>.img-responsive {
+  margin-top: 0px;
+  margin-bottom: 10px;
+  padding: 4px;
+  box-shadow: 2px 2px 4px rgba(0,0,0,.5);
+}
+
+.callout {
+  font-style:italic;
+}
+
+/* Event block Date Button */
+time.icon
+{
+  font-size: 1em; /* change icon size */
+  display: block;
+  position: relative;
+  width: 7em;
+  height: 7em;
+  background-color: @seperator-block-color;
+  margin: 1em auto;
+}
+time.icon *
+{
+  display: block;
+  width: 100%;
+  font-size: 1em;
+  font-weight: bold;
+  font-style: normal;
+  text-align: center;
+}
+time.icon strong
+{
+  position: absolute;
+  top: 0;
+  padding: 0.4em 0;
+  color: white;
+}
+time.icon em
+{
+  position: absolute;
+  bottom: 0.3em;
+  color: white;
+}
+time.icon span
+{
+  width: 100%;
+  font-size: 2.8em;
+  letter-spacing: -0.05em;
+  padding-top: 0.8em;
+  color: white;
+}
+/* Teaser Block Style */
+.teaser{
+  width: 100%;
+  height: 150px;
+  margin: 20px 20px;
+  background-color: @teaser-primary-color;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  border-radius: 20px;
+}
+
+.leadin_nobg {
+  width: 100%;
+  height: auto;
+  margin: 20px 20px;
+}
+
+.leadin_nobg>h3 {
+  font-family: 'Oxygen', sans-serif;
+  font-weight: bold;
+  font-size: 2.5em;
+  color: @primary-header-color;
+  text-align: center;
+  padding-left: 30px;
+  padding-top: .6em;
+  padding-bottom: .6em;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.leadin_nobg>p {
+  font-size: 1.4em;
+  text-align: center;
+}
+
+.label {
+  display: inline;
+  padding: .2em .6em .3em;
+  width: 90%;
+  font-size: 100%;
+  font-weight: bold;
+  color: white;
+  white-space: normal;
+  vertical-align: middle;
+  text-align: center;
+  line-height:15px;
+}
+.label h4 {
+  font-family: 'Oxygen', sans-serif;
+  text-transform: uppercase;
+  margin: 20px 20px 10px 20px;
+}
+.label p {
+  margin: 10px 20px 10px 20px;
+}
+
+span.add-label{
+  display:none;
+}
+.teaser:hover {
+  background-color: @teaser-secondary-color;
+}
+.teaser:hover span.align{
+  display:none;
+}
+.teaser:hover span.add-label{
+  color: black;
+  display:block;
+}
+
+
+/* Teaser Circle Style2 */
+.circle {
+    display: block;
+	  margin: 3em; // you can change this
+	  width: 50%; //change this to change the circle's size
+	  height: 0;
+	  text-align: center;
+	  position: relative;
+	  color: white; //change this to change the text color
+}
+.circle:before, .circle:after {
+		content: "";
+		height: 0;
+		padding-bottom: 100%;
+		display: inline-block;
+		vertical-align: middle;
+}
+
+.circle:before {
+		width: 0;
+}
+
+.circle:after {
+		background: @teaser-primary-color; //change this to change background color
+		width: 100%;
+		position: absolute;;
+		z-index: 0;
+		top: 0;
+		left: 0;
+		border-radius: 50%;
+}
+
+.circle-text {
+	  display: inline-block;
+	  vertical-align: middle;
+	  position: relative;
+	  width: 65%; //left and right margins of the text
+	  text-align: center; //you can restore text-align left here if you want
+	  z-index: 1;
+}
+	.circle-text h4 {
+		margin: .2em 0;
+}
+
+.circle-text, .circle:after, .circle {
+	transition: all .4s ease;
+}
+.circle:after {
+	box-shadow:.2em .5em 3em 1em rgba(0,0,0,.3);
+}
+
+.circle:hover {
+		background: @teaser-secondary-color;
+}
+
+.circle-text:hover {
+		background: @teaser-secondary-color;
+  	transform: rotate(-10deg);
+}
+
+/* Lead Image text at bottom */
+.caption {
+    width:100%;
+    bottom: 0rem;
+    position: absolute;
+    background: @hdrimage-caption-color;
+    filter: alpha(opacity=60);   /* IE */
+    -moz-opacity: 0.6;   /* Mozilla */
+    opacity: 0.6;   /* CSS3 */
+}
+
+.thumbnail {
+    border: 0 none;
+    box-shadow: none;
+    margin:0;
+    padding:0;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.caption h3 {
+    font-family: 'Oxygen', sans-serif;
+    font-weight: bold;
+    font-size: 2em;
+    color: black;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    text-align:left;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Modal Styles */
+.modal-title {
+	font-family: 'Open Sans', sans-serif;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.modal-detail {
+	font-family: 'Open Sans', sans-serif;
+	margin-left: 10px;
+	margin-bottom: 20px;
+}
+
+.modal-lead{
+	font-family: 'Open Sans', sans-serif;
+	font-weight: bold;
+	margin-left: 10px;
+}
+
+.modal {
+  overflow: auto !important;
+}
+
+.left-checkbox label {
+    text-align: right;
+    float: right;
+    font-weight: bold;
+}
+
+.left-checkbox input[type=checkbox] {
+    margin-left: 0;
+}
+
+.subHeading {
+  font-family: 'Open Sans', sans-serif;
+	font-weight: bold;
+	font-size: 1.2em;
+  color: @secondary-header-color;
+}
