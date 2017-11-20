@@ -162,126 +162,32 @@ class JobSearch extends PageController
     	$category = $this->post('sCategory');
     	$location = $this->test_input($this->post('sLocation'));
     	$keyword = filter_var($this->post("sWord"),$filters['keyword'], $options['keyword']);
-    	if (empty($keyword) && empty($category) && empty($location)) {
-    		$sql =  "SELECT  `title`, `keyword`, `jobsub`, `descrip`, `ID`, 'policeck'
-    		FROM `jobs`
-    		WHERE `status` = 1
-    		ORDER BY `dateposted` DESC";
-			$stmt = $dbc->prepare($sql);
-
-			$stmt->execute();
-
-			$results = $stmt->fetchAll();
-    		$this->set('resultPosted', $results);
-    	}
-    	elseif (!empty($keyword) && empty($category) && empty($location)) {
-    		$sql = "SELECT  `title`, `keyword`, `jobsub`, `descrip`, `ID`, 'policeck', 'eveonly', 'reimbursement'
-    		FROM `jobs`
-    		WHERE `status` = 1
-    		AND MATCH(`descrip`, `title`)
-    		AGAINST('$keyword*' IN BOOLEAN MODE)
-    		ORDER BY `dateposted` DESC";
-    		$stmt = $dbc->prepare($sql);
-
-				$stmt->execute();
-
-				$results = $stmt->fetchAll();
-    		$this->set('resultPosted', $results);
-  		}
-    	elseif(empty($keyword) && empty($category) && !empty($location)) {
-    		$sql= "SELECT  `title`, `keyword`, `jobsub`, `descrip`, `ID`, 'policeck', 'eveonly', 'reimbursement'
-    		FROM `jobs`
-    		WHERE `status` = 1
-    		AND `location` = ?
-    		ORDER BY `dateposted` DESC";
-    		$stmt = $dbc->prepare($sql);
-    		$stmt->bindValue(1, $location);
-
-				$stmt->execute();
-
-				$results = $stmt->fetchAll();
-    		$this->set('resultPosted', $results);
-    	}
-    	elseif(!empty($keyword) && empty($category) && !empty($location)) {
-    		$sql="SELECT  `title`, `keyword`, `jobsub`, `descrip`, `ID`, 'policeck', 'eveonly', 'reimbursement'
-    		FROM `jobs`
-    		WHERE `status` = 1
-    		AND `location` = ?
-    		AND MATCH(`descrip`, `title`)
-    		AGAINST('$keyword*' IN BOOLEAN MODE)
-    		ORDER BY `dateposted` DESC";
-    		$stmt = $dbc->prepare($sql);
-    		$stmt->bindValue(1, $location);
-
-				$stmt->execute();
-
-				$results = $stmt->fetchAll();
-    		$this->set('resultPosted', $results);
-  		}
-    	elseif(empty($keyword) && !empty($category) && empty($location)) {
-    		$sql = "SELECT  `title`, `keyword`, `jobsub`, `descrip`, `ID` , 'policeck', 'eveonly', 'reimbursement'
-    		FROM `jobs`
-    		WHERE `status` = 1
-    		AND `keyword` = ?
-    		ORDER BY `dateposted` DESC";
-    		$stmt = $dbc->prepare($sql);
-    		$stmt->bindValue(1, $category);
-
-				$stmt->execute();
-
-				$results = $stmt->fetchAll();
-    		$this->set('resultPosted', $results);
-    	}
-    	elseif(!empty($keyword) && !empty($category) && empty($location)) {
-    		$sql = "SELECT  `title`, `keyword`, `jobsub`, `descrip`, `ID`, 'policeck', 'eveonly', 'reimbursement'
-    		FROM `jobs`
-    		WHERE `status` = 1
-    		AND `keyword` = ?
-    		AND MATCH(`descrip`, `title`)
-    		AGAINST('$keyword*' IN BOOLEAN MODE)
-    		ORDER BY `dateposted` DESC";
-    		$stmt = $dbc->prepare($sql);
-    		$stmt->bindValue(1, $category);
-
-				$stmt->execute();
-
-				$results = $stmt->fetchAll();
-    		$this->set('resultPosted', $results);
-  		}
-  		elseif(empty($keyword) && !empty($category) && !empty($location)) {
-    		$sql = "SELECT  `title`, `keyword`, `jobsub`, `descrip`, `ID` , 'policeck', 'eveonly', 'reimbursement'
-    		FROM `jobs`
-    		WHERE `status` = 1
-    		AND `keyword` = ?
-    		AND `location` = ?
-    		ORDER BY `dateposted` DESC";
-    		$stmt = $dbc->prepare($sql);
-    		$stmt->bindValue(1, $category);
-    		$stmt->bindValue(2, $location);
-
-				$stmt->execute();
-
-				$results = $stmt->fetchAll();
-    		$this->set('resultPosted', $results);
-    	}
-    	else {
-  			$sql = "SELECT  `title`, `keyword`, `jobsub`, `descrip`, `ID` , 'policeck', 'eveonly', 'reimbursement'
-  			FROM `jobs`
-  			WHERE `status` = 1
-  			AND `keyword` = ?
-    		AND `location` = ?
-  			AND MATCH(`descrip`, `title`)
-  			AGAINST('$keyword*' IN BOOLEAN MODE)
-  			ORDER BY `dateposted` DESC";
-  			$stmt = $dbc->prepare($sql);
-  			$stmt->bindValue(1, $category);
-    		$stmt->bindValue(2, $location);
-
-				$stmt->execute();
-
-				$results = $stmt->fetchAll();
-    		$this->set('resultPosted', $results);
-  		}
+   		$sql =  "SELECT  `title`, `keyword`, `jobsub`, `descrip`, `ID`, 'policeck', 'eveonly', 'reimbursement'
+   		FROM `jobs`
+   		WHERE `status` = 1";
+		if (!empty($category)) {
+    		$sql .= " AND `keyword` = ?";
+		}
+		if (!empty($location)) {
+    		$sql .= " AND `location` = ?";
+		}
+		if (!empty($keyword)) {
+    		$sql .= " AND MATCH(`descrip`, `title`) AGAINST('$keyword*' IN BOOLEAN MODE)";
+		}
+		$sql .= " ORDER BY `dateposted` DESC";
+		$stmt = $dbc->prepare($sql);
+		$bindIdx = 1;
+		if (!empty($category)) {
+    		$stmt->bindValue($bindIdx, $category);
+			$bindIdx++;
+		}
+		if (!empty($location)) {
+    		$stmt->bindValue($bindIdx, $location);
+			$bindIdx++;
+		}
+		$stmt->execute();
+		$results = $stmt->fetchAll();
+   		$this->set('resultPosted', $results);
 	}
 
 	public function jobRegister() {
