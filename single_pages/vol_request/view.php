@@ -1,7 +1,10 @@
 <?php
 defined('C5_EXECUTE') or die('Access Denied.')
 ?>
+<script src="https://cdn.ravenjs.com/3.20.1/raven.min.js" crossorigin="anonymous"></script>
+
 <script type="text/javascript">
+Raven.config('https://606f3fd66dd04223a83abba161de7248@sentry.io/247542').install()
 
 $(document).ready(function() {
 	$('#volRequestModal').on('hidden.bs.modal', function (e) {
