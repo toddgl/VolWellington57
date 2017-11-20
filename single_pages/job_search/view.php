@@ -712,7 +712,6 @@ defined('C5_EXECUTE') or die('Access Denied.')
             								<option selected="" value="">Select</option>
 														<option value="Yes">Yes</option>
 														<option value="No">No</option>
-														<option value="Not Stated">Not Stated</option>
      											</select>
 											</div>
 									</div>
@@ -723,7 +722,6 @@ defined('C5_EXECUTE') or die('Access Denied.')
             								<option selected="" value="">Select</option>
 														<option value="Yes">Yes</option>
 														<option value="No">No</option>
-														<option value="Not Stated">Not Stated</option>
      											</select>
 											</div>
 									</div>
