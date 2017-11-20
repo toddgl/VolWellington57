@@ -7,11 +7,11 @@
 <?php endif; ?>
 
 <?php if (!empty($field_2_textbox_text)): ?>
-	<abbr title="Phone">Phone:</abbr><?php echo htmlentities($field_2_textbox_text, ENT_QUOTES, APP_CHARSET); ?><br>
+	<abbr title="Phone">Phone:</abbr>&nbsp;<?php echo htmlentities($field_2_textbox_text, ENT_QUOTES, APP_CHARSET); ?><br>
 <?php endif; ?>
 
 <?php if (!empty($field_3_textbox_text)): ?>
-	<abbr title="Email">Email:</abbr><?php echo htmlentities($field_3_textbox_text, ENT_QUOTES, APP_CHARSET); ?><br><br>
+	<abbr title="Email">Email:</abbr>&nbsp;<a href=mailto:<?php echo htmlentities($field_3_textbox_text, ENT_QUOTES, APP_CHARSET); ?>><?php echo htmlentities($field_3_textbox_text, ENT_QUOTES, APP_CHARSET); ?></a><br><br>
 <?php endif; ?>
 
 <?php if (!empty($field_4_textarea_text)): ?>
@@ -31,5 +31,3 @@
 	</b>
 	<br>
 <?php endif; ?>
-
-

@@ -391,8 +391,7 @@ class MemberRegister extends PageController
   		$mailService->load('mail_template');
 
       // Set email parameters
-      $mailService->to('julie@volunteerwellington.nz');
-  		//$mailService->to($orgEmail);
+  		$mailService->to($orgEmail);
       $mailService->from('Registrationonline@volunteerwellington.org.nz');
   		$mailService->replyto('office@volunteerwellington.nz', 'Online Member Registration');
   		$mailService->setSubject('OnLine Membership registration form');

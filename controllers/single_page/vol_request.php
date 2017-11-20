@@ -293,7 +293,7 @@ class VolRequest extends PageController
     $mailService->load('mail_template');
 
     // Set email parameters
-    $mailService->to('julie@volunteerwellington.nz, office@volunteerwellington.nz, charlie@volunteerwellington.nz');
+    $mailService->to('aileen@volunteerwellington.nz, office@volunteerwellington.nz');
     $mailService->from('Registrationonline@volunteerwellington.org.nz');
     $mailService->replyto('office@volunteerwellington.nz', 'Online Member Registration');
     $mailService->setSubject('VW OnLine Request for Volunteers form');
@@ -308,8 +308,7 @@ class VolRequest extends PageController
     $mailService->load('mail_template');
 
     // Set email parameters
-    $mailService->to('julie@volunteerwellington.nz, office@volunteerwellington.nz');
-    //$mailService->to($orgEmail);
+    $mailService->to($reqJem);
     $mailService->from('Registrationonline@volunteerwellington.org.nz');
     $mailService->replyto('office@volunteerwellington.nz', 'Online Member Registration');
     $mailService->setSubject('VW OnLine Request for Volunteers form');
