@@ -18,6 +18,7 @@ class VwTraining extends PageController
 		$sql = "SELECT  `id`, `wksp`, `when`, `wkdte`, `who`, `wkno`, `wktime`
 		FROM `trainwksp`
 		WHERE `wkyr` = ?
+    AND  `status` = 1
     AND `wkdte` >= CURDATE()";
 		$stmt = $conn->prepare($sql);
     $stmt->bindValue(1, $year);

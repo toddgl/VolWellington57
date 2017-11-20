@@ -412,6 +412,7 @@ class JobSearch extends PageController
 
 			// Set email to office body content
 			$mailOfficeContent = "
+			<p><b>This is a Test email representing what will be sent to the Office on role registration</b></p>
 			<p>You have received this mail from a volunteer registration on the VW web site. The data below is that which has been entered by the potential volunteer. The requirements on the data entry have been set at Volunteer Name and at least one contact number. The contact details must be correctly entered. They cannot send the form until they have fulfilled these requirements.</p>
 			<p>Please do not try to reply-to this automatically generated email.</p>
 			<p>The database entry date: $displayCreateDate</p>
@@ -464,14 +465,14 @@ class JobSearch extends PageController
 				'migrant'=>$volMigrant,
 				'refugee'=>$volRefugee,
 				'wi' => 0,
-				'status' => 0,
+				'status' => 1,
 				'reason'=>$volReason
 			));
 
 			for ($x = 1; $x <= 10; $x++) {
 				$job_id = $inputs[$x]['item']['id'];
 				if (isset($job_id)) {
-					$sql = "SELECT `agencyID`, `title`, `location`, `jobemail`
+					$sql = "SELECT `agencyID`, `title`, `descrip`, `location`, `jobemail`
 					FROM `jobs`
 					WHERE `ID` = ?";
 					$stmt = $conn->prepare($sql);
@@ -481,9 +482,10 @@ class JobSearch extends PageController
 					$agency_id = intval($job_data['agencyID']);
 					$ref_location = $job_data['location'];
 					$ref_title = $job_data['title'];
+					$ref_descrip= $job_data['descrip'];
 
 					if (isset($agency_id)) {
-						$sql = "SELECT `name`, `email`
+						$sql = "SELECT `name`, `email`, `phone`
 						FROM `agencies`
 						WHERE `ID` = ?";
 						$stmt = $conn->prepare($sql);
@@ -491,6 +493,7 @@ class JobSearch extends PageController
 						$stmt->execute();
 						$agency_data = $stmt->fetch();
 						$agency_name = $agency_data['name'];
+						$agency_phone = $agency_data['phone'];
 
 						// Get valid email address for sending agency email
 						if(!empty($job_data['jobemail'])){
@@ -505,7 +508,8 @@ class JobSearch extends PageController
 					}
 					// Set email to agency body content
 					$mailAgencyContent = "
-					You have received this mail from a volunteer registration on the Volunteer Wellington web site. First please check that you are indeed the Organisation named below to ensure that the correct email has reached you. If this is not the case please notify Volunteer Wellington ASAP so the matter can be corrected.</p>
+					<p><b>This is a Test email representing what will be sent to the Organisation offering the role</b></p>
+					<p>You have received this mail from a volunteer registration on the Volunteer Wellington web site. First please check that you are indeed the Organisation named below to ensure that the correct email has reached you. If this is not the case please notify Volunteer Wellington ASAP so the matter can be corrected.</p>
 					<p>The data below is that which has been entered by the potential volunteer. </p>
 					<p><b>Please note:</b></p>
 					<ol>
@@ -539,6 +543,29 @@ class JobSearch extends PageController
 					</fieldset>";
 
 
+					// Set email to agency body content
+					$mailVolContent = "
+					<p><b>This is a Test email representing what will be sent to the Volunteer on role registration</b></p>
+					<p>Thank you for your application for the volunteering role:</p>
+					<fieldset>
+					<legend>THE ROLE</legend>
+					<ul>
+					<li><label>Role Title</label><b> &nbsp; $ref_title</b></li>
+					<li><label>Role Description</label><b> &nbsp; $ref_descrip</b></li>
+					<li><label>Role Location</label><b> &nbsp; $ref_location</b></li>
+					</ul>
+					</fieldset>
+					<fieldset>
+					<legend>THE ORGANISTION</legend>
+					<ul>
+					<li><label>Organisation</label><b> &nbsp;$agency_name</b></li>
+					<li><label>Organisation email</label><b> &nbsp;$agency_email</b></li>
+					<li><label>Organisation phone</label><b> &nbsp;$agency_phone</b></li>
+					</ul>
+					</fieldset>
+ 					<p>The organisation who registered the role you have chosen have been sent your application.  If you don’t hear from them within 48 hours we recommend you contact them directly.</p>
+					<p>If you have any questions or would like to discuss your options further please email us at <a href=mailt:info@volunteerwellington.nz>info@volunteerwellington.nz</a></p>";
+
 					$conn->insert('webrefs',
 						array(
 							'refID' => NULL,
@@ -556,11 +583,25 @@ class JobSearch extends PageController
 					$mailService->load('mail_template');
 
 					// Set email parameters
-					//$mailService->to($agencyEmail);
-					$mailService->to('office@volunteerwellington.nz, julie@volunteerwellington.nz');
+					//$mailService->to($agency_email);
+					$mailService->to('julie@volunteerwellington.nz');
 					$mailService->replyto('office@volunteerwellington.nz', 'Online Job Registration');
 					$mailService->setSubject('Volunteer Wellington OnLine Volunteer Registration');
 					$mailService->setBodyHTML($mailAgencyContent);
+
+					// Send email
+					$mailService->sendMail();
+
+					// send registeration to the volunteer
+					$mailService = Core::make('mail');
+					$mailService->setTesting(false); // or true to throw an exception on error.
+					$mailService->load('mail_template');
+
+					// Set email parameters
+					$mailService->to($volEmail);
+					$mailService->replyto('office@volunteerwellington.nz', 'Online Role Registration');
+					$mailService->setSubject('Volunteer Wellington OnLine Role Registration');
+					$mailService->setBodyHTML($mailVolContent);
 
 					// Send email
 					$mailService->sendMail();
@@ -572,7 +613,7 @@ class JobSearch extends PageController
 			$mailService->load('mail_template');
 
 	    // Set email parameters
-			$mailService->to('office@volunteerwellington.nz, julie@volunteerwellington.nz');
+			$mailService->to('office@volunteerwellington.nz, aileen@volunteerwellington.nz');
 			$mailService->replyto('office@volunteerwellington.nz', 'Online Job Registration');
 			$mailService->setSubject('Volunteer Wellington OnLine Volunteer Registration');
 			$mailService->setBodyHTML($mailOfficeContent);
