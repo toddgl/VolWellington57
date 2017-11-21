@@ -9,6 +9,19 @@ use Mail;
 
 class JobSearch extends PageController
 {
+    /*public function view()
+    {
+		$conn = \Database::connection('jobsearch');
+		
+		$sql = "SELECT  ageband
+		FROM agelist
+		WHERE status = 1";
+		$stmt = $conn->prepare($sql);
+		$stmt->execute();
+		$details = $stmt->fetchAll();
+        $this->set('ageList', $details);
+    }*/
+
 	public function getAgeList() {
 		$conn = \Database::connection('jobsearch');
 		$sql = "SELECT  ageband
@@ -150,18 +163,23 @@ class JobSearch extends PageController
 
 	public function searchJobData() {
 		$filters = array(
-	    'keyword'=>FILTER_SANITIZE_STRING,
+			'keyword'=>FILTER_SANITIZE_STRING,
+			'roleId'=>FILTER_VALIDATE_INT,
 		);
 		$options = array(
-    	'keyword'=>array(
-        'flags'=>FILTER_NULL_ON_FAILURE
-    	),
+			'keyword'=>array(
+				'flags'=>FILTER_NULL_ON_FAILURE
+			),
+			'options'=>array(
+				'min_range' => 0
+			) 
 		);
   		//Search the database
   		$dbc = \Database::connection('jobsearch');
     	$category = $this->post('sCategory');
     	$location = $this->test_input($this->post('sLocation'));
     	$keyword = filter_var($this->post("sWord"),$filters['keyword'], $options['keyword']);
+		$roleId = filter_var($this->post("sWord"),$filters['roleId'], $options['roleId']);
    		$sql =  "SELECT  `title`, `keyword`, `jobsub`, `descrip`, `ID`, 'policeck', 'eveonly', 'reimbursement'
    		FROM `jobs`
    		WHERE `status` = 1";
@@ -172,7 +190,12 @@ class JobSearch extends PageController
     		$sql .= " AND `location` = ?";
 		}
 		if (!empty($keyword)) {
-    		$sql .= " AND MATCH(`descrip`, `title`) AGAINST('$keyword*' IN BOOLEAN MODE)";
+    		$sql .= " AND (";
+			$sql .= " MATCH(`descrip`, `title`) AGAINST(? IN BOOLEAN MODE)";
+			if (!empty($roleId)) {
+				$sql .= " OR `ID` = ?";
+			}
+    		$sql .= " )";
 		}
 		$sql .= " ORDER BY `dateposted` DESC";
 		$stmt = $dbc->prepare($sql);
@@ -184,6 +207,14 @@ class JobSearch extends PageController
 		if (!empty($location)) {
     		$stmt->bindValue($bindIdx, $location);
 			$bindIdx++;
+		}
+		if (!empty($keyword)) {
+    		$stmt->bindValue($bindIdx, $keyword . "*");
+			$bindIdx++;
+			if (!empty($roleId)) {
+				$stmt->bindValue($bindIdx, $roleId);
+				$bindIdx++;
+			}
 		}
 		$stmt->execute();
 		$results = $stmt->fetchAll();
