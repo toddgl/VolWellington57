@@ -330,7 +330,6 @@ class JobSearch extends PageController
 
 			// Set email to office body content
 			$mailOfficeContent = "
-			<p><b>This is a Test email representing what will be sent to the Office on role registration</b></p>
 			<p>You have received this mail from a volunteer registration on the VW web site. The data below is that which has been entered by the potential volunteer. The requirements on the data entry have been set at Volunteer Name and at least one contact number. The contact details must be correctly entered. They cannot send the form until they have fulfilled these requirements.</p>
 			<p>Please do not try to reply-to this automatically generated email.</p>
 			<p>The database entry date: $displayCreateDate</p>
@@ -426,7 +425,6 @@ class JobSearch extends PageController
 					}
 					// Set email to agency body content
 					$mailAgencyContent = "
-					<p><b>This is a Test email representing what will be sent to the Organisation offering the role</b></p>
 					<p>You have received this mail from a volunteer registration on the Volunteer Wellington web site. First please check that you are indeed the Organisation named below to ensure that the correct email has reached you. If this is not the case please notify Volunteer Wellington ASAP so the matter can be corrected.</p>
 					<p>The data below is that which has been entered by the potential volunteer. </p>
 					<p><b>Please note:</b></p>
@@ -452,8 +450,8 @@ class JobSearch extends PageController
 					</fieldset>
 					<fieldset>
 					<legend>THE RESOURCE BUNDLE</legend>
+					<p><b>Details held by Volunteer Wellington of the role listed in the Database</b></p>
 					<ul>
-					<li><label><font color=\"#ffffff\">stats</font></label><b>Details held by Volunteer Wellington of the role listed in the Database</b></li>
 					<li><label>Role ID</label><b> &nbsp; $job_id</b></li>
 					<li><label>Role Title</label><b> &nbsp; $ref_title</b></li>
 					<li><label>For Organisation</label><b> &nbsp; $agency_name</b></li>
@@ -461,9 +459,8 @@ class JobSearch extends PageController
 					</fieldset>";
 
 
-					// Set email to agency body content
+					// Set email to volunteer body content
 					$mailVolContent = "
-					<p><b>This is a Test email representing what will be sent to the Volunteer on role registration</b></p>
 					<p>Thank you for your application for the volunteering role:</p>
 					<fieldset>
 					<legend>THE ROLE</legend>
@@ -481,8 +478,8 @@ class JobSearch extends PageController
 					<li><label>Organisation phone</label><b> &nbsp;$agency_phone</b></li>
 					</ul>
 					</fieldset>
- 					<p>The organisation who registered the role you have chosen have been sent your application.  If you don’t hear from them within 48 hours we recommend you contact them directly.</p>
-					<p>If you have any questions or would like to discuss your options further please email us at <a href=mailt:info@volunteerwellington.nz>info@volunteerwellington.nz</a></p>";
+ 					<p>The organisation who registered the role you have chosen has been sent your application.  If you don’t hear from them within 48 hours we recommend you contact them directly using the organisation contact information above.</p>
+					<p>If you have any questions or would like to discuss your options further please email Volunteer Wellington at <a href=mailt:info@volunteerwellington.nz>info@volunteerwellington.nz</a></p>";
 
 					$conn->insert('webrefs',
 						array(
@@ -501,8 +498,7 @@ class JobSearch extends PageController
 					$mailService->load('mail_template');
 
 					// Set email parameters
-					//$mailService->to($agency_email);
-					$mailService->to('julie@volunteerwellington.nz');
+					$mailService->to($agency_email);
 					$mailService->replyto('office@volunteerwellington.nz', 'Online Job Registration');
 					$mailService->setSubject('Volunteer Wellington OnLine Volunteer Registration');
 					$mailService->setBodyHTML($mailAgencyContent);

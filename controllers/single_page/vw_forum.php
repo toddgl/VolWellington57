@@ -12,12 +12,13 @@ class VwForum extends PageController
 
   public function view()
   {
-    //query to get current training offerings
+    //query to get current forum offerings
     $year = date('Y');
     $conn = \Database::connection('jobsearch');
 	$sql = "SELECT  *
 	FROM `fora`
 	WHERE `year` = ?
+    AND  `status` = 1
     AND `cd` >= CURDATE()";
 	$stmt = $conn->prepare($sql);
     $stmt->bindValue(1, $year);
@@ -201,7 +202,7 @@ class VwForum extends PageController
       $mailService->load('mail_template');
 
       // Set email parameters
-      $mailService->to('julie@volunteerwellington.nz');
+      $mailService->to('office@volunteerwellington.nz');
       $mailService->from('vwforumreg@volunteerwellington.nz');
       $mailService->replyto('vwforumreg@volunteerwellington.nz', 'Online Forum Registration');
       $mailService->setSubject($subject);
