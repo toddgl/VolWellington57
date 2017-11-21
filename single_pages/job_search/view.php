@@ -4,7 +4,9 @@ defined('C5_EXECUTE') or die('Access Denied.')
 <script src="https://cdn.ravenjs.com/3.20.1/raven.min.js" crossorigin="anonymous"></script>
 
 <script type="text/javascript">
-	Raven.config('https://606f3fd66dd04223a83abba161de7248@sentry.io/247542').install()
+	try {
+		Raven.config('https://606f3fd66dd04223a83abba161de7248@sentry.io/247542').install()
+	} catch(err) {}
 
 	var prefix = "roleShortlist-";  // Set localStorage key prefix
 	var maxItems = 10;  //Set LocalStorage shortlist limit
@@ -289,127 +291,7 @@ defined('C5_EXECUTE') or die('Access Denied.')
 	});*/
 
 	function jobRegisterFunction() {
-		populateCityData();
-		populateAgeBandData();
-		populateEthnicityListData();
-		populateHeardListData();
-		populateWorkStatusListData();
-		populateVolReasonListData();
 		$('#JobRegisterModal').modal('show');
-	};
-
-	function populateCityData() {
-		$.ajax({
-			type: 'POST',
-			url: "<?=$view->action('getCity')?>",
-			datatype: 'json',
-			cache: false,
-		}).done(function(data, textStatus, jqXHR){
-			var result = $.parseJSON(data);
-			var jsonlen = 0;
-			for (var row in result) jsonlen++;
-			var select = $("#cityList");
-    	for (i = 0; i < jsonlen; i++) {
-        select.append('<option value="'+result[i]['city']+'">'+result[i]['city']+'</option>');
-    	};
-		}).fail(function(jqXHR, textStatus, errorThrown) {
-			alert("error");
-		});
-	};
-
-	function populateAgeBandData() {
-		$.ajax({
-			type: 'POST',
-			url: "<?=$view->action('getAgeList')?>",
-			datatype: 'json',
-			cache: false,
-		}).done(function(data, textStatus, jqXHR){
-			var result = $.parseJSON(data);
-			var jsonlen = 0;
-			for (var row in result) jsonlen++;
-			var select = $("#ageBand");
-    	for (i = 0; i < jsonlen; i++) {
-        select.append('<option value="'+result[i]['ageband']+'">'+result[i]['ageband']+'</option>');
-    	};
-		}).fail(function(jqXHR, textStatus, errorThrown) {
-			alert("error");
-		});
-	};
-
-	function populateEthnicityListData() {
-		$.ajax({
-			type: 'POST',
-			url: "<?=$view->action('getEthnicityList')?>",
-			datatype: 'json',
-			cache: false,
-		}).done(function(data, textStatus, jqXHR){
-			var result = $.parseJSON(data);
-			var jsonlen = 0;
-			for (var row in result) jsonlen++;
-			var select = $("#ethnicityList");
-    	for (i = 0; i < jsonlen; i++) {
-        select.append('<option value="'+result[i]['elist']+'">'+result[i]['elist']+'</option>');
-    	};
-		}).fail(function(jqXHR, textStatus, errorThrown) {
-			alert("error");
-		});
-	};
-
-	function populateHeardListData() {
-		$.ajax({
-			type: 'POST',
-			url: "<?=$view->action('getHeardList')?>",
-			datatype: 'json',
-			cache: false,
-		}).done(function(data, textStatus, jqXHR){
-			var result = $.parseJSON(data);
-			var jsonlen = 0;
-			for (var row in result) jsonlen++;
-			var select = $("#heardList");
-    	for (i = 0; i < jsonlen; i++) {
-        select.append('<option value="'+result[i]['howheard']+'">'+result[i]['howheard']+'</option>');
-    	};
-		}).fail(function(jqXHR, textStatus, errorThrown) {
-			alert("error");
-		});
-	};
-
-	function populateWorkStatusListData() {
-		$.ajax({
-			type: 'POST',
-			url: "<?=$view->action('getWorkStatus')?>",
-			datatype: 'json',
-			cache: false,
-		}).done(function(data, textStatus, jqXHR){
-			var result = $.parseJSON(data);
-			var jsonlen = 0;
-			for (var row in result) jsonlen++;
-			var select = $("#workStatusList");
-    	for (i = 0; i < jsonlen; i++) {
-        select.append('<option value="'+result[i]['status']+'">'+result[i]['status']+'</option>');
-    	};
-		}).fail(function(jqXHR, textStatus, errorThrown) {
-			alert("error");
-		});
-	};
-
-	function populateVolReasonListData() {
-		$.ajax({
-			type: 'POST',
-			url: "<?=$view->action('getVolReason')?>",
-			datatype: 'json',
-			cache: false,
-		}).done(function(data, textStatus, jqXHR){
-			var result = $.parseJSON(data);
-			var jsonlen = 0;
-			for (var row in result) jsonlen++;
-			var select = $("#volReasonList");
-    	for (i = 0; i < jsonlen; i++) {
-        select.append('<option value="'+result[i]['reason']+'">'+result[i]['reason']+'</option>');
-    	};
-		}).fail(function(jqXHR, textStatus, errorThrown) {
-			alert("error");
-		});
 	};
 
 
@@ -672,16 +554,28 @@ defined('C5_EXECUTE') or die('Access Denied.')
 									<div class="form-group">
 											<label  class="col-sm-4 control-label" for="inputCity">City</label>
 										  <div class="col-sm-8">
-													<select name="city" id="cityList" >
-            								<option selected="" value="">Select</option>
+												<select name="city" id="cityList" >
+													<option selected="" value="">Select</option>
+													<?php
+														$cities = $controller->getCity();
+														foreach($cities as $city) { ?>
+															<option value="<?php echo $city["city"]; ?>"><?php echo $city["city"]; ?></option>
+														<?php }
+													?>
      											</select>
 											</div>
 									</div>
 									<div class="form-group required">
 											<label  class="col-sm-4 control-label" for="inputAgeband">Age Band</label>
 										  <div class="col-sm-8">
-													<select name="age" id="ageBand" required="required">
-            								<option selected="" value="">Select</option>
+												<select name="age" id="ageBand" required="required">
+													<option selected="" value="">Select</option>
+													<?php
+														$ages = $controller->getAgeList();
+														foreach($ages as $age) { ?>
+															<option value="<?php echo $age["ageband"]; ?>"><?php echo $age["ageband"]; ?></option>
+														<?php }
+													?>
      											</select>
 											</div>
 									</div>
@@ -700,8 +594,14 @@ defined('C5_EXECUTE') or die('Access Denied.')
 									<div class="form-group required">
 											<label  class="col-sm-4 control-label" for="inputEthnicity">What is your ethnicity?</label>
 										  <div class="col-sm-8">
-													<select  name="ethnicity" id="ethnicityList" required="required">
-            								<option selected="" value="">Select</option>
+												<select  name="ethnicity" id="ethnicityList" required="required">
+													<option selected="" value="">Select</option>
+													<?php
+														$ethnicityList = $controller->getEthnicityList();
+														foreach($ethnicityList as $ethnicity) { ?>
+															<option value="<?php echo $ethnicity["elist"]; ?>"><?php echo $ethnicity["elist"]; ?></option>
+														<?php }
+													?>
      											</select>
 											</div>
 									</div>
@@ -728,24 +628,42 @@ defined('C5_EXECUTE') or die('Access Denied.')
 									<div class="form-group">
 											<label  class="col-sm-4 control-label" for="inputHeard">How did you hear about Volunteer Wellington?</label>
 										  <div class="col-sm-8">
-													<select name="heard" id="heardList">
-            								<option selected="" value="">Select</option>
+												<select name="heard" id="heardList">
+													<option selected="" value="">Select</option>
+													<?php
+														$heardList = $controller->getHeardList();
+														foreach($heardList as $heard) { ?>
+															<option value="<?php echo $heard["howheard"]; ?>"><?php echo $heard["howheard"]; ?></option>
+														<?php }
+													?>
      											</select>
 											</div>
 									</div>
 									<div class="form-group">
 											<label  class="col-sm-4 control-label" for="inputWorkStatus">What is your work status?</label>
 										  <div class="col-sm-8">
-													<select name="workStatus" id="workStatusList">
-            								<option selected="" value="">Select</option>
+												<select name="workStatus" id="workStatusList">
+													<option selected="" value="">Select</option>
+													<?php
+														$workList = $controller->getWorkStatus();
+														foreach($workList as $work) { ?>
+															<option value="<?php echo $work["status"]; ?>"><?php echo $work["status"]; ?></option>
+														<?php }
+													?>
      											</select>
 											</div>
 									</div>
 									<div class="form-group">
 											<label  class="col-sm-4 control-label" for="inputVolReason">Reason for Volunteering?</label>
 										  <div class="col-sm-8">
-													<select name="volReason" id="volReasonList">
-            								<option selected="" value="">Select</option>
+												<select name="volReason" id="volReasonList">
+													<option selected="" value="">Select</option>
+													<?php
+														$reasonList = $controller->getVolReason();
+														foreach($reasonList as $reason) { ?>
+															<option value="<?php echo $reason["reason"]; ?>"><?php echo $reason["reason"]; ?></option>
+														<?php }
+													?>
      											</select>
 											</div>
 									</div>

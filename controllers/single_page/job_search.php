@@ -9,19 +9,6 @@ use Mail;
 
 class JobSearch extends PageController
 {
-    /*public function view()
-    {
-		$conn = \Database::connection('jobsearch');
-		
-		$sql = "SELECT  ageband
-		FROM agelist
-		WHERE status = 1";
-		$stmt = $conn->prepare($sql);
-		$stmt->execute();
-		$details = $stmt->fetchAll();
-        $this->set('ageList', $details);
-    }*/
-
 	public function getAgeList() {
 		$conn = \Database::connection('jobsearch');
 		$sql = "SELECT  ageband
@@ -29,8 +16,7 @@ class JobSearch extends PageController
 		WHERE status = 1";
 		$stmt = $conn->prepare($sql);
 		$stmt->execute();
-		$details = $stmt->fetchAll();
-		echo json_encode($details, JSON_FORCE_OBJECT);
+		return $stmt->fetchAll();
 	exit;
 	}
 
@@ -42,8 +28,7 @@ class JobSearch extends PageController
 		ORDER BY elist";
 		$stmt = $conn->prepare($sql);
 		$stmt->execute();
-		$details = $stmt->fetchAll();
-		echo json_encode($details, JSON_FORCE_OBJECT);
+		return $stmt->fetchAll();
 	exit;
 	}
 
@@ -54,8 +39,7 @@ class JobSearch extends PageController
 		WHERE styn = 1";
 		$stmt = $conn->prepare($sql);
 		$stmt->execute();
-		$details = $stmt->fetchAll();
-		echo json_encode($details, JSON_FORCE_OBJECT);
+		return $stmt->fetchAll();
 	exit;
 	}
 
@@ -66,8 +50,7 @@ class JobSearch extends PageController
 		WHERE status = 1";
 		$stmt = $conn->prepare($sql);
 		$stmt->execute();
-		$details = $stmt->fetchAll();
-		echo json_encode($details, JSON_FORCE_OBJECT);
+		return $stmt->fetchAll();
 	exit;
 	}
 
@@ -78,8 +61,7 @@ class JobSearch extends PageController
 		WHERE status = 1";
 		$stmt = $conn->prepare($sql);
 		$stmt->execute();
-		$details = $stmt->fetchAll();
-		echo json_encode($details, JSON_FORCE_OBJECT);
+		return $stmt->fetchAll();
 	exit;
 	}
 
@@ -90,8 +72,7 @@ class JobSearch extends PageController
 		WHERE status = 1";
 		$stmt = $conn->prepare($sql);
 		$stmt->execute();
-		$details = $stmt->fetchAll();
-		echo json_encode($details, JSON_FORCE_OBJECT);
+		return $stmt->fetchAll();
 	exit;
 	}
 

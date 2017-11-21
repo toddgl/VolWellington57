@@ -15,28 +15,24 @@ class VwForum extends PageController
     //query to get current training offerings
     $year = date('Y');
     $conn = \Database::connection('jobsearch');
-		$sql = "SELECT  *
-    FROM `fora`
-		WHERE `year` = ?
+	$sql = "SELECT  *
+	FROM `fora`
+	WHERE `year` = ?
     AND `cd` >= CURDATE()";
-		$stmt = $conn->prepare($sql);
+	$stmt = $conn->prepare($sql);
     $stmt->bindValue(1, $year);
-		$stmt->execute();
-		$results = $stmt->fetchAll();
+	$stmt->execute();
+	$results = $stmt->fetchAll();
     $this->set('forums', $results);
-  }
 
-  public function getCity() {
-		$conn = \Database::connection('jobsearch');
-		$sql = "SELECT  *
-		FROM citylist
-		WHERE status = 1";
-		$stmt = $conn->prepare($sql);
-		$stmt->execute();
-		$details = $stmt->fetchAll();
-		echo json_encode($details, JSON_FORCE_OBJECT);
-	exit;
-	}
+	$sql = "SELECT  *
+	FROM citylist
+	WHERE status = 1";
+	$stmt = $conn->prepare($sql);
+	$stmt->execute();
+	$results = $stmt->fetchAll();
+	$this->set('cities', $results);		
+  }
 
   public function getDetail() {
     $forumID = $_POST['key'];

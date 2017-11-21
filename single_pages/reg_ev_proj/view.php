@@ -5,7 +5,9 @@ defined('C5_EXECUTE') or die('Access Denied.')
 <script src="https://cdn.ravenjs.com/3.20.1/raven.min.js" crossorigin="anonymous"></script>
 
 <script type="text/javascript">
-Raven.config('https://606f3fd66dd04223a83abba161de7248@sentry.io/247542').install()
+try {
+	Raven.config('https://606f3fd66dd04223a83abba161de7248@sentry.io/247542').install()
+} catch(err) {}
 
 $(document).ready(function() {
 		$('#volProjectModal').on('hidden.bs.modal', function () {
@@ -15,27 +17,7 @@ $(document).ready(function() {
 });
 
 function volProjectFunction() {
-			populateCityData();
 			$('#volProjectModal').modal('show');
-};
-
-function populateCityData() {
-	$.ajax({
-		type: 'POST',
-		url: "<?=$view->action('getCity')?>",
-		datatype: 'json',
-		cache: false,
-	}).done(function(data, textStatus, jqXHR){
-		var result = $.parseJSON(data);
-		var jsonlen = 0;
-		for (var row in result) jsonlen++;
-		var select = $("#cityList");
-		for (i = 0; i < jsonlen; i++) {
-			select.append('<option value="'+result[i]['city']+'">'+result[i]['city']+'</option>');
-		};
-	}).fail(function(jqXHR, textStatus, errorThrown) {
-		alert("error");
-	});
 };
 
 function regEVProject() {
@@ -443,11 +425,16 @@ function isDate(txtDate)
 									<div class="form-group">
 										<label  class="col-sm-4 control-label" for="cityList">City</label>
 										<div class="col-sm-8">
-												<select class="form-control" id="cityList" >
-		            					<option selected="" value="" >Select</option>
+											<select class="form-control" id="cityList" >
+												<option selected="" value="" >Select</option>
+												<?php
+													foreach($cities as $city) { ?>
+														<option value="<?php echo $city["city"]; ?>"><?php echo $city["city"]; ?></option>
+													<?php }
+												?>
 		     								</select>
 										</div>
-		              </div>
+									</div>
 									<div class="form-group required " >
 										<label  class="col-sm-4 control-label" for="inputVolNumbers" >Number of Volunteers needed</label>
 										<div class="col-sm-8">

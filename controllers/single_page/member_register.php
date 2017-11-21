@@ -19,19 +19,15 @@ class MemberRegister extends PageController
 		$stmt = $conn->prepare($sql);
 		$stmt->execute();
 		$results = $stmt->fetchAll();
-    $this->set('agencyfees', $results);
-  }
+		$this->set('agencyfees', $results);
 
-  public function getCity() {
-		$conn = \Database::connection('jobsearch');
 		$sql = "SELECT  *
 		FROM citylist
 		WHERE status = 1";
 		$stmt = $conn->prepare($sql);
 		$stmt->execute();
-		$details = $stmt->fetchAll();
-		echo json_encode($details, JSON_FORCE_OBJECT);
-	exit;
+		$results = $stmt->fetchAll();
+		$this->set('cities', $results);
 	}
 
   public function regMember() {
