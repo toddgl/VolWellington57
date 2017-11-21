@@ -153,7 +153,7 @@ class JobSearch extends PageController
 			),
 			'options'=>array(
 				'min_range' => 0
-			) 
+			)
 		);
   		//Search the database
   		$dbc = \Database::connection('jobsearch');
@@ -330,6 +330,7 @@ class JobSearch extends PageController
 
 			// Set email to office body content
 			$mailOfficeContent = "
+			<p><b>This is a test email for the VW Office</b></p>
 			<p>You have received this mail from a volunteer registration on the VW web site. The data below is that which has been entered by the potential volunteer. The requirements on the data entry have been set at Volunteer Name and at least one contact number. The contact details must be correctly entered. They cannot send the form until they have fulfilled these requirements.</p>
 			<p>Please do not try to reply-to this automatically generated email.</p>
 			<p>The database entry date: $displayCreateDate</p>
@@ -358,6 +359,9 @@ class JobSearch extends PageController
 			<li><label>Refugee</label><b> &nbsp; $volRefugee</b></li>
 			</ul>
 			</fieldset>
+			<p>This is the roles that the volunteer has registered for:</p>
+			<fieldset>
+			<legend>THE ROLES</legend>
 			";
 
       $conn->insert('webregister',
@@ -425,6 +429,7 @@ class JobSearch extends PageController
 					}
 					// Set email to agency body content
 					$mailAgencyContent = "
+					<p><b>This is a test email for the Volunter agency</b></p>
 					<p>You have received this mail from a volunteer registration on the Volunteer Wellington web site. First please check that you are indeed the Organisation named below to ensure that the correct email has reached you. If this is not the case please notify Volunteer Wellington ASAP so the matter can be corrected.</p>
 					<p>The data below is that which has been entered by the potential volunteer. </p>
 					<p><b>Please note:</b></p>
@@ -461,6 +466,7 @@ class JobSearch extends PageController
 
 					// Set email to volunteer body content
 					$mailVolContent = "
+					<p><b>This is a test email for the Volunteer who registered for the role</b></p>
 					<p>Thank you for your application for the volunteering role:</p>
 					<fieldset>
 					<legend>THE ROLE</legend>
@@ -492,13 +498,22 @@ class JobSearch extends PageController
 							'reflocation' => $ref_location
 						)
 					);
+					// add the roles registered to the office email
+					$mailOfficeContent .= "
+					<ul>
+					<li><label>Role ID</label><b> &nbsp; $job_id</b></li>
+					<li><label>Role Title</label><b> &nbsp; $ref_title</b></li>
+					<li><label>Organisation</label><b> &nbsp;$agency_name</b></li>
+					</ul>
+					";
 					// send volunteer registeration to the agency
 					$mailService = Core::make('mail');
 					$mailService->setTesting(false); // or true to throw an exception on error.
 					$mailService->load('mail_template');
 
 					// Set email parameters
-					$mailService->to($agency_email);
+					$mailService->to('julie@volunteerwellington.nz');
+					//$mailService->to($agency_email);
 					$mailService->replyto('office@volunteerwellington.nz', 'Online Job Registration');
 					$mailService->setSubject('Volunteer Wellington OnLine Volunteer Registration');
 					$mailService->setBodyHTML($mailAgencyContent);
@@ -521,6 +536,10 @@ class JobSearch extends PageController
 					$mailService->sendMail();
 				}
 			}
+			// close off the additions to the office email
+			$mailOfficeContent .= "
+			</fieldset>
+			";
 			// Send Volunteer registration to VW office
 			$mailService = Core::make('mail');
 			$mailService->setTesting(false); // or true to throw an exception on error.
