@@ -155,10 +155,17 @@ defined('C5_EXECUTE') or die('Access Denied.')
 				//console.log("start log");
 				//alert(localStorage.length-1);
 				if (localStorage.length <=maxItems) {
-					//localStorage.setItem(prefix + id, title);      //******* setItem()
-		    	localStorage[prefix+id] = title;  // This also works instead of using setItem
-					//console.log("inside addmyJob Click function job id: " + id + "added.");
-		    	RewriteFromStorage();
+					// Does prefix+id index already exist in localStorage?
+					if (localStorage.getItem(prefix+id) === null) {
+						// No. Store it in localStorage
+						//localStorage.setItem(prefix + id, title);      //******* setItem()
+						localStorage[prefix+id] = title;  // This also works instead of using setItem
+						//console.log("inside addmyJob Click function job id: " + id + "added.");
+						RewriteFromStorage();
+						$('#addedToShortlistModal').modal('show');
+					} else {
+						$('#alreadyInShortlistModal').modal('show');
+					}
 				}
 				else {
 					$('#maxShortlist').modal('show');
@@ -180,7 +187,7 @@ defined('C5_EXECUTE') or die('Access Denied.')
             var shortkey = key.replace(prefix, "");
             $("#cont_shortlist").append(
                 $("<li class='shortlist'>").html(shortkey + " - " + value)
-                   .append($("<input type='reset' value=' X '></li>")
+                   .append($("&nbsp;<input type='reset' value=' X '></li>")
                            .attr('key', key)
                            .click(function() {      //****** removeItem()
                                 localStorage.removeItem($(this).attr('key'));
@@ -308,7 +315,21 @@ defined('C5_EXECUTE') or die('Access Denied.')
 	});*/
 
 	function jobRegisterFunction() {
-		$('#JobRegisterModal').modal('show');
+		// First check if there are any jobs in the shortlist. If not, show message to the user. Otherwise show the job registration modal
+		var hasRoles = false;
+		for(var i = 0; i < localStorage.length; i++)
+	    {
+			var item = {};
+			var key = localStorage.key(i);
+	        if(key.indexOf(prefix) == 0) {
+				hasRoles = true;
+				break;
+			}
+		}
+		if (hasRoles === true)
+			$('#JobRegisterModal').modal('show');
+		else
+			$('#NoShortlistedJobsModal').modal('show');
 	};
 
 
@@ -408,7 +429,7 @@ defined('C5_EXECUTE') or die('Access Denied.')
 									<thead>
 										<tr>
 											<th style="width: 50%"><button id="viewbutton" type="button" class="btn btn-primary shadow" data-toggle="modal" data-target="#myModal" data-id="<?php echo $job_id= $job["ID"]; ?>" >View Details</button></th>
-    									<th style="width: 50%"><button id="addmyJob" class="btn btn-primary shadow" onclick="addmyJobFunction('<?php echo $job["ID"]; ?>', '<?php echo $job["title"]; ?>')">Add to favourites</button></th>
+    									<th style="width: 50%"><button id="addmyJob" class="btn btn-primary shadow" onclick="addmyJobFunction('<?php echo $job["ID"]; ?>', '<?php echo $job["title"]; ?>')">Add to Shortlist</button></th>
 										</tr>
 									</thead>
 								</table>
@@ -721,6 +742,24 @@ defined('C5_EXECUTE') or die('Access Denied.')
 </div>
 
 <!-- No online registration modal---->
+<div class="modal fade" id="NoShortlistedJobsModal" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title alert alert-warning"id="">No Roles in Shortlist</h4>
+      </div>
+      <div class="modal-body">
+        <p>Add roles to your shortlist before proceeding to register.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary center-block" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- No online registration modal---->
 <div class="modal fade" id="noOnlineRegistrationModal" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -756,7 +795,43 @@ defined('C5_EXECUTE') or die('Access Denied.')
   </div>
 </div>
 
-<!-- Display registration success dialog modal-->
+  <!-- Added to shortlist dialog modal-->
+  <div class="modal fade" id="addedToShortlistModal" role="dialog">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title" id="success-dialog-title">Added to Shortlist</h4>
+        </div>
+        <div class="modal-body" id="success-dialog-message">
+					<p> This role is now in your shortlist.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Added to shortlist dialog modal-->
+  <div class="modal fade" id="alreadyInShortlistModal" role="dialog">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title" id="success-dialog-title">Already Shortlisted</h4>
+        </div>
+        <div class="modal-body" id="success-dialog-message">
+					<p> This role is already in your shortlist.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Display registration success dialog modal-->
   <div class="modal fade" id="dialogSuccessModal" role="dialog">
     <div class="modal-dialog modal-sm">
       <div class="modal-content">
