@@ -12,108 +12,124 @@ defined('C5_EXECUTE') or die('Access Denied.')
 	var maxItems = 10;  //Set LocalStorage shortlist limit
 
 	$(document).ready(function() {
-			$('#myModal').on('hidden.bs.modal', function () {
-   			$('#myModal').removeData('bs.modal');
-   			$('#myModal').find('.modal-content').empty;
-			});
+		$('#myModal').on('hidden.bs.modal', function () {
+			$('#myModal').removeData('bs.modal');
+			$('#myModal').find('.modal-content').empty;
+        });
 
-  	$('#myModal').on('show.bs.modal', function(e) {
-    	var id = $(e.relatedTarget).data('id');
-    	//alert(id);
-    	$(this).find('.modal-title').text('Role detail for Job ID: ' + id);
-	 		$.ajaxSetup ({
-    	// Disable caching of AJAX responses
-     		cache: false
-	 		});
-    	$.ajax({
-    		type: 'POST',
-   			url: "<?=$view->action('getDetail')?>",
-   			datatype: 'json',
-   			data: ({ key: id}),
-      	cache: false,
-			}).done(function(data, textStatus, jqXHR){
- 				var result = $.parseJSON(data);
- 				// alert(data);
-				if (result['descrip'] === undefined) {
+        $('#inputNoEmail').change(function () {
+            //var name = $(this).val();
+            var check = $(this).prop('checked');
+			if (check == true) {
+				$("#inputEmail").attr("disabled", "disabled");
+				$("#inputEmail").val("");
+				$("#inputEmail").removeAttr("required"); 
+				$("#inputEmail").parent().parent().removeClass("required"); 
+			} else {
+				$("#inputEmail").removeAttr("disabled"); 
+				$("#inputEmail").attr("required", "required");
+				$("#inputEmail").parent().parent().addClass("required");
+			}
+			//console.log("Change: " + name + " to " + check);
+		});
+
+		$('#myModal').on('show.bs.modal', function(e) {
+			var id = $(e.relatedTarget).data('id');
+			//alert(id);
+			$(this).find('.modal-title').text('Role detail for Job ID: ' + id);
+				$.ajaxSetup ({
+			// Disable caching of AJAX responses
+				cache: false
+				});
+			$.ajax({
+				type: 'POST',
+				url: "<?=$view->action('getDetail')?>",
+				datatype: 'json',
+				data: ({ key: id}),
+			cache: false,
+				}).done(function(data, textStatus, jqXHR){
+					var result = $.parseJSON(data);
+					// alert(data);
+					if (result['descrip'] === undefined) {
+						// pass
+			}
+			else {
+						$('#tdescrip').html('Role Description:  ');
+				$('#descrip').html(result['descrip']);
+			}
+					if (result['skills'] === undefined) {
+						// pass
+			}
+			else {
+						$('#tskills').html('Special skills required:  ');
+				$('#skills').html(result['skills']);
+			}
+			if (result['personality'] === undefined) {
 					// pass
-       	}
-       	else {
-					$('#tdescrip').html('Role Description:  ');
-       		$('#descrip').html(result['descrip']);
-       	}
- 		 		if (result['skills'] === undefined) {
-					// pass
-       	}
-       	else {
-					$('#tskills').html('Special skills required:  ');
-       		$('#skills').html(result['skills']);
-       	}
-       	if (result['personality'] === undefined) {
-				// pass
-       	}
-       	else {
-					$('#tpersonality').html('Expected personality:  ');
-       		$('#personality').html(result['personality']);
-     	 	}
-       	if (result['dayshours'] === undefined) {
-					// pass
-       	}
-       	else {
-					$('#tdayshours').html('Days, Hours for role:  ');
-					$('#dayshours').html(result['dayshours']);
-       	}
-       	if (result['training'] === undefined) {
-					// pass
-       	}
-       	else {
-					$('#ttraining').html('Training provided:  ');
-					$('#training').html(result['training']);
-       	}
-       	if ((result['eveonly'] == 0 ) || (result['eveonly'] === undefined)) {
-					// clear modal data
-					$('#teveonly').html('');
-					$('#eveonly').html('');
-       	}
-       	else {
-					$('#teveonly').html('Specific Arrangements:');
-					$('#eveonly').html('This role is Evenings Only');
-       	}
-       	if ((result['reimbursement'] == 0 ) || (result['reimbursement'] === undefined)) {
-					$('#treimbursement').html('Reimbursements:');
-					$('#reimbursement').html('No');
-       	}
-       	else {
-					$('#treimbursement').html('Reimbursements   :');
-					$('#reimbursement').html('Yes');
-       	}
-       	if ((result['policeck'] == 0 ) || (result['policeck'] === undefined)) {
-					// pass
-					$('#tpolice').html('');
-					$('#police').html('');
-       	}
-       	else {
-					$('#tpolice').html('Please Note:  ');
-					$('#police').html('The Organisation has stipulated that this role will require a Police Check');
-       	}
-			}).fail(function(jqXHR, textStatus, errorThrown){
-   			if (textStatus === 'parsererror') {
-      		alert('Requested JSON parse failed.');
-   			} else if (textStatus === 'timeout') {
-      		alert('Time out error.');
-   			} else if (textStatus === 'abort') {
-      		alert('Ajax request aborted.');
-   			} else if (jqXHR.status === 0) {
-      		alert('Not connected.\n Verify Network.');
-   			} else if (jqXHR.status == 404) {
-      		alert('Requested controller page not found. [404]');
-   			} else if (jqXHR.status == 500) {
-      		alert('Internal Server Error [500].');
-   			} else {
-      		alert('Uncaught Error.\n' + jqXHR.responseText);
-   		}
+			}
+			else {
+						$('#tpersonality').html('Expected personality:  ');
+				$('#personality').html(result['personality']);
+				}
+			if (result['dayshours'] === undefined) {
+						// pass
+			}
+			else {
+						$('#tdayshours').html('Days, Hours for role:  ');
+						$('#dayshours').html(result['dayshours']);
+			}
+			if (result['training'] === undefined) {
+						// pass
+			}
+			else {
+						$('#ttraining').html('Training provided:  ');
+						$('#training').html(result['training']);
+			}
+			if ((result['eveonly'] == 0 ) || (result['eveonly'] === undefined)) {
+						// clear modal data
+						$('#teveonly').html('');
+						$('#eveonly').html('');
+			}
+			else {
+						$('#teveonly').html('Specific Arrangements:');
+						$('#eveonly').html('This role is Evenings Only');
+			}
+			if ((result['reimbursement'] == 0 ) || (result['reimbursement'] === undefined)) {
+						$('#treimbursement').html('Reimbursements:');
+						$('#reimbursement').html('No');
+			}
+			else {
+						$('#treimbursement').html('Reimbursements   :');
+						$('#reimbursement').html('Yes');
+			}
+			if ((result['policeck'] == 0 ) || (result['policeck'] === undefined)) {
+						// pass
+						$('#tpolice').html('');
+						$('#police').html('');
+			}
+			else {
+						$('#tpolice').html('Please Note:  ');
+						$('#police').html('The Organisation has stipulated that this role will require a Police Check');
+			}
+				}).fail(function(jqXHR, textStatus, errorThrown){
+				if (textStatus === 'parsererror') {
+				alert('Requested JSON parse failed.');
+				} else if (textStatus === 'timeout') {
+				alert('Time out error.');
+				} else if (textStatus === 'abort') {
+				alert('Ajax request aborted.');
+				} else if (jqXHR.status === 0) {
+				alert('Not connected.\n Verify Network.');
+				} else if (jqXHR.status == 404) {
+				alert('Requested controller page not found. [404]');
+				} else if (jqXHR.status == 500) {
+				alert('Internal Server Error [500].');
+				} else {
+				alert('Uncaught Error.\n' + jqXHR.responseText);
+			}
+			});
 		});
 	});
-});
 
 	$(window).on ('load', function() {
 		RewriteFromStorage();
@@ -258,6 +274,7 @@ defined('C5_EXECUTE') or die('Access Denied.')
 
 	function validateForm() {
 		var valid = true;
+		$('#jobRegisterForm').find("> div.form-group").removeClass('has-error');
 		$("#JobRegisterModal input[required=required], #JobRegisterModal text[required=required], #JobRegisterModal textarea[required=required], #JobRegisterModal select[required=required]").each(function() {
 			$(this).parent().parent().removeClass('has-error');
 			$(this).parent().find("> span.help-block").text("");
@@ -512,31 +529,34 @@ defined('C5_EXECUTE') or die('Access Denied.')
                   <div class="form-group required">
                     	<label  class="col-sm-4 control-label" for="inputFirstName">First Name</label>
                     	<div class="col-sm-8">
-                        <input type="text" class="form-control" id="inputFirstName" placeholder="First Name" required="required"/>
+							<input type="text" class="form-control" id="inputFirstName" placeholder="First Name" required="required"/>
                     	</div>
                   </div>
                   <div class="form-group required">
                     	<label  class="col-sm-4 control-label" for="inputLastName">Last Name</label>
                     	<div class="col-sm-8">
-                        <input type="text" class="form-control" id="inputLastName" placeholder="Last Name" required="required"/>
+							<input type="text" class="form-control" id="inputLastName" placeholder="Last Name" required="required"/>
                     	</div>
                   </div>
                   <div class="form-group required">
                     	<label  class="col-sm-4 control-label" for="inputEmail">Email</label>
                     	<div class="col-sm-8">
-                        <input type="email" class="form-control" id="inputEmail" placeholder="Email" required="required"/>
+							<input type="email" class="form-control" id="inputEmail" placeholder="Email" required="required"/>
+							<div class="checkbox">
+							    <label><input type="checkbox" value="" id="inputNoEmail">I do not have an email address</label>
+							</div>
                     	</div>
                   </div>
-									<div class="form-group">
+				  <div class="form-group">
                     	<label  class="col-sm-4 control-label" for="inputPhone">Day time phone</label>
                     	<div class="col-sm-8">
-                        <input type="text" class="form-control" id="inputPhone" placeholder="Phone"/>
+							<input type="text" class="form-control" id="inputPhone" placeholder="Phone"/>
                     	</div>
                   </div>
-									<div class="form-group">
+				  <div class="form-group">
                     	<label  class="col-sm-4 control-label" for="inputEveningTel">Evening phone</label>
                     	<div class="col-sm-8">
-                        <input type="text" class="form-control" id="inputEveningTel" placeholder="Evening Phone"/>
+							<input type="text" class="form-control" id="inputEveningTel" placeholder="Evening Phone"/>
                     	</div>
                   </div>
 									<div class="form-group">
