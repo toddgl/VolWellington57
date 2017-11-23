@@ -205,9 +205,9 @@ class JobSearch extends PageController
 	public function jobRegister() {
 		$jobSubmission = $_POST['jobData'];
 		$filters = array(
-	    'fname'=>FILTER_SANITIZE_STRING,
+			'fname'=>FILTER_SANITIZE_STRING,
 			'lname'=>FILTER_SANITIZE_STRING,
-    	'suburb'=>FILTER_SANITIZE_STRING,
+			'suburb'=>FILTER_SANITIZE_STRING,
 			'city'=>FILTER_SANITIZE_STRING,
 			'phone'=>FILTER_SANITIZE_NUMBER_INT,
 			'evetel'=>FILTER_SANITIZE_NUMBER_INT,
@@ -247,7 +247,6 @@ class JobSearch extends PageController
         'flags'=>FILTER_NULL_ON_FAILURE
     	),
 			'email'=>array(
-        'flags'=>FILTER_NULL_ON_FAILURE
     	),
 			'gender'=>array(
         'flags'=>FILTER_NULL_ON_FAILURE
@@ -541,24 +540,26 @@ class JobSearch extends PageController
 
 			//close off the additions to the Volunteer exif_thumbnail
 
-			$mailVolContent .= "
-			<p>The organisation(s) who registered the role(s) you have chosen has been sent your application(s).   If you don’t hear from them within 48 hours we recommend you contact them directly using the organisation contact information above.</p>
-			<p>If you have any questions or would like to discuss your options further please email Volunteer Wellington at <a href=mailt:info@volunteerwellington.nz>info@volunteerwellington.nz</a> or phone 04 499 4570</p>
-			";
+			if (!empty($volEmail)) {
+				$mailVolContent .= "
+				<p>The organisation(s) who registered the role(s) you have chosen has been sent your application(s).   If you don’t hear from them within 48 hours we recommend you contact them directly using the organisation contact information above.</p>
+				<p>If you have any questions or would like to discuss your options further please email Volunteer Wellington at <a href=mailt:info@volunteerwellington.nz>info@volunteerwellington.nz</a> or phone 04 499 4570</p>
+				";
 
-			// send registeration to the volunteer
-			$mailService = Core::make('mail');
-			$mailService->setTesting(false); // or true to throw an exception on error.
-			$mailService->load('mail_template');
+				// send registeration to the volunteer
+				$mailService = Core::make('mail');
+				$mailService->setTesting(false); // or true to throw an exception on error.
+				$mailService->load('mail_template');
 
-			// Set email parameters
-			$mailService->to($volEmail);
-			$mailService->replyto('office@volunteerwellington.nz', 'Online Role Registration');
-			$mailService->setSubject('Volunteer Wellington OnLine Role Registration');
-			$mailService->setBodyHTML($mailVolContent);
+				// Set email parameters
+				$mailService->to($volEmail);
+				$mailService->replyto('office@volunteerwellington.nz', 'Online Role Registration');
+				$mailService->setSubject('Volunteer Wellington OnLine Role Registration');
+				$mailService->setBodyHTML($mailVolContent);
 
-			// Send email
-			$mailService->sendMail();
+				// Send email
+				$mailService->sendMail();
+			}
 
     	$conn->commit();
 		}
