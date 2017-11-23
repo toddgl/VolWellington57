@@ -330,7 +330,7 @@ class JobSearch extends PageController
 
 			// Set email to office body content
 			$mailOfficeContent = "
-			<p>You have received this mail from a volunteer registration on the Volunteer Wellington web site. The data below is that which has been entered by the potential volunteer. The requirements on the data entry have been set at Volunteer Name and at least one contact number. The contact details must be correctly entered. They cannot send the form until they have fulfilled these requirements.</p>
+			<p>You have received this mail from a volunteer registration on the VW web site. The data below is that which has been entered by the potential volunteer. The requirements on the data entry have been set at Volunteer Name and at least one contact number. The contact details must be correctly entered. They cannot send the form until they have fulfilled these requirements.</p>
 			<p>Please do not try to reply-to this automatically generated email.</p>
 			<p>The database entry date: $displayCreateDate</p>
 			<fieldset>
@@ -361,6 +361,11 @@ class JobSearch extends PageController
 			<p>This is the roles that the volunteer has registered for:</p>
 			<fieldset>
 			<legend>THE ROLES</legend>
+			";
+
+			// Set email to volunteer body content
+			$mailVolContent = "
+			<p>Thank you for your application for the following volunteering role(s):</p>
 			";
 
       $conn->insert('webregister',
@@ -462,9 +467,7 @@ class JobSearch extends PageController
 					</fieldset>";
 
 
-					// Set email to volunteer body content
-					$mailVolContent = "
-					<p>Thank you for your application for the volunteering role:</p>
+					$mailVolContent .= "
 					<fieldset>
 					<legend>THE ROLE</legend>
 					<ul>
@@ -481,8 +484,7 @@ class JobSearch extends PageController
 					<li><label>Organisation phone</label><b> &nbsp;$agency_phone</b></li>
 					</ul>
 					</fieldset>
- 					<p>The organisation who registered the role you have chosen has been sent your application.  If you don’t hear from them within 48 hours we recommend you contact them directly using the organisation contact information above.</p>
-					<p>If you have any questions or would like to discuss your options further please email Volunteer Wellington at <a href=mailt:info@volunteerwellington.nz>info@volunteerwellington.nz</a> or phone 04 499 4570</p>";
+ 					";
 
 					$conn->insert('webrefs',
 						array(
@@ -517,19 +519,6 @@ class JobSearch extends PageController
 					// Send email
 					$mailService->sendMail();
 
-					// send registeration to the volunteer
-					$mailService = Core::make('mail');
-					$mailService->setTesting(false); // or true to throw an exception on error.
-					$mailService->load('mail_template');
-
-					// Set email parameters
-					$mailService->to($volEmail);
-					$mailService->replyto('office@volunteerwellington.nz', 'Online Role Registration');
-					$mailService->setSubject('Volunteer Wellington OnLine Role Registration');
-					$mailService->setBodyHTML($mailVolContent);
-
-					// Send email
-					$mailService->sendMail();
 				}
 			}
 			// close off the additions to the office email
@@ -550,6 +539,26 @@ class JobSearch extends PageController
 			// Send email
 			$mailService->sendMail();
 
+			//close off the additions to the Volunteer exif_thumbnail
+
+			$mailVolContent .= "
+			<p>The organisation(s) who registered the role(s) you have chosen has been sent your application(s).   If you don’t hear from them within 48 hours we recommend you contact them directly using the organisation contact information above.</p>
+			<p>If you have any questions or would like to discuss your options further please email Volunteer Wellington at <a href=mailt:info@volunteerwellington.nz>info@volunteerwellington.nz</a> or phone 04 499 4570</p>
+			";
+
+			// send registeration to the volunteer
+			$mailService = Core::make('mail');
+			$mailService->setTesting(false); // or true to throw an exception on error.
+			$mailService->load('mail_template');
+
+			// Set email parameters
+			$mailService->to($volEmail);
+			$mailService->replyto('office@volunteerwellington.nz', 'Online Role Registration');
+			$mailService->setSubject('Volunteer Wellington OnLine Role Registration');
+			$mailService->setBodyHTML($mailVolContent);
+
+			// Send email
+			$mailService->sendMail();
 
     	$conn->commit();
 		}
