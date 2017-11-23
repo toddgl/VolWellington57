@@ -187,11 +187,11 @@ defined('C5_EXECUTE') or die('Access Denied.')
             var shortkey = key.replace(prefix, "");
             $("#cont_shortlist").append(
                 $("<li class='shortlist'>").html(shortkey + " - " + value)
-                   .append($("&nbsp;<input type='reset' value=' X '></li>")
+                   .append("&nbsp;").append($("<input type='reset' value=' X '></li>")
                            .attr('key', key)
                            .click(function() {      //****** removeItem()
                                 localStorage.removeItem($(this).attr('key'));
-																console.log("Job id: " + $(this).attr('key') + " removed from local storage")
+								console.log("Job id: " + $(this).attr('key') + " removed from local storage")
                                 RewriteFromStorage();
                             })
                           )
@@ -282,9 +282,8 @@ defined('C5_EXECUTE') or die('Access Denied.')
 	function validateForm() {
 		var valid = true;
 		$('#jobRegisterForm').find("> div.form-group").removeClass('has-error');
+		$('#jobRegisterForm').find("span.help-block").text("");
 		$("#JobRegisterModal input[required=required], #JobRegisterModal text[required=required], #JobRegisterModal textarea[required=required], #JobRegisterModal select[required=required]").each(function() {
-			$(this).parent().parent().removeClass('has-error');
-			$(this).parent().find("> span.help-block").text("");
 			if($(this).attr("required")=="required" && !$(this).val()){
 				$(this).parent().parent().addClass('has-error');
 				$(this).parent().find("> span.help-block").text("This field is required");
@@ -303,6 +302,20 @@ defined('C5_EXECUTE') or die('Access Denied.')
 				valid = false;
 			}
 		});
+		// Check that at least one contact number is provided
+		var inputPhone = $("#inputPhone");
+		var inputEveningTel = $("#inputEveningTel");
+		var inputMobile = $("#inputMobile");
+		if (!inputPhone.val() && !inputEveningTel.val() && !inputMobile.val()) {
+			inputPhone.parent().parent().addClass('has-error');
+			inputPhone.parent().find("> span.help-block").text("At least one contact number is required");
+			inputEveningTel.parent().parent().addClass('has-error');
+			inputEveningTel.parent().find("> span.help-block").text("At least one contact number is required");
+			inputMobile.parent().parent().addClass('has-error');
+			inputMobile.parent().find("> span.help-block").text("At least one contact number is required");
+			valid = false;
+		}
+		
 		return valid;
 	}
 
@@ -551,12 +564,14 @@ defined('C5_EXECUTE') or die('Access Denied.')
                     	<label  class="col-sm-4 control-label" for="inputFirstName">First Name</label>
                     	<div class="col-sm-8">
 							<input type="text" class="form-control" id="inputFirstName" placeholder="First Name" required="required"/>
+							<span class="help-block"></span>
                     	</div>
                   </div>
                   <div class="form-group required">
                     	<label  class="col-sm-4 control-label" for="inputLastName">Last Name</label>
                     	<div class="col-sm-8">
 							<input type="text" class="form-control" id="inputLastName" placeholder="Last Name" required="required"/>
+							<span class="help-block"></span>
                     	</div>
                   </div>
                   <div class="form-group required">
@@ -566,30 +581,35 @@ defined('C5_EXECUTE') or die('Access Denied.')
 							<div class="checkbox">
 							    <label><input type="checkbox" value="" id="inputNoEmail">I do not have an email address</label>
 							</div>
+							<span class="help-block"></span>
                     	</div>
                   </div>
 				  <div class="form-group">
                     	<label  class="col-sm-4 control-label" for="inputPhone">Day time phone</label>
                     	<div class="col-sm-8">
 							<input type="text" class="form-control" id="inputPhone" placeholder="Phone"/>
+							<span class="help-block"></span>
                     	</div>
                   </div>
 				  <div class="form-group">
                     	<label  class="col-sm-4 control-label" for="inputEveningTel">Evening phone</label>
                     	<div class="col-sm-8">
 							<input type="text" class="form-control" id="inputEveningTel" placeholder="Evening Phone"/>
+							<span class="help-block"></span>
                     	</div>
                   </div>
 									<div class="form-group">
                     	<label  class="col-sm-4 control-label" for="inputMobile">Mobile</label>
                     	<div class="col-sm-8">
-                        <input type="text" class="form-control" id="inputMobile" placeholder="Mobile"/>
+							<input type="text" class="form-control" id="inputMobile" placeholder="Mobile"/>
+							<span class="help-block"></span>
                     	</div>
                   </div>
 									<div class="form-group">
                     	<label  class="col-sm-4 control-label" for="inputSuburb">Suburb</label>
                     	<div class="col-sm-8">
-                        <input type="text" class="form-control" id="inputSuburb" placeholder="Suburb"/>
+							<input type="text" class="form-control" id="inputSuburb" placeholder="Suburb"/>
+							<span class="help-block"></span>
                     	</div>
                   </div>
 									<div class="form-group">
@@ -604,6 +624,7 @@ defined('C5_EXECUTE') or die('Access Denied.')
 														<?php }
 													?>
      											</select>
+												<span class="help-block"></span>
 											</div>
 									</div>
 									<div class="form-group required">
@@ -618,6 +639,7 @@ defined('C5_EXECUTE') or die('Access Denied.')
 														<?php }
 													?>
      											</select>
+												<span class="help-block"></span>
 											</div>
 									</div>
 									<div class="form-group required">
@@ -630,6 +652,7 @@ defined('C5_EXECUTE') or die('Access Denied.')
 														<option value="Gender Diverse">Gender Diverse</option>
 														<option value="Not Stated">Not Stated</option>
      											</select>
+												<span class="help-block"></span>
 											</div>
 									</div>
 									<div class="form-group required">
@@ -644,6 +667,7 @@ defined('C5_EXECUTE') or die('Access Denied.')
 														<?php }
 													?>
      											</select>
+												<span class="help-block"></span>
 											</div>
 									</div>
 									<div class="form-group">
@@ -654,6 +678,7 @@ defined('C5_EXECUTE') or die('Access Denied.')
 														<option value="Yes">Yes</option>
 														<option value="No">No</option>
      											</select>
+												<span class="help-block"></span>
 											</div>
 									</div>
 									<div class="form-group">
@@ -664,6 +689,7 @@ defined('C5_EXECUTE') or die('Access Denied.')
 														<option value="Yes">Yes</option>
 														<option value="No">No</option>
      											</select>
+												<span class="help-block"></span>
 											</div>
 									</div>
 									<div class="form-group">
@@ -678,6 +704,7 @@ defined('C5_EXECUTE') or die('Access Denied.')
 														<?php }
 													?>
      											</select>
+												<span class="help-block"></span>
 											</div>
 									</div>
 									<div class="form-group">
@@ -692,6 +719,7 @@ defined('C5_EXECUTE') or die('Access Denied.')
 														<?php }
 													?>
      											</select>
+												<span class="help-block"></span>
 											</div>
 									</div>
 									<div class="form-group">
@@ -706,6 +734,7 @@ defined('C5_EXECUTE') or die('Access Denied.')
 														<?php }
 													?>
      											</select>
+												<span class="help-block"></span>
 											</div>
 									</div>
 									<div class="form-group">
@@ -717,6 +746,7 @@ defined('C5_EXECUTE') or die('Access Denied.')
 														<option value="Lhutt">Lower Hutt</option>
 														<option value="Por">Porirua</option>
      											</select>
+												<span class="help-block"></span>
 											</div>
 									</div>
 									<div class="form-group">
@@ -724,6 +754,7 @@ defined('C5_EXECUTE') or die('Access Denied.')
 											<label  class="col-sm-8 control-label" for="inputEmergencyList">Are you willing to be added to a list of people to be contacted in the event of a emergency/disaster in the Wellington region please tick the box. Volunteer Wellington will need to keep your contact details for this purpose.</label>
   										<div class="col-sm-4">
 												<label><input type="checkbox" id="volEmergList" value="">Add me to the Emergency list</label>
+												<span class="help-block"></span>
 											</div>
 										</div>
 									</div>
@@ -876,7 +907,7 @@ defined('C5_EXECUTE') or die('Access Denied.')
 							<h4 class="modal-title alert alert-warning" id="missing-dialog-title">The form is incomplete</h4>
 						</div>
 						<div class="modal-body" id="missing-dialog-message">
-							<p>You need to complete the forms mandatory fields</p>
+							<p>Some fields require your attention</p>
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
