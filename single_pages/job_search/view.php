@@ -772,7 +772,7 @@ defined('C5_EXECUTE') or die('Access Denied.')
 	</div>
 </div>
 
-<!-- No online registration modal---->
+<!-- No shortlisted modal---->
 <div class="modal fade" id="NoShortlistedJobsModal" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -844,7 +844,7 @@ defined('C5_EXECUTE') or die('Access Denied.')
     </div>
   </div>
 
-  <!-- Added to shortlist dialog modal-->
+  <!-- Already in shortlist dialog modal-->
   <div class="modal fade" id="alreadyInShortlistModal" role="dialog">
     <div class="modal-dialog modal-sm">
       <div class="modal-content">
@@ -871,7 +871,8 @@ defined('C5_EXECUTE') or die('Access Denied.')
 					<h4 class="modal-title" id="success-dialog-title">Registration Success</h4>
         </div>
         <div class="modal-body" id="success-dialog-message">
-					<p> Your registration for volunteer roles have been recorded</p>
+			<p> Your registration for volunteer roles have been recorded.</p>
+			<p> <a href="<?php echo $this->action('registration'); ?>">Show Registration Details</a></p>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>

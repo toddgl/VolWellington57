@@ -17,7 +17,6 @@ class JobSearch extends PageController
 		$stmt = $conn->prepare($sql);
 		$stmt->execute();
 		return $stmt->fetchAll();
-	exit;
 	}
 
 	public function getEthnicityList() {
@@ -29,7 +28,6 @@ class JobSearch extends PageController
 		$stmt = $conn->prepare($sql);
 		$stmt->execute();
 		return $stmt->fetchAll();
-	exit;
 	}
 
 	public function getWorkStatus() {
@@ -40,7 +38,6 @@ class JobSearch extends PageController
 		$stmt = $conn->prepare($sql);
 		$stmt->execute();
 		return $stmt->fetchAll();
-	exit;
 	}
 
 	public function getHeardList() {
@@ -51,7 +48,6 @@ class JobSearch extends PageController
 		$stmt = $conn->prepare($sql);
 		$stmt->execute();
 		return $stmt->fetchAll();
-	exit;
 	}
 
 	public function getCity() {
@@ -62,7 +58,6 @@ class JobSearch extends PageController
 		$stmt = $conn->prepare($sql);
 		$stmt->execute();
 		return $stmt->fetchAll();
-	exit;
 	}
 
 	public function getVolReason() {
@@ -73,7 +68,6 @@ class JobSearch extends PageController
 		$stmt = $conn->prepare($sql);
 		$stmt->execute();
 		return $stmt->fetchAll();
-	exit;
 	}
 
 	public function getDetail() {
@@ -313,8 +307,8 @@ class JobSearch extends PageController
 
 
 		$conn = \Database::connection('jobsearch');
-    $conn -> beginTransaction();
-    try {
+		$conn -> beginTransaction();
+		try {
 			/* Find out the next auto-increment ID for the webregister table */
 
 			$sql = "SELECT ID
@@ -367,12 +361,11 @@ class JobSearch extends PageController
 			<p>Thank you for your application for the following volunteering role(s):</p>
 			";
 
-      $conn->insert('webregister',
-      array(
+			$webregister = array(
 				'ID' => NULL,
 				'lastname'=>filter_var($inputs[0]['volContact']['lname'], $filters['lname'], $options['lname']),
 				'firstname'=>filter_var($inputs[0]['volContact']['fname'], $filters['fname'], $options['fname']),
-	    	'suburb'=>$volSuburb,
+				'suburb'=>$volSuburb,
 				'city'=>$volCity,
 				'phone'=>$volPhone,
 				'evetel'=>$volEvetel,
@@ -391,12 +384,14 @@ class JobSearch extends PageController
 				'wi' => 0,
 				'status' => 1,
 				'reason'=>$volReason
-			));
+			);
+			$conn->insert('webregister', $webregister);
 
+			$webrefs = array();
 			for ($x = 1; $x <= 10; $x++) {
 				$job_id = $inputs[$x]['item']['id'];
 				if (isset($job_id)) {
-					$sql = "SELECT `agencyID`, `title`, `descrip`, `location`, `jobemail`
+					$sql = "SELECT `agencyID`, `title`, `descrip`, `location`, `jobemail`, `dayshours`, `jobsub`, `ID`
 					FROM `jobs`
 					WHERE `ID` = ?";
 					$stmt = $conn->prepare($sql);
@@ -518,6 +513,10 @@ class JobSearch extends PageController
 					// Send email
 					$mailService->sendMail();
 
+					$webrefs[$job_id] = array(
+						'job_data'=>$job_data,
+						'agency_data'=>$agency_data
+					);
 				}
 			}
 			// close off the additions to the office email
@@ -561,7 +560,11 @@ class JobSearch extends PageController
 				$mailService->sendMail();
 			}
 
-    	$conn->commit();
+			// Store $input in session
+			$_SESSION['VW']['registration']['webregister'] = $webregister;			
+			$_SESSION['VW']['registration']['webrefs'] = $webrefs;			
+			
+			$conn->commit();
 		}
 		catch(\Exception $e) {
 			$conn->rollback();
@@ -569,5 +572,15 @@ class JobSearch extends PageController
 		}
 		exit;
 	}
+
+	public function registration() {
+		// set variables from session 
+		$webregister = $_SESSION['VW']['registration']['webregister'];
+		$webrefs = $_SESSION['VW']['registration']['webrefs'];
+   		$this->set('webregister', $webregister);
+   		$this->set('webrefs', $webrefs);
+		$this->render('/job_search/registration');
+	}
+
 }
 ?>
