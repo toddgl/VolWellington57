@@ -2,6 +2,7 @@
 defined('C5_EXECUTE') or die('Access Denied.')
 ?>
 <script src="https://cdn.ravenjs.com/3.20.1/raven.min.js" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery.dotdotdot/3.1.0/jquery.dotdotdot.js"></script>
 
 <script type="text/javascript">
 	try {
@@ -12,6 +13,10 @@ defined('C5_EXECUTE') or die('Access Denied.')
 	var maxItems = 10;  //Set LocalStorage shortlist limit
 
 	$(document).ready(function() {
+	    $(".to-truncate").dotdotdot({
+			height: 120
+	    });
+   
 		$('#myModal').on('hidden.bs.modal', function () {
 			$('#myModal').removeData('bs.modal');
 			$('#myModal').find('.modal-content').empty;
@@ -435,7 +440,7 @@ defined('C5_EXECUTE') or die('Access Denied.')
 								</tr>
 								</thead>
 								</table>
-								<p><?php echo $job["descrip"]; ?></p>
+								<p class="to-truncate"><?php echo $job["descrip"]; ?></p>
 								</div>
 								<div class="lt-dk-blue-wrapper">
 									<table class="table">
