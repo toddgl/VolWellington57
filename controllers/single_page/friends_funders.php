@@ -10,19 +10,20 @@ use Asset;
 class FriendsFunders extends PageController
 {
 
-  public function view()
-  {
-
+  public function view() {
+    $this->getFunders();
+    $this->getPremiumFriends();
+    $this->getBusinessFriends();
+    $this->getIndividualFriends();
   }
 
-  public function getFunders()
-  {
+  public function getFunders()  {
   //query to get current funders
   $conn = \Database::connection('jobsearch');
 	$sql = "SELECT  *
 	FROM `funders`
-	WHERE status` = 1
-  ORDER BY 'name'";
+	WHERE `status` = 1
+  ORDER BY `name`";
 	$stmt = $conn->prepare($sql);
 	$stmt->execute();
 	$results = $stmt->fetchAll();
@@ -33,9 +34,9 @@ class FriendsFunders extends PageController
     $conn = \Database::connection('jobsearch');
     $sql = "SELECT  *
     FROM `friends`
-    WHERE status` = 1
-    AND 'type' = 'p'
-    ORDER BY 'name'";
+    WHERE `status` = 1
+    AND `type` = 'p'
+    ORDER BY `name`";
     $stmt = $conn->prepare($sql);
     $stmt->execute();
     $results = $stmt->fetchAll();
@@ -46,9 +47,9 @@ class FriendsFunders extends PageController
     $conn = \Database::connection('jobsearch');
     $sql = "SELECT  *
     FROM `friends`
-    WHERE status` = 1
-    AND 'type' = 'b'
-    ORDER BY 'name'";
+    WHERE `status` = 1
+    AND `type` = 'b'
+    ORDER BY `name`";
     $stmt = $conn->prepare($sql);
     $stmt->execute();
     $results = $stmt->fetchAll();
@@ -59,14 +60,15 @@ class FriendsFunders extends PageController
     $conn = \Database::connection('jobsearch');
     $sql = "SELECT  *
     FROM `friends`
-    WHERE status` = 1
-    AND 'type' = 'i'
-    ORDER BY 'name'";
+    WHERE `status` = 1
+    AND `type` = 'i'
+    ORDER BY `name`";
     $stmt = $conn->prepare($sql);
     $stmt->execute();
     $results = $stmt->fetchAll();
     $this->set('individualfriends', $results);
   }
+
 
 }
 ?>
