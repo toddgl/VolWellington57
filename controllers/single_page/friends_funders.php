@@ -13,7 +13,7 @@ class FriendsFunders extends PageController
   public function view() {
     $this->getFunders();
     $this->getPremiumFriends();
-    $this->getBusinessFriends();
+    $this->getInKindFriends();
     $this->getIndividualFriends();
   }
 
@@ -43,17 +43,17 @@ class FriendsFunders extends PageController
     $this->set('premiumfriends', $results);
   }
 
-  public function getBusinessFriends() {
+  public function getInKindFriends() {
     $conn = \Database::connection('jobsearch');
     $sql = "SELECT  *
     FROM `friends`
     WHERE `status` = 1
-    AND `type` = 'b'
+    AND `type` = 'k'
     ORDER BY `name`";
     $stmt = $conn->prepare($sql);
     $stmt->execute();
     $results = $stmt->fetchAll();
-    $this->set('businessfriends', $results);
+    $this->set('inkindfriends', $results);
   }
 
   public function getIndividualFriends() {
