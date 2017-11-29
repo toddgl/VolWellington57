@@ -19,11 +19,6 @@ defined('C5_EXECUTE') or die('Access Denied.')
 		?>
 	</div>
 </div>
-<div class="container-fluid">
-	<div class="row-fluid nav_separator">
-		<hr>
-	</div>
-</div>
 <div class="container">
     <div class="row">
       <div class="col-md-12">
