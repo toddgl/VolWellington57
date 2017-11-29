@@ -529,7 +529,7 @@ class JobSearch extends PageController
 			$mailService->load('mail_template');
 
 	    // Set email parameters
-			$mailService->to('office@volunteerwellington.nz, aileen@volunteerwellington.nz');
+			$mailService->to('office@volunteerwellington.nz');
 			$mailService->replyto('office@volunteerwellington.nz', 'Online Job Registration');
 			$mailService->setSubject('Volunteer Wellington OnLine Volunteer Registration');
 			$mailService->setBodyHTML($mailOfficeContent);
@@ -561,9 +561,9 @@ class JobSearch extends PageController
 			}
 
 			// Store $input in session
-			$_SESSION['VW']['registration']['webregister'] = $webregister;			
-			$_SESSION['VW']['registration']['webrefs'] = $webrefs;			
-			
+			$_SESSION['VW']['registration']['webregister'] = $webregister;
+			$_SESSION['VW']['registration']['webrefs'] = $webrefs;
+
 			$conn->commit();
 		}
 		catch(\Exception $e) {
@@ -574,7 +574,7 @@ class JobSearch extends PageController
 	}
 
 	public function registration() {
-		// set variables from session 
+		// set variables from session
 		$webregister = $_SESSION['VW']['registration']['webregister'];
 		$webrefs = $_SESSION['VW']['registration']['webrefs'];
    		$this->set('webregister', $webregister);
