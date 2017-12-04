@@ -371,35 +371,33 @@ defined('C5_EXECUTE') or die('Access Denied.')
     				<form class="form-horizontal" method="post" action="<?php echo $this->action('searchJobData'); ?>">
     					<div class="form-group">
 							<label for="selCategory" class="control-label col-xs-4">Role Category</label>
-							<select name="sCategory" class="frmfield">
-						 		<div class="col-xs-10">
-									<option value="" selected="selected">All...</option>
-									<?php foreach($cats as $category){?>
-   									<option value=<?php echo $category["keyword"]; ?>> <?php echo $category["keyword"]; ?></option>
+							<select name="sCategory" class="frmfield" id="selCategory">
+								<option value="" selected="selected">All...</option>
+								<?php foreach($cats as $category){?>
+ 									<option value="<?php echo $category["keyword"]; ?>"> <?php echo $category["keyword"]; ?></option>
    								<?php } ?>
-   							</div>
-   						</select>
-   					</div>
-   					<div class="form-group">
-   						<label for="selLocation" class="control-label col-xs-4">Location</label>
-   						<select name="sLocation" class="frmfield">
+							</select>
+						</div>
+						<div class="form-group">
+							<label for="selLocation" class="control-label col-xs-4">Location</label>
+							<select name="sLocation" class="frmfield" id="selLocation">
 								<option value="" selected="selected">All...</option>
 								<?php foreach($locs as $location){?>
-   								<option value=<?php echo $location["office"]; ?>> <?php echo $location["tex"]; ?></option>
-   							<?php } ?>
-   						</select>
-   					</div>
-   					<div class="form-group">
-   						<label for="selSearch" class="control-label col-xs-4">Search words</label>
-   						<input type="text" name="sWord" class="frmfield">
-   					</div>
-   					<div class="form-group">
-            		<div class="col-xs-offset-4 col-xs-10">
-            			<button type="submit" class="btn btn-primary shadow">Search</button>
-								</div>
+									<option value="<?php echo $location["office"]; ?>"> <?php echo $location["tex"]; ?></option>
+								<?php } ?>
+							</select>
+						</div>
+						<div class="form-group">
+							<label for="selSearch" class="control-label col-xs-4">Search words</label>
+							<input type="text" name="sWord" class="frmfield" id="selSearch">
+						</div>
+						<div class="form-group">
+							<div class="col-xs-offset-4 col-xs-10">
+								<button type="submit" class="btn btn-primary shadow">Search</button>
+							</div>
 						</div>
 					</form>
-   			</div>
+				</div>
 
 				<div class="col-md-3">
 					<h4>My Shortlist</h4>
@@ -446,8 +444,8 @@ defined('C5_EXECUTE') or die('Access Denied.')
 									<table class="table">
 									<thead>
 										<tr>
-											<th style="width: 50%"><button id="viewbutton" type="button" class="btn btn-primary shadow" data-toggle="modal" data-target="#myModal" data-id="<?php echo $job_id= $job["ID"]; ?>" >View Details</button></th>
-    									<th style="width: 50%"><button id="addmyJob" class="btn btn-primary shadow" onclick="addmyJobFunction('<?php echo $job["ID"]; ?>', '<?php echo $job["title"]; ?>')">Add to Shortlist</button></th>
+											<th style="width: 50%"><button type="button" class="btn btn-primary shadow" data-toggle="modal" data-target="#myModal" data-id="<?php echo $job_id= $job["ID"]; ?>" >View Details</button></th>
+    									<th style="width: 50%"><button class="btn btn-primary shadow" onclick="addmyJobFunction('<?php echo $job["ID"]; ?>', '<?php echo $job["title"]; ?>')">Add to Shortlist</button></th>
 										</tr>
 									</thead>
 								</table>
@@ -618,7 +616,7 @@ defined('C5_EXECUTE') or die('Access Denied.')
                     	</div>
                   </div>
 									<div class="form-group">
-											<label  class="col-sm-4 control-label" for="inputCity">City</label>
+											<label  class="col-sm-4 control-label" for="cityList">City</label>
 										  <div class="col-sm-8">
 												<select name="city" id="cityList" >
 													<option selected="" value="">Select</option>
@@ -633,7 +631,7 @@ defined('C5_EXECUTE') or die('Access Denied.')
 											</div>
 									</div>
 									<div class="form-group required">
-											<label  class="col-sm-4 control-label" for="inputAgeband">Age Band</label>
+											<label  class="col-sm-4 control-label" for="ageBand">Age Band</label>
 										  <div class="col-sm-8">
 												<select name="age" id="ageBand" required="required">
 													<option selected="" value="">Select</option>
@@ -648,7 +646,7 @@ defined('C5_EXECUTE') or die('Access Denied.')
 											</div>
 									</div>
 									<div class="form-group required">
-											<label  class="col-sm-4 control-label" for="inputGenderList">What is your gender?</label>
+											<label  class="col-sm-4 control-label" for="genderList">What is your gender?</label>
 										  <div class="col-sm-8">
 													<select name="gender" id="genderList" required="required">
             								<option selected="" value="">Select</option>
@@ -661,7 +659,7 @@ defined('C5_EXECUTE') or die('Access Denied.')
 											</div>
 									</div>
 									<div class="form-group required">
-											<label  class="col-sm-4 control-label" for="inputEthnicity">What is your ethnicity?</label>
+											<label  class="col-sm-4 control-label" for="ethnicityList">What is your ethnicity?</label>
 										  <div class="col-sm-8">
 												<select  name="ethnicity" id="ethnicityList" required="required">
 													<option selected="" value="">Select</option>
@@ -676,7 +674,7 @@ defined('C5_EXECUTE') or die('Access Denied.')
 											</div>
 									</div>
 									<div class="form-group">
-											<label  class="col-sm-4 control-label" for="inputMigrantStatus">Are you a recent migrant to NZ?</label>
+											<label  class="col-sm-4 control-label" for="migrantStatusList">Are you a recent migrant to NZ?</label>
 										  <div class="col-sm-8">
 													<select name="migrantStatus" id="migrantStatusList">
             								<option selected="" value="">Select</option>
@@ -687,7 +685,7 @@ defined('C5_EXECUTE') or die('Access Denied.')
 											</div>
 									</div>
 									<div class="form-group">
-											<label  class="col-sm-4 control-label" for="inputRefugeeStatus">Do you have legal Refugee status?</label>
+											<label  class="col-sm-4 control-label" for="refugeeStatusList">Do you have legal Refugee status?</label>
 										  <div class="col-sm-8">
 													<select name="refugeeStatus" id="refugeeStatusList">
             								<option selected="" value="">Select</option>
@@ -698,7 +696,7 @@ defined('C5_EXECUTE') or die('Access Denied.')
 											</div>
 									</div>
 									<div class="form-group">
-											<label  class="col-sm-4 control-label" for="inputHeard">How did you hear about Volunteer Wellington?</label>
+											<label  class="col-sm-4 control-label" for="heardList">How did you hear about Volunteer Wellington?</label>
 										  <div class="col-sm-8">
 												<select name="heard" id="heardList">
 													<option selected="" value="">Select</option>
@@ -713,7 +711,7 @@ defined('C5_EXECUTE') or die('Access Denied.')
 											</div>
 									</div>
 									<div class="form-group">
-											<label  class="col-sm-4 control-label" for="inputWorkStatus">What is your work status?</label>
+											<label  class="col-sm-4 control-label" for="workStatusList">What is your work status?</label>
 										  <div class="col-sm-8">
 												<select name="workStatus" id="workStatusList">
 													<option selected="" value="">Select</option>
@@ -728,7 +726,7 @@ defined('C5_EXECUTE') or die('Access Denied.')
 											</div>
 									</div>
 									<div class="form-group">
-											<label  class="col-sm-4 control-label" for="inputVolReason">Reason for Volunteering?</label>
+											<label  class="col-sm-4 control-label" for="volReasonList">Reason for Volunteering?</label>
 										  <div class="col-sm-8">
 												<select name="volReason" id="volReasonList">
 													<option selected="" value="">Select</option>
@@ -743,7 +741,7 @@ defined('C5_EXECUTE') or die('Access Denied.')
 											</div>
 									</div>
 									<div class="form-group">
-											<label  class="col-sm-4 control-label" for="inputVolWelOffice">Which is your Volunteer Wellington Office?</label>
+											<label  class="col-sm-4 control-label" for="volWelOfficeList">Which is your Volunteer Wellington Office?</label>
 										  <div class="col-sm-8">
 													<select name="volWelOffice" id="volWelOfficeList">
             								<option selected="" value="">Select</option>
@@ -756,7 +754,7 @@ defined('C5_EXECUTE') or die('Access Denied.')
 									</div>
 									<div class="form-group">
 										<div class="checkbox">
-											<label  class="col-sm-8 control-label" for="inputEmergencyList">Are you willing to be added to a list of people to be contacted in the event of a emergency/disaster in the Wellington region please tick the box. Volunteer Wellington will need to keep your contact details for this purpose.</label>
+											<label  class="col-sm-8 control-label" for="volEmergList">Are you willing to be added to a list of people to be contacted in the event of a emergency/disaster in the Wellington region please tick the box. Volunteer Wellington will need to keep your contact details for this purpose.</label>
   										<div class="col-sm-4">
 												<label><input type="checkbox" id="volEmergList" value="">Add me to the Emergency list</label>
 												<span class="help-block"></span>
@@ -778,12 +776,12 @@ defined('C5_EXECUTE') or die('Access Denied.')
 </div>
 
 <!-- No shortlisted modal---->
-<div class="modal fade" id="NoShortlistedJobsModal" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+<div class="modal fade" id="NoShortlistedJobsModal" tabindex="-1" role="dialog" aria-labelledby="NoShortlistedJobsModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title alert alert-warning"id="">No Roles in Shortlist</h4>
+        <h4 class="modal-title alert alert-warning" id="NoShortlistedJobsModalLabel">No Roles in Shortlist</h4>
       </div>
       <div class="modal-body">
         <p>Add roles to your shortlist before proceeding to register.</p>
@@ -796,12 +794,12 @@ defined('C5_EXECUTE') or die('Access Denied.')
 </div>
 
 <!-- No online registration modal---->
-<div class="modal fade" id="noOnlineRegistrationModal" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+<div class="modal fade" id="noOnlineRegistrationModal" tabindex="-1" role="dialog" aria-labelledby="noOnlineRegistrationModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title alert alert-warning"id="">Warning</h4>
+        <h4 class="modal-title alert alert-warning" id="noOnlineRegistrationModalLabel">Warning</h4>
       </div>
       <div class="modal-body">
         <p>You cannot register online for this role. <b>If the role interests you</b> contact the Volunteer Wellington Office nearest you and arrange an interview. Otherwise select other roles.</p>
@@ -814,12 +812,12 @@ defined('C5_EXECUTE') or die('Access Denied.')
 </div>
 
 
-<div class="modal fade" id="maxShortlist" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+<div class="modal fade" id="maxShortlist" tabindex="-1" role="dialog" aria-labelledby="maxShortlistLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title alert alert-warning"id="">Warning</h4>
+        <h4 class="modal-title alert alert-warning" id="maxShortlistLabel">Warning</h4>
       </div>
       <div class="modal-body">
         <p>You can only have <b>ten</b> items on your shortlist.  Remove those you don't want to add more.</p>
@@ -837,9 +835,9 @@ defined('C5_EXECUTE') or die('Access Denied.')
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title" id="success-dialog-title">Added to Shortlist</h4>
+					<h4 class="modal-title">Added to Shortlist</h4>
         </div>
-        <div class="modal-body" id="success-dialog-message">
+        <div class="modal-body">
 					<p> This role is now in your shortlist.</p>
         </div>
         <div class="modal-footer">
@@ -855,9 +853,9 @@ defined('C5_EXECUTE') or die('Access Denied.')
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title" id="success-dialog-title">Already Shortlisted</h4>
+					<h4 class="modal-title">Already Shortlisted</h4>
         </div>
-        <div class="modal-body" id="success-dialog-message">
+        <div class="modal-body">
 					<p> This role is already in your shortlist.</p>
         </div>
         <div class="modal-footer">
@@ -873,9 +871,9 @@ defined('C5_EXECUTE') or die('Access Denied.')
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title" id="success-dialog-title">Registration Success</h4>
+					<h4 class="modal-title">Registration Success</h4>
         </div>
-        <div class="modal-body" id="success-dialog-message">
+        <div class="modal-body">
 			<p> Your registration for volunteer roles have been recorded.</p>
 			<p> <a href="<?php echo $this->action('registration'); ?>">Show Registration Details</a></p>
         </div>
