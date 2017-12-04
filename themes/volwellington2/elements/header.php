@@ -13,14 +13,13 @@ defined('C5_EXECUTE') or die('Access Denied.')
 		<![endif]-->
 		<link rel="stylesheet" href="<?php echo $this->getThemePath()?>/css/bootstrap.min.css" >
 		<link rel="stylesheet" type="text/css" href="<?php echo $view->getStylesheet('main.less')?>" >
-		<script src="<?php echo $this->getThemePath()?>/js/jquery.min.js"></script>
-		<script src="<?php echo $this->getThemePath()?>/js/bootstrap.min.js"></script>
-				<script type="text/javascript">
-				$(document).ready(function() {
-    		$('.dropdown-toggle').dropdown();
-				});
-		</script>
 		<?php Loader::element('header_required');?>
+		<script src="<?php echo $this->getThemePath()?>/js/bootstrap.min.js"></script>
+		<script type="text/javascript">
+			$(document).ready(function() {
+				$('.dropdown-toggle').dropdown();
+			});
+		</script>
 	</head>
 	<body>
 	<div class="<?php echo $c->getPageWrapperClass()?>">
