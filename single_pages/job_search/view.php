@@ -372,24 +372,24 @@ defined('C5_EXECUTE') or die('Access Denied.')
     					<div class="form-group">
 							<label for="selCategory" class="control-label col-xs-4">Role Category</label>
 							<select name="sCategory" class="frmfield" id="selCategory">
-								<option value="" selected="selected">All...</option>
+								<option value="">All...</option>
 								<?php foreach($cats as $category){?>
- 									<option value="<?php echo $category["keyword"]; ?>"> <?php echo $category["keyword"]; ?></option>
+ 									<option value="<?php echo $category["keyword"]; ?>" <?php if ($resultCategory == $category["keyword"]) echo "selected=\"selected\""; ?>> <?php echo $category["keyword"]; ?></option>
    								<?php } ?>
 							</select>
 						</div>
 						<div class="form-group">
 							<label for="selLocation" class="control-label col-xs-4">Location</label>
 							<select name="sLocation" class="frmfield" id="selLocation">
-								<option value="" selected="selected">All...</option>
+								<option value="">All...</option>
 								<?php foreach($locs as $location){?>
-									<option value="<?php echo $location["office"]; ?>"> <?php echo $location["tex"]; ?></option>
+									<option value="<?php echo $location["office"]; ?>" <?php if ($resultLocation == $location["office"]) echo "selected=\"selected\""; ?>> <?php echo $location["tex"]; ?></option>
 								<?php } ?>
 							</select>
 						</div>
 						<div class="form-group">
 							<label for="selSearch" class="control-label col-xs-4">Search words</label>
-							<input type="text" name="sWord" class="frmfield" id="selSearch">
+							<input type="text" name="sWord" value="<?php echo $resultKeyword; ?>" class="frmfield" id="selSearch">
 						</div>
 						<div class="form-group">
 							<div class="col-xs-offset-4 col-xs-10">

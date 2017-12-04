@@ -194,6 +194,9 @@ class JobSearch extends PageController
 		$stmt->execute();
 		$results = $stmt->fetchAll();
    		$this->set('resultPosted', $results);
+   		$this->set('resultCategory', $this->post('sCategory'));
+   		$this->set('resultLocation', $this->post('sLocation'));
+   		$this->set('resultKeyword', $this->post("sWord"));
 	}
 
 	public function jobRegister() {
