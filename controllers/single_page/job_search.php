@@ -140,39 +140,45 @@ class JobSearch extends PageController
 		$filters = array(
 			'keyword'=>FILTER_SANITIZE_STRING,
 			'roleId'=>FILTER_VALIDATE_INT,
+			'page'=>FILTER_VALIDATE_INT,
 		);
 		$options = array(
 			'keyword'=>array(
 				'flags'=>FILTER_NULL_ON_FAILURE
 			),
-			'options'=>array(
-				'min_range' => 0
+			'page'=>array(
+				'flags'=>FILTER_NULL_ON_FAILURE
 			)
 		);
   		//Search the database
   		$dbc = \Database::connection('jobsearch');
+		$pageSize = 20;
     	$category = $this->post('sCategory');
     	$location = $this->test_input($this->post('sLocation'));
     	$keyword = filter_var($this->post("sWord"),$filters['keyword'], $options['keyword']);
 		$roleId = filter_var($this->post("sWord"),$filters['roleId'], $options['roleId']);
-   		$sql =  "SELECT  `title`, `keyword`, `jobsub`, `descrip`, `ID`, 'policeck', 'eveonly', 'reimbursement'
-   		FROM `jobs`
-   		WHERE `status` = 1";
+		$page = filter_var($this->post("sPage"),$filters['page'], $options['page']);
+		if (empty($page))
+			$page = 0;
+			
+   		$sql =  "SELECT  `title`, `keyword`, `jobsub`, `descrip`, `ID`, 'policeck', 'eveonly', 'reimbursement' FROM `jobs`";
+		$where = "WHERE `status` = 1";
 		if (!empty($category)) {
-    		$sql .= " AND `keyword` = ?";
+    		$where .= " AND `keyword` = ?";
 		}
 		if (!empty($location)) {
-    		$sql .= " AND `location` = ?";
+    		$where .= " AND `location` = ?";
 		}
 		if (!empty($keyword)) {
-    		$sql .= " AND (";
-			$sql .= " MATCH(`descrip`, `title`) AGAINST(? IN BOOLEAN MODE)";
+    		$where .= " AND (";
+			$where .= " MATCH(`descrip`, `title`) AGAINST(? IN BOOLEAN MODE)";
 			if (!empty($roleId)) {
-				$sql .= " OR `ID` = ?";
+				$where .= " OR `ID` = ?";
 			}
-    		$sql .= " )";
+    		$where .= " )";
 		}
-		$sql .= " ORDER BY `dateposted` DESC";
+		$order .= " ORDER BY `dateposted` DESC, `ID` ASC LIMIT " . ($pageSize + 1) . " OFFSET " . ($page * $pageSize);
+		$sql = $sql . $where . $order;
 		$stmt = $dbc->prepare($sql);
 		$bindIdx = 1;
 		if (!empty($category)) {
@@ -197,6 +203,8 @@ class JobSearch extends PageController
    		$this->set('resultCategory', $this->post('sCategory'));
    		$this->set('resultLocation', $this->post('sLocation'));
    		$this->set('resultKeyword', $this->post("sWord"));
+   		$this->set('resultPage', $page);		
+   		$this->set('resultPageSize', $pageSize);		
 	}
 
 	public function jobRegister() {

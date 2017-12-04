@@ -140,6 +140,13 @@ defined('C5_EXECUTE') or die('Access Denied.')
 		RewriteFromStorage();
 	});
 
+	function navigateToPage(page) {
+		if (page === -1)
+			return false;
+		$("#selPage").val(page);
+		document.getElementById("searchForm").submit();
+		return false;
+	};
 
 	function addmyJobFunction(id, title){
 		// Test to ensure that online registration is allowed
@@ -368,7 +375,7 @@ defined('C5_EXECUTE') or die('Access Denied.')
 					$locs = $controller->getLocation();
 					?>
      				<h4 style="text-align: center;"> Select your search options</h4>
-    				<form class="form-horizontal" method="post" action="<?php echo $this->action('searchJobData'); ?>">
+    				<form id="searchForm" class="form-horizontal" method="post" action="<?php echo $this->action('searchJobData'); ?>">
     					<div class="form-group">
 							<label for="selCategory" class="control-label col-xs-4">Role Category</label>
 							<select name="sCategory" class="frmfield" id="selCategory">
@@ -393,6 +400,7 @@ defined('C5_EXECUTE') or die('Access Denied.')
 						</div>
 						<div class="form-group">
 							<div class="col-xs-offset-4 col-xs-10">
+								<input type="hidden" id="selPage" name="sPage" value="0">
 								<button type="submit" class="btn btn-primary shadow">Search</button>
 							</div>
 						</div>
@@ -422,36 +430,47 @@ defined('C5_EXECUTE') or die('Access Denied.')
 							if (empty($resultPosted)) {
 								//echo "Select your search options";
 							}	else {
-							foreach($resultPosted as $job) { ?>
+								for ($i = 0; $i < $resultPageSize; $i++) {
+									if ($i + 1 > count($resultPosted))
+										break;
+									$job = $resultPosted[$i]; ?>
 
-								<div class="dk-blue-wrapper white">
-								<h3>
-									<?php echo $job["title"]; ?>
-								</h3>
-								</div>
-								<div class="blue-wrapper">
-								<table class="table">
-								<thead>
-								<tr>
-								<th style="width: 70%"><?php echo $job["jobsub"]; ?></th>
-    							<th style="width: 30%">Role ID: <?php echo $job["ID"]; ?></th>
-								</tr>
-								</thead>
-								</table>
-								<p class="to-truncate"><?php echo $job["descrip"]; ?></p>
-								</div>
-								<div class="lt-dk-blue-wrapper">
+									<div class="dk-blue-wrapper white">
+									<h3>
+										<?php echo $job["title"]; ?>
+									</h3>
+									</div>
+									<div class="blue-wrapper">
 									<table class="table">
 									<thead>
-										<tr>
-											<th style="width: 50%"><button type="button" class="btn btn-primary shadow" data-toggle="modal" data-target="#myModal" data-id="<?php echo $job_id= $job["ID"]; ?>" >View Details</button></th>
-    									<th style="width: 50%"><button class="btn btn-primary shadow" onclick="addmyJobFunction('<?php echo $job["ID"]; ?>', '<?php echo $job["title"]; ?>')">Add to Shortlist</button></th>
-										</tr>
+									<tr>
+									<th style="width: 70%"><?php echo $job["jobsub"]; ?></th>
+									<th style="width: 30%">Role ID: <?php echo $job["ID"]; ?></th>
+									</tr>
 									</thead>
-								</table>
-								</div>
-							<?php }
-							} ?>
+									</table>
+									<p class="to-truncate"><?php echo $job["descrip"]; ?></p>
+									</div>
+									<div class="lt-dk-blue-wrapper">
+										<table class="table">
+										<thead>
+											<tr>
+												<th style="width: 50%"><button type="button" class="btn btn-primary shadow" data-toggle="modal" data-target="#myModal" data-id="<?php echo $job_id= $job["ID"]; ?>" >View Details</button></th>
+											<th style="width: 50%"><button class="btn btn-primary shadow" onclick="addmyJobFunction('<?php echo $job["ID"]; ?>', '<?php echo $job["title"]; ?>')">Add to Shortlist</button></th>
+											</tr>
+										</thead>
+									</table>
+									</div>
+								<?php }
+								$prevDisabled = ($resultPage == 0);
+								$nextDisabled = (count($resultPosted) <= $resultPageSize);
+								if ($resultPage != 0 || count($resultPosted) > $resultPageSize) { ?>
+								<ul class="pager">
+									<li class="previous <?php if ($prevDisabled) echo "disabled"; ?>"><a href="#" onclick="return navigateToPage(<?php echo $prevDisabled ? -1 : $resultPage - 1; ?>);">&larr; Previous</a></li>
+									<li class="next <?php if ($nextDisabled) echo "disabled"; ?>"><a href="#" onclick="return navigateToPage(<?php echo $nextDisabled ? -1 : $resultPage + 1; ?>);">Next &rarr;</a></li>
+								</ul>															
+								<?php }
+							} ?>							
 					</div>
 				</div>
 				<div class="col-md-3">
