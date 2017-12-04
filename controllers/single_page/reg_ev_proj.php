@@ -252,7 +252,7 @@ class RegEvProj extends PageController
     $mailService->load('mail_template');
 
     // Set email parameters
-    $mailService->to('ev@volunteerwellington.nz, julie@volunteerwellington.nz');
+    $mailService->to('ev@volunteerwellington.nz');
     $mailService->from('ev@volunteerwellington.nz');
     $mailService->replyto('ev@volunteerwellington.nz', 'Online Project Registration');
     $mailService->setSubject('EV Project Registration On-Line form');
