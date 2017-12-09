@@ -4,10 +4,10 @@ defined('C5_EXECUTE') or die('Access Denied.')
 <script src="https://cdn.ravenjs.com/3.20.1/raven.min.js" crossorigin="anonymous"></script>
 
 <script type="text/javascript">
-try {
-	Raven.config('https://606f3fd66dd04223a83abba161de7248@sentry.io/247542').install()
-} catch(err) {}
+	Raven.config('https://606f3fd66dd04223a83abba161de7248@sentry.io/247542').install();
+</script>
 
+<script type="text/javascript">
 var id;
 
 $(document).ready(function() {
@@ -20,8 +20,11 @@ $(document).ready(function() {
 			$('dialogModal').find('.modal-content').empty;
 	});
 
-	$('#forumModal').on('show.bs.modal', function(e) {
+	$('#forumModal').on('shown.bs.modal', function(e) {
+		gtag('event', 'view_item', {'items': [{'id': id, 'category': 'forum'}]});
+	});
 
+	$('#forumModal').on('show.bs.modal', function(e) {
 		id = $(e.relatedTarget).data('id');
 		// alert(id);
 		$.ajaxSetup ({
@@ -80,7 +83,7 @@ if(valid) {
 		//alert(textStatus);
 		$('#forumModal').modal('hide');
 		$('#dialogSuccessModal').modal('show');
-
+		gtag('event', 'purchase', {'items': [{'id': id, 'category': 'forum'}]});
 	}).fail(function(jqXHR, textStatus, errorThrown){
 		// alert(errorThrown);
 		$('#forumModal').modal('hide');

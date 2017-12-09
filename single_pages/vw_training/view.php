@@ -6,10 +6,10 @@ defined('C5_EXECUTE') or die('Access Denied.')
 <script src="https://cdn.ravenjs.com/3.20.1/raven.min.js" crossorigin="anonymous"></script>
 
 <script type="text/javascript">
-try {
-	Raven.config('https://606f3fd66dd04223a83abba161de7248@sentry.io/247542').install()
-} catch(err) {}
+	Raven.config('https://606f3fd66dd04223a83abba161de7248@sentry.io/247542').install();
+</script>
 
+<script type="text/javascript">
 window.onload = function() {
 
 	$('#feeRadioBtns').on('click', function(e) {
@@ -30,6 +30,10 @@ $(document).ready(function() {
 		$('#dialogModal').on('hidden.bs.modal', function () {
 			$('#dialogModal').removeData('bs.modal');
 			$('dialogModal').find('.modal-content').empty;
+	});
+
+	$('#wkspModal').on('shown.bs.modal', function(e) {
+		gtag('event', 'view_item', {'items': [{'id': id, 'category': 'training'}]});
 	});
 
 	$('#wkspModal').on('show.bs.modal', function(e) {
@@ -198,7 +202,7 @@ if(valid) {
 		//alert(textStatus);
 		$('#wkspModal').modal('hide');
 		$('#dialogSuccessModal').modal('show');
-
+		gtag('event', 'purchase', {'items': [{'id': id, 'category': 'training'}]});
 	}).fail(function(jqXHR, textStatus, errorThrown){
 		// alert(errorThrown);
 		$('#wkspModal').modal('hide');

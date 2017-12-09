@@ -4,10 +4,10 @@ defined('C5_EXECUTE') or die('Access Denied.')
 <script src="https://cdn.ravenjs.com/3.20.1/raven.min.js" crossorigin="anonymous"></script>
 
 <script type="text/javascript">
-try {
-	Raven.config('https://606f3fd66dd04223a83abba161de7248@sentry.io/247542').install()
-} catch(err) {}
+	Raven.config('https://606f3fd66dd04223a83abba161de7248@sentry.io/247542').install();
+</script>
 
+<script type="text/javascript">
 $(document).ready(function() {
 		$('#mbrRegisterModal').on('hidden.bs.modal', function () {
 			$('#mbrRegisterModal').removeData('bs.modal');
@@ -17,6 +17,7 @@ $(document).ready(function() {
 
 function mbrRegisterFunction() {
 	$('#mbrRegisterModal').modal('show');
+	gtag('event', 'begin_checkout', {'items': [{'category': 'member'}]});
 };
 
 function sendMbrRegister() {
@@ -114,7 +115,7 @@ function sendMbrRegister() {
 			//alert(textStatus);
 			$('#mbrRegisterModal').modal('hide');
 			$('#dialogSuccessModal').modal('show');
-
+			gtag('event', 'purchase', {'items': [{'category': 'member'}]});
 		}).fail(function(jqXHR, textStatus, errorThrown){
 			// alert(errorThrown);
 			$('#mbrRegisterModal').modal('hide');

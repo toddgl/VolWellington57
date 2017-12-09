@@ -153,11 +153,11 @@ class JobSearch extends PageController
   		//Search the database
   		$dbc = \Database::connection('jobsearch');
 		$pageSize = 20;
-    	$category = $this->post('sCategory');
-    	$location = $this->test_input($this->post('sLocation'));
-    	$keyword = filter_var($this->post("sWord"),$filters['keyword'], $options['keyword']);
-		$roleId = filter_var($this->post("sWord"),$filters['roleId'], $options['roleId']);
-		$page = filter_var($this->post("sPage"),$filters['page'], $options['page']);
+    	$category = $this->get('sCategory');
+    	$location = $this->test_input($this->get('sLocation'));
+    	$keyword = filter_var($this->get("sWord"),$filters['keyword'], $options['keyword']);
+		$roleId = filter_var($this->get("sWord"),$filters['roleId'], $options['roleId']);
+		$page = filter_var($this->get("sPage"),$filters['page'], $options['page']);
 		if (empty($page))
 			$page = 0;
 			
@@ -200,9 +200,9 @@ class JobSearch extends PageController
 		$stmt->execute();
 		$results = $stmt->fetchAll();
    		$this->set('resultPosted', $results);
-   		$this->set('resultCategory', $this->post('sCategory'));
-   		$this->set('resultLocation', $this->post('sLocation'));
-   		$this->set('resultKeyword', $this->post("sWord"));
+   		$this->set('resultCategory', $this->get('sCategory'));
+   		$this->set('resultLocation', $this->get('sLocation'));
+   		$this->set('resultKeyword', $this->get("sWord"));
    		$this->set('resultPage', $page);		
    		$this->set('resultPageSize', $pageSize);		
 	}

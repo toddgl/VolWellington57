@@ -4,10 +4,10 @@ defined('C5_EXECUTE') or die('Access Denied.')
 <script src="https://cdn.ravenjs.com/3.20.1/raven.min.js" crossorigin="anonymous"></script>
 
 <script type="text/javascript">
-try {
-	Raven.config('https://606f3fd66dd04223a83abba161de7248@sentry.io/247542').install()
-} catch(err) {}
+	Raven.config('https://606f3fd66dd04223a83abba161de7248@sentry.io/247542').install();
+</script>
 
+<script type="text/javascript">
 $(document).ready(function() {
 	$('#volRequestModal').on('hidden.bs.modal', function (e) {
 			$('#volRequestModal').removeData('bs.modal');
@@ -25,6 +25,7 @@ $(document).ready(function() {
 
 function volRequestFunction() {
 	$('#volRequestModal').modal('show');
+	gtag('event', 'begin_checkout', {'items': [{'category': 'volunteer'}]});
 };
 
 function sendVolRequest() {
@@ -111,7 +112,7 @@ function sendVolRequest() {
 			//alert(textStatus);
 			$('#volRequestModal').modal('hide');
 			$('#dialogSuccessModal').modal('show');
-
+			gtag('event', 'purchase', {'items': [{'category': 'volunteer'}]});
 		}).fail(function(jqXHR, textStatus, errorThrown){
 			// alert(errorThrown);
 			$('#volRequestModal').modal('hide');

@@ -5,10 +5,10 @@ defined('C5_EXECUTE') or die('Access Denied.')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery.dotdotdot/3.1.0/jquery.dotdotdot.js"></script>
 
 <script type="text/javascript">
-	try {
-		Raven.config('https://606f3fd66dd04223a83abba161de7248@sentry.io/247542').install()
-	} catch(err) {}
+	Raven.config('https://606f3fd66dd04223a83abba161de7248@sentry.io/247542').install();
+</script>
 
+<script type="text/javascript">
 	var prefix = "roleShortlist-";  // Set localStorage key prefix
 	var maxItems = 10;  //Set LocalStorage shortlist limit
 
@@ -36,6 +36,11 @@ defined('C5_EXECUTE') or die('Access Denied.')
 				$("#inputEmail").parent().parent().addClass("required");
 			}
 			//console.log("Change: " + name + " to " + check);
+		});
+		
+		$('#myModal').on('shown.bs.modal', function(e) {
+			var id = $(e.relatedTarget).data('id');
+			gtag('event', 'view_item', {'items': [{'id': id, 'category': 'role'}]});
 		});
 
 		$('#myModal').on('show.bs.modal', function(e) {
@@ -145,6 +150,7 @@ defined('C5_EXECUTE') or die('Access Denied.')
 			return false;
 		$("#selPage").val(page);
 		document.getElementById("searchForm").submit();
+		gtag('event', 'navigate_search_result', {'value': page});
 		return false;
 	};
 
@@ -161,6 +167,7 @@ defined('C5_EXECUTE') or die('Access Denied.')
 			//alert(result["success"]);
 			if (result["success"] == 'true') {
 				$('#noOnlineRegistrationModal').modal('show');
+				gtag('event', 'role_must_be_registered_by_phone', {'value': id});
 			}
 			else {
 				// add job to storage
@@ -175,6 +182,7 @@ defined('C5_EXECUTE') or die('Access Denied.')
 						//console.log("inside addmyJob Click function job id: " + id + "added.");
 						RewriteFromStorage();
 						$('#addedToShortlistModal').modal('show');
+						gtag('event', 'add_to_cart', {'items': [{'id': id, 'category': 'role'}]});
 					} else {
 						$('#alreadyInShortlistModal').modal('show');
 					}
@@ -184,7 +192,7 @@ defined('C5_EXECUTE') or die('Access Denied.')
 				}
 			}
 		}).fail(function(jqXHR, textStatus, errorThrown) {
-		alert("error");
+			alert("error");
 		});
 	};
 
@@ -202,9 +210,11 @@ defined('C5_EXECUTE') or die('Access Denied.')
                    .append("&nbsp;").append($("<input type='reset' value=' X '></li>")
                            .attr('key', key)
                            .click(function() {      //****** removeItem()
-                                localStorage.removeItem($(this).attr('key'));
-								console.log("Job id: " + $(this).attr('key') + " removed from local storage")
+								var id = $(this).attr('key');
+                                localStorage.removeItem(id);
+								console.log("Job id: " + id + " removed from local storage")
                                 RewriteFromStorage();
+								gtag('event', 'remove_from_cart', {'items': [{'id': id, 'category': 'role'}]});
                             })
                           )
             );
@@ -244,39 +254,41 @@ defined('C5_EXECUTE') or die('Access Denied.')
 				volContact.emvol = 0;
 			}
 			jsonData.push({volContact: volContact});
+			var gaRoles = [];
 			for(var i = 0; i < localStorage.length; i++)    //******* length
-	    {
-					var item = {};
-					var key = localStorage.key(i);              //******* key()
-	        if(key.indexOf(prefix) == 0) {
-						var value = localStorage.getItem(key);  //******* getItem()
-						var shortkey = key.replace(prefix, "");
-						item.id = shortkey;
-						jsonData.push({item: item});
-						}
+			{
+				var item = {};
+				var key = localStorage.key(i);              //******* key()
+				if(key.indexOf(prefix) == 0) {
+					var value = localStorage.getItem(key);  //******* getItem()
+					var shortkey = key.replace(prefix, "");
+					item.id = shortkey;
+					jsonData.push({item: item});
+					gaRoles.push({'id': shortkey, 'category': 'role'});
+				}
 			}
 			//alert (JSON.stringify(jsonData));
 			$.ajax({
-    		type: 'POST',
-   			url: "<?=$view->action('jobRegister')?>",
-   			datatype: 'json',
-   			//data: {jobData: jsonData},
+				type: 'POST',
+				url: "<?=$view->action('jobRegister')?>",
+				datatype: 'json',
+				//data: {jobData: jsonData},
 				data: {jobData: JSON.stringify(jsonData)},
-      	cache: false,
+				cache: false,
 			}).done(function(data, textStatus, jqXHR){
  				//alert (data);
 				clearShortlist();
 				$('#JobRegisterModal').modal('hide');
 				$('#dialogSuccessModal').modal('show');
-
+				gtag('event', 'purchase', {'items': gaRoles});
 			}).fail(function(jqXHR, textStatus, errorThrown){
 				// alert(errorThrown);
 				$('#JobRegisterModal').modal('hide');
 				$('#dialogFailureModal').modal('show');
 			});
-			} else {
+		} else {
 			$('#dialogMissingItemsModal').modal('show');
-			};
+		};
 	};
 
 	function clearShortlist() {
@@ -342,19 +354,23 @@ defined('C5_EXECUTE') or die('Access Denied.')
 	function jobRegisterFunction() {
 		// First check if there are any jobs in the shortlist. If not, show message to the user. Otherwise show the job registration modal
 		var hasRoles = false;
+		var gaRoles = [];
 		for(var i = 0; i < localStorage.length; i++)
 	    {
-			var item = {};
 			var key = localStorage.key(i);
 	        if(key.indexOf(prefix) == 0) {
 				hasRoles = true;
-				break;
+				var id = key.replace(prefix, "");
+				gaRoles.push({'id': id, 'category': 'role'});
 			}
 		}
 		if (hasRoles === true)
+		{
 			$('#JobRegisterModal').modal('show');
-		else
+			gtag('event', 'begin_checkout', {'items': gaRoles});
+		} else {
 			$('#NoShortlistedJobsModal').modal('show');
+		}
 	};
 
 
@@ -375,7 +391,7 @@ defined('C5_EXECUTE') or die('Access Denied.')
 					$locs = $controller->getLocation();
 					?>
      				<h4 style="text-align: center;"> Select your search options</h4>
-    				<form id="searchForm" class="form-horizontal" method="post" action="<?php echo $this->action('searchJobData'); ?>">
+    				<form id="searchForm" class="form-horizontal" method="get" action="<?php echo $this->action('searchJobData'); ?>">
     					<div class="form-group">
 							<label for="selCategory" class="control-label col-xs-4">Role Category</label>
 							<select name="sCategory" class="frmfield" id="selCategory">
@@ -560,6 +576,7 @@ defined('C5_EXECUTE') or die('Access Denied.')
       </div>
    <div class="row">
    	<div class="modal-footer">
+        <!--<button type="button" class="btn btn-primary center-block" data-dismiss="modal">Add to Shortlist</button>-->
         <button type="button" class="btn btn-primary center-block" data-dismiss="modal">Close</button>
    	</div>
    </div>
