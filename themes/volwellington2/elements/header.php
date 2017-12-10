@@ -5,7 +5,9 @@ defined('C5_EXECUTE') or die('Access Denied.')
 <html lang ="en">
 	<head>
 		<!-- Global site tag (gtag.js) - Google Analytics -->
+		<?php if (Config::get('concrete.env.name') == 'prod') { ?>	
 		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-110232753-1"></script>
+		<?php } ?>
 		<script>
 		  window.dataLayer = window.dataLayer || [];
 		  function gtag(){dataLayer.push(arguments);}
