@@ -13,17 +13,14 @@ class VwTraining extends PageController
   public function view()
   {
     //query to get current training offerings
-    $year = date('Y');
     $conn = \Database::connection('jobsearch');
-	$sql = "SELECT  `id`, `wksp`, `when`, `wkdte`, `who`, `wkno`, `wktime`
-	FROM `trainwksp`
-	WHERE `wkyr` = ?
-    AND  `status` = 1
+    $sql = "SELECT  `id`, `wksp`, `when`, `wkdte`, `who`, `wkno`, `wktime`
+    FROM `trainwksp`
+    WHERE `status` = 1
     AND `wkdte` >= CURDATE()";
-	$stmt = $conn->prepare($sql);
-    $stmt->bindValue(1, $year);
-	$stmt->execute();
-	$results = $stmt->fetchAll();
+	  $stmt = $conn->prepare($sql);
+	  $stmt->execute();
+	   $results = $stmt->fetchAll();
     $this->set('trnwksps', $results);
   }
 
