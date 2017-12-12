@@ -503,96 +503,93 @@ defined('C5_EXECUTE') or die('Access Denied.')
   <div class="modal-dialog custom-class">
     <!-- Modal content-->
     <div class="modal-content">
-    	<div class="row">
-      	<div class="col-md-12 modal-header">
-        		<button type="button" class="close" data-dismiss="modal">&times;</button>
-        		<h4 class="modal-title">
-        		</h4>
+      	<div class="modal-header">
+        	<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+        	<h4 class="modal-title">
+        	</h4>
       	</div>
-      </div>
+      	<div class="modal-body">
 			<div class="row">
-    		<div class="modal-lead col-md-3">
-      		<div id="tdescrip"></div>
-    		</div>
-    		<div class="modal-detail col-md-8">
-      		<div id="descrip"></div>
-    		</div>
-      </div>
-      <div class="row">
-    		<div class="modal-lead col-md-3">
-      		<div id="tskills"></div>
-    		</div>
-    		<div class="modal-detail col-md-8">
-      		<div id="skills"></div>
-    		</div>
-      </div>
-      <div class="row">
-    		<div class="modal-lead col-md-3">
-      		<div id="tpersonality"></div>
-    		</div>
-    		<div class="modal-detail col-md-8">
-      		<div id="personality"></div>
-    		</div>
-      </div>
-      <div class="row">
-    		<div class="modal-lead col-md-3">
-      		<div id="tdayshours"></div>
-    		</div>
-    		<div class="modal-detail col-md-8">
-      		<div id="dayshours"></div>
-    		</div>
-      </div>
-      <div class="row">
-    		<div class="modal-lead col-md-3">
-      		<div id="ttraining"></div>
-    		</div>
-    		<div class="modal-detail col-md-8">
-      		<div id="training"></div>
-    		</div>
-      </div>
-      <div class="row">
-    		<div class="modal-lead col-md-3">
-      		<div id="treimbursement"></div>
-    		</div>
-    		<div class="modal-detail col-md-8">
-      		<div id="reimbursement"></div>
-    		</div>
-      </div>
-      <div class="row">
-    		<div class="modal-lead col-md-3">
-      		<div id="teveonly"></div>
-    		</div>
-    		<div class="modal-detail col-md-8">
-      		<div id="eveonly"></div>
-    		</div>
-      </div>
-      <div class="row">
-    		<div class="modal-lead col-md-3">
-      		<div id="tpolice"></div>
-    		</div>
-    		<div class="modal-detail col-md-8">
-      		<div id="police"></div>
-    		</div>
-      </div>
-   <div class="row">
-   	<div class="modal-footer">
-        <!--<button type="button" class="btn btn-primary center-block" data-dismiss="modal">Add to Shortlist</button>-->
-        <button type="button" class="btn btn-primary center-block" data-dismiss="modal">Close</button>
-   	</div>
-   </div>
-   </div>
+				<div class="modal-lead col-md-3">
+					<div id="tdescrip"></div>
+				</div>
+				<div class="modal-detail col-md-9">
+					<div id="descrip"></div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="modal-lead col-md-3">
+					<div id="tskills"></div>
+				</div>
+				<div class="modal-detail col-md-9">
+					<div id="skills"></div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="modal-lead col-md-3">
+					<div id="tpersonality"></div>
+				</div>
+				<div class="modal-detail col-md-9">
+					<div id="personality"></div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="modal-lead col-md-3">
+					<div id="tdayshours"></div>
+				</div>
+				<div class="modal-detail col-md-9">
+					<div id="dayshours"></div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="modal-lead col-md-3">
+					<div id="ttraining"></div>
+				</div>
+				<div class="modal-detail col-md-9">
+					<div id="training"></div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="modal-lead col-md-3">
+					<div id="treimbursement"></div>
+				</div>
+				<div class="modal-detail col-md-9">
+					<div id="reimbursement"></div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="modal-lead col-md-3">
+					<div id="teveonly"></div>
+				</div>
+				<div class="modal-detail col-md-9">
+					<div id="eveonly"></div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="modal-lead col-md-3">
+					<div id="tpolice"></div>
+				</div>
+				<div class="modal-detail col-md-9">
+					<div id="police"></div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<!--<button type="button" class="btn btn-primary center-block" data-dismiss="modal">Add to Shortlist</button>-->
+			<button type="button" class="btn btn-primary center-block" data-dismiss="modal">Close</button>
+		</div>
 	</div>
+  </div>
 </div>
 
 <!-- Shortlist submission Modal -->
 <div class="modal fade" id="JobRegisterModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-    		<div class="modal-content">
+    	<div class="modal-content">
          	<!-- Modal Header -->
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">
                 	<span aria-hidden="true">&times;</span>
-                  <span class="sr-only">Close</span>
                 </button>
                 <h4 class="modal-title" id="myModalLabel">Register your details</h4>
             </div>
@@ -651,25 +648,25 @@ defined('C5_EXECUTE') or die('Access Denied.')
 							<span class="help-block"></span>
                     	</div>
                   </div>
-									<div class="form-group">
-											<label  class="col-sm-4 control-label" for="cityList">City</label>
-										  <div class="col-sm-8">
-												<select name="city" id="cityList" >
-													<option selected="" value="">Select</option>
-													<?php
-														$cities = $controller->getCity();
-														foreach($cities as $city) { ?>
-															<option value="<?php echo $city["city"]; ?>"><?php echo $city["city"]; ?></option>
-														<?php }
-													?>
-     											</select>
-												<span class="help-block"></span>
-											</div>
-									</div>
+					<div class="form-group">
+							<label  class="col-sm-4 control-label" for="cityList">City</label>
+						  <div class="col-sm-8">
+								<select class="form-control" name="city" id="cityList" >
+									<option selected="" value="">Select</option>
+									<?php
+										$cities = $controller->getCity();
+										foreach($cities as $city) { ?>
+											<option value="<?php echo $city["city"]; ?>"><?php echo $city["city"]; ?></option>
+										<?php }
+									?>
+								</select>
+								<span class="help-block"></span>
+							</div>
+					</div>
 									<div class="form-group required">
 											<label  class="col-sm-4 control-label" for="ageBand">Age Band</label>
 										  <div class="col-sm-8">
-												<select name="age" id="ageBand" required="required">
+												<select class="form-control" name="age" id="ageBand" required="required">
 													<option selected="" value="">Select</option>
 													<?php
 														$ages = $controller->getAgeList();
@@ -684,7 +681,7 @@ defined('C5_EXECUTE') or die('Access Denied.')
 									<div class="form-group required">
 											<label  class="col-sm-4 control-label" for="genderList">What is your gender?</label>
 										  <div class="col-sm-8">
-													<select name="gender" id="genderList" required="required">
+													<select class="form-control" name="gender" id="genderList" required="required">
             								<option selected="" value="">Select</option>
 														<option value="Male">Male</option>
 														<option value="Female">Female</option>
@@ -697,7 +694,7 @@ defined('C5_EXECUTE') or die('Access Denied.')
 									<div class="form-group required">
 											<label  class="col-sm-4 control-label" for="ethnicityList">What is your ethnicity?</label>
 										  <div class="col-sm-8">
-												<select  name="ethnicity" id="ethnicityList" required="required">
+												<select  class="form-control" name="ethnicity" id="ethnicityList" required="required">
 													<option selected="" value="">Select</option>
 													<?php
 														$ethnicityList = $controller->getEthnicityList();
@@ -712,7 +709,7 @@ defined('C5_EXECUTE') or die('Access Denied.')
 									<div class="form-group">
 											<label  class="col-sm-4 control-label" for="migrantStatusList">Are you a recent migrant to NZ?</label>
 										  <div class="col-sm-8">
-													<select name="migrantStatus" id="migrantStatusList">
+													<select class="form-control" name="migrantStatus" id="migrantStatusList">
             								<option selected="" value="">Select</option>
 														<option value="Yes">Yes</option>
 														<option value="No">No</option>
@@ -723,7 +720,7 @@ defined('C5_EXECUTE') or die('Access Denied.')
 									<div class="form-group">
 											<label  class="col-sm-4 control-label" for="refugeeStatusList">Do you have legal Refugee status?</label>
 										  <div class="col-sm-8">
-													<select name="refugeeStatus" id="refugeeStatusList">
+													<select class="form-control" name="refugeeStatus" id="refugeeStatusList">
             								<option selected="" value="">Select</option>
 														<option value="Yes">Yes</option>
 														<option value="No">No</option>
@@ -734,7 +731,7 @@ defined('C5_EXECUTE') or die('Access Denied.')
 									<div class="form-group">
 											<label  class="col-sm-4 control-label" for="heardList">How did you hear about Volunteer Wellington?</label>
 										  <div class="col-sm-8">
-												<select name="heard" id="heardList">
+												<select class="form-control" name="heard" id="heardList">
 													<option selected="" value="">Select</option>
 													<?php
 														$heardList = $controller->getHeardList();
@@ -749,7 +746,7 @@ defined('C5_EXECUTE') or die('Access Denied.')
 									<div class="form-group">
 											<label  class="col-sm-4 control-label" for="workStatusList">What is your work status?</label>
 										  <div class="col-sm-8">
-												<select name="workStatus" id="workStatusList">
+												<select class="form-control" name="workStatus" id="workStatusList">
 													<option selected="" value="">Select</option>
 													<?php
 														$workList = $controller->getWorkStatus();
@@ -764,7 +761,7 @@ defined('C5_EXECUTE') or die('Access Denied.')
 									<div class="form-group">
 											<label  class="col-sm-4 control-label" for="volReasonList">Reason for Volunteering?</label>
 										  <div class="col-sm-8">
-												<select name="volReason" id="volReasonList">
+												<select class="form-control" name="volReason" id="volReasonList">
 													<option selected="" value="">Select</option>
 													<?php
 														$reasonList = $controller->getVolReason();
@@ -779,7 +776,7 @@ defined('C5_EXECUTE') or die('Access Denied.')
 									<div class="form-group">
 											<label  class="col-sm-4 control-label" for="volWelOfficeList">Which is your Volunteer Wellington Office?</label>
 										  <div class="col-sm-8">
-													<select name="volWelOffice" id="volWelOfficeList">
+													<select class="form-control" name="volWelOffice" id="volWelOfficeList">
             								<option selected="" value="">Select</option>
 														<option value="Well">Wellington</option>
 														<option value="Lhutt">Lower Hutt</option>
@@ -806,8 +803,8 @@ defined('C5_EXECUTE') or die('Access Denied.')
                     	</div>
                   </div>
                 </form>
-				</div>
 			</div>
+		</div>
 	</div>
 </div>
 
@@ -816,7 +813,9 @@ defined('C5_EXECUTE') or die('Access Denied.')
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+           	<span aria-hidden="true">&times;</span>
+		</button>
         <h4 class="modal-title alert alert-warning" id="NoShortlistedJobsModalLabel">No Roles in Shortlist</h4>
       </div>
       <div class="modal-body">
@@ -834,7 +833,9 @@ defined('C5_EXECUTE') or die('Access Denied.')
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+           	<span aria-hidden="true">&times;</span>
+		</button>
         <h4 class="modal-title alert alert-warning" id="noOnlineRegistrationModalLabel">Warning</h4>
       </div>
       <div class="modal-body">
@@ -852,7 +853,9 @@ defined('C5_EXECUTE') or die('Access Denied.')
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+           	<span aria-hidden="true">&times;</span>
+		</button>
         <h4 class="modal-title alert alert-warning" id="maxShortlistLabel">Warning</h4>
       </div>
       <div class="modal-body">
@@ -870,8 +873,10 @@ defined('C5_EXECUTE') or die('Access Denied.')
     <div class="modal-dialog modal-sm">
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">Added to Shortlist</h4>
+          <button type="button" class="close" data-dismiss="modal">
+           	<span aria-hidden="true">&times;</span>
+		  </button>
+		  <h4 class="modal-title">Added to Shortlist</h4>
         </div>
         <div class="modal-body">
 					<p> This role is now in your shortlist.</p>
@@ -888,7 +893,9 @@ defined('C5_EXECUTE') or die('Access Denied.')
     <div class="modal-dialog modal-sm">
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <button type="button" class="close" data-dismiss="modal">
+           	<span aria-hidden="true">&times;</span>
+		  </button>
 					<h4 class="modal-title">Already Shortlisted</h4>
         </div>
         <div class="modal-body">
@@ -906,7 +913,9 @@ defined('C5_EXECUTE') or die('Access Denied.')
     <div class="modal-dialog modal-sm">
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <button type="button" class="close" data-dismiss="modal">
+           	<span aria-hidden="true">&times;</span>
+		  </button>
 					<h4 class="modal-title">Registration Success</h4>
         </div>
         <div class="modal-body">
@@ -925,7 +934,9 @@ defined('C5_EXECUTE') or die('Access Denied.')
 	    <div class="modal-dialog modal-sm">
 	      <div class="modal-content">
 	        <div class="modal-header">
-	          <button type="button" class="close" data-dismiss="modal">&times;</button>
+	          <button type="button" class="close" data-dismiss="modal">
+           	<span aria-hidden="true">&times;</span>
+			  </button>
 						<h4 class="modal-title alert alert-warning" id="failure-dialog-title">Registration Failure</h4>
 	        </div>
 	        <div class="modal-body" id="failure-dialog-message">
@@ -943,7 +954,9 @@ defined('C5_EXECUTE') or die('Access Denied.')
 				<div class="modal-dialog modal-sm">
 					<div class="modal-content">
 						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<button type="button" class="close" data-dismiss="modal">
+           	<span aria-hidden="true">&times;</span>
+							</button>
 							<h4 class="modal-title alert alert-warning" id="missing-dialog-title">The form is incomplete</h4>
 						</div>
 						<div class="modal-body" id="missing-dialog-message">

@@ -306,41 +306,54 @@ $( document ).tooltip({
   <div class="modal-dialog custom-class">
     <!-- Modal content-->
     <div class="modal-content">
-    	<div class="row">
-      	<div class="col-md-12 modal-header">
-        	<button type="button" class="close" data-dismiss="modal">&times;</button>
+      	<div class="modal-header">
+        	<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
         	<h4 class="modal-title"></h4>
-					<div class="model-detail col-sm-offset-1" id="description"></div>
-					<br>
-					<div class= "col-sm-3"><strong>Where:</strong></div>
-					<div class="col-sm-8">
-						<div class="model-detail" id="where"></div>
-					</div>
-					<div class= "col-sm-3"><strong>When:</strong></div>
-					<div class="col-sm-8">
-						<div class="model-detail" id="when"></div>
-					</div>
-					<div class= "col-sm-3"><strong>Food:</strong></div>
-					<div class="col-sm-8">
-						<div class="model-detail" id="food"></div>
-					</div>
-					<div class= "col-sm-3"><strong>Costs:</strong></div>
-					<div class="col-sm-8">
-						<div class="model-detail" id="cost1"></div>
-						<div class="model-detail" id="cost2"></div>
-						<div class="model-detail" id="cost3"></div>
-						<div class="model-detail" id="cost4"></div>
-						<div class="model-detail" id="cost5"></div>
-					</div>
-					<div class= "col-sm-3"><strong>Facilitator::</strong></div>
-					<div class="col-sm-8">
-						<div class="model-detail" id="facilitator"></div>
-					</div>
-					<div class= "col-sm-12">
-						<hr class=" half-rule"/>
-						<div class="text-center"><h4>Registration:</h4></div>
-					</div>
-    			<form class="form-horizontal" id="wkspRegisterForm">
+		</div>
+		<div class="modal-body">			
+			<div class="row">
+				<div class="modal-detail col-sm-offset-1" id="description"></div>
+				<br>
+				<div class= "col-sm-3"><strong>Where:</strong></div>
+				<div class="col-sm-8">
+					<div class="modal-detail" id="where"></div>
+				</div>
+			</div>
+			<div class="row">
+				<div class= "col-sm-3"><strong>When:</strong></div>
+				<div class="col-sm-8">
+					<div class="modal-detail" id="when"></div>
+				</div>
+			</div>
+			<div class="row">
+				<div class= "col-sm-3"><strong>Food:</strong></div>
+				<div class="col-sm-8">
+					<div class="modal-detail" id="food"></div>
+				</div>
+			</div>
+			<div class="row">
+				<div class= "col-sm-3"><strong>Costs:</strong></div>
+				<div class="col-sm-8">
+					<div class="modal-detail" id="cost1"></div>
+					<div class="modal-detail" id="cost2"></div>
+					<div class="modal-detail" id="cost3"></div>
+					<div class="modal-detail" id="cost4"></div>
+					<div class="modal-detail" id="cost5"></div>
+				</div>
+			</div>
+			<div class="row">
+				<div class= "col-sm-3"><strong>Facilitator::</strong></div>
+				<div class="col-sm-8">
+					<div class="modal-detail" id="facilitator"></div>
+				</div>
+			</div>
+			<div class="row">
+				<div class= "col-sm-12">
+					<hr class=" half-rule"/>
+					<div class="text-center"><h4>Registration:</h4></div>
+				</div>
+			</div>
+    		<form class="form-horizontal" id="wkspRegisterForm">
 					<div class="form-group required">
 						<label  class="col-sm-4 control-label" for="inputnum">Number of Attendees: </label>
 						<div class="col-sm-6">
@@ -438,19 +451,18 @@ $( document ).tooltip({
 								<button type="button" class="btn btn-primary center-block" data-dismiss="modal">Close</button>
 							</div>
 					</div>
-				</form>
-				</div>
-      	</div>
-      </div>
-   </div>
-	</div>
+			</form>
+		</div>
+   	</div>
+  </div>
+</div>
 
 <!-- Display registration success dialog modal-->
   <div class="modal fade" id="dialogSuccessModal" role="dialog">
     <div class="modal-dialog modal-sm">
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
           <h4 class="modal-title" id="success-dialog-title">Registration Success</h4>
         </div>
         <div class="modal-body" id="success-dialog-message">
@@ -468,7 +480,7 @@ $( document ).tooltip({
 	    <div class="modal-dialog modal-sm">
 	      <div class="modal-content">
 	        <div class="modal-header">
-	          <button type="button" class="close" data-dismiss="modal">&times;</button>
+	          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
 	          <h4 class="modal-title alert alert-warning" id="failure-dialog-title">Registration Failure</h4>
 	        </div>
 	        <div class="modal-body" id="failure-dialog-message">
@@ -486,7 +498,7 @@ $( document ).tooltip({
 				<div class="modal-dialog modal-sm">
 					<div class="modal-content">
 						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
 							<h4 class="modal-title alert alert-warning" id="missing-dialog-title">The form is incomplete</h4>
 						</div>
 						<div class="modal-body" id="missing-dialog-message">
