@@ -226,7 +226,7 @@ class VwTraining extends PageController
     $mailService->load('mail_template');
 
     // Set email parameters
-    $mailService->to('office@volunteerwellington.nz');
+    $mailService->to('julie@volunteerwellington.nz, office@volunteerwellington.nz');
     $mailService->from('vwwrkshpreg@volunteerwellington.nz');
     $mailService->replyto('vwwrkshpreg@volunteerwellington.nz', 'Online Workshop Registration');
     $mailService->setSubject($subject);

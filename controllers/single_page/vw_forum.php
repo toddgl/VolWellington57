@@ -32,7 +32,7 @@ class VwForum extends PageController
 	$stmt = $conn->prepare($sql);
 	$stmt->execute();
 	$results = $stmt->fetchAll();
-	$this->set('cities', $results);		
+	$this->set('cities', $results);
   }
 
   public function getDetail() {
@@ -202,7 +202,7 @@ class VwForum extends PageController
       $mailService->load('mail_template');
 
       // Set email parameters
-      $mailService->to('office@volunteerwellington.nz');
+      $mailService->to('julie@volunteerwellington.nz, office@volunteerwellington.nz');
       $mailService->from('vwforumreg@volunteerwellington.nz');
       $mailService->replyto('vwforumreg@volunteerwellington.nz', 'Online Forum Registration');
       $mailService->setSubject($subject);
