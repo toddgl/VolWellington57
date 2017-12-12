@@ -160,7 +160,7 @@ class JobSearch extends PageController
 		$page = filter_var($this->get("sPage"),$filters['page'], $options['page']);
 		if (empty($page))
 			$page = 0;
-			
+
    		$sql =  "SELECT  `title`, `keyword`, `jobsub`, `descrip`, `ID`, 'policeck', 'eveonly', 'reimbursement' FROM `jobs`";
 		$where = "WHERE `status` = 1";
 		if (!empty($category)) {
@@ -203,8 +203,8 @@ class JobSearch extends PageController
    		$this->set('resultCategory', $this->get('sCategory'));
    		$this->set('resultLocation', $this->get('sLocation'));
    		$this->set('resultKeyword', $this->get("sWord"));
-   		$this->set('resultPage', $page);		
-   		$this->set('resultPageSize', $pageSize);		
+   		$this->set('resultPage', $page);
+   		$this->set('resultPageSize', $pageSize);
 	}
 
 	public function jobRegister() {
@@ -540,7 +540,7 @@ class JobSearch extends PageController
 			$mailService->load('mail_template');
 
 	    // Set email parameters
-			$mailService->to('office@volunteerwellington.nz');
+			$mailService->to('info@volunteerwellington.nz, aileen@volunteerwellington.nz');
 			$mailService->replyto('office@volunteerwellington.nz', 'Online Job Registration');
 			$mailService->setSubject('Volunteer Wellington OnLine Volunteer Registration');
 			$mailService->setBodyHTML($mailOfficeContent);
