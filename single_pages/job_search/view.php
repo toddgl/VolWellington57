@@ -150,7 +150,6 @@ defined('C5_EXECUTE') or die('Access Denied.')
 			return false;
 		$("#selPage").val(page);
 		document.getElementById("searchForm").submit();
-		gtag('event', 'navigate_search_result', {'value': page});
 		return false;
 	};
 
