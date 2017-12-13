@@ -5,7 +5,7 @@ defined('C5_EXECUTE') or die('Access Denied.')
 <html lang ="en">
 	<head>
 		<!-- Global site tag (gtag.js) - Google Analytics -->
-		<?php if (Config::get('concrete.env.name') == 'prod') { ?>	
+		<?php if (Config::get('concrete.env.name') == 'prod') { ?>
 		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-110232753-1"></script>
 		<?php } ?>
 		<script>
@@ -14,7 +14,7 @@ defined('C5_EXECUTE') or die('Access Denied.')
 		  gtag('js', new Date());
 
 		  gtag('config', 'UA-110232753-1');
-		</script>	
+		</script>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="canonical" href="https://volunteerwellington.nz/">
@@ -37,7 +37,7 @@ defined('C5_EXECUTE') or die('Access Denied.')
 	<header class="red">
 		<nav class="nav-upper">
 			<a class="navbar-logo" href=<?php echo DIR_REL?>/index.php><img src="<?php echo $this->getThemePath()?>/images/VolunteerWellington_white.png" alt="Volunteer Wellington Icon" height="60" width="60"/></a>
-			<p class="navbar-text">Volunteer Wellington <br>Te Puna Tautoko <br>A Catalyst for Involvement in the Community</p>
+			<p class="navbar-text">Volunteer Wellington <br>Te Puna Tautoko <br>Community Connector</p>
 			<div class="container-fluid">
 				<?php
 		 			$uppernav = new GlobalArea('uppernav');
