@@ -540,7 +540,7 @@ class JobSearch extends PageController
 			$mailService->load('mail_template');
 
 	    // Set email parameters
-			$mailService->to('info@volunteerwellington.nz, aileen@volunteerwellington.nz');
+			$mailService->to('info@volunteerwellington.nz, office@volunteerwellington.nz');
 			$mailService->replyto('office@volunteerwellington.nz', 'Online Job Registration');
 			$mailService->setSubject('Volunteer Wellington OnLine Volunteer Registration');
 			$mailService->setBodyHTML($mailOfficeContent);
