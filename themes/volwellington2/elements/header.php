@@ -37,7 +37,7 @@ defined('C5_EXECUTE') or die('Access Denied.')
 	<header class="red">
 		<nav class="nav-upper">
 			<a class="navbar-logo" href=<?php echo DIR_REL?>/index.php><img src="<?php echo $this->getThemePath()?>/images/VolunteerWellington_white.png" alt="Volunteer Wellington Icon" height="60" width="60"/></a>
-			<p class="navbar-text">Volunteer Wellington <br>Te Puna Tautoko <br>Community Connector</p>
+			<p class="navbar-text">Volunteer Wellington <br>Te Puna Tautoko<br><span class="strapline">Your Community Connector</span></p>
 			<div class="container-fluid">
 				<?php
 		 			$uppernav = new GlobalArea('uppernav');
