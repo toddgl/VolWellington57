@@ -385,7 +385,24 @@ defined('C5_EXECUTE') or die('Access Denied.')
 		}
 	};
 
+	function copyTextToClipboard(text) {
+	   var textArea = document.createElement( "textarea" );
+	   textArea.value = text;
+	   document.body.appendChild( textArea );
 
+	   textArea.select();
+
+	   try {
+		  var successful = document.execCommand( 'copy' );
+		  if (successful === true) {
+			alert("Copied link to role");
+		  }
+	   } catch (err) {
+		  console.log('Oops, unable to copy');
+	   }
+
+	   document.body.removeChild( textArea );
+	}
 </script>
 
 	<div class="container">
@@ -483,8 +500,16 @@ defined('C5_EXECUTE') or die('Access Denied.')
 										<table class="table">
 										<thead>
 											<tr>
-												<th style="width: 50%"><button type="button" class="btn btn-primary shadow" data-toggle="modal" data-target="#myModal" data-id="<?php echo $job_id= $job["ID"]; ?>" >View Details</button></th>
-												<th style="width: 50%"><button class="btn btn-primary shadow" onclick="addmyJobFunction('<?php echo $job["ID"]; ?>', '<?php echo $job["title"]; ?>')">Add to Shortlist</button></th>
+												<th style="width: 46%"><button type="button" class="btn btn-primary shadow" data-toggle="modal" data-target="#myModal" data-id="<?php echo $job_id= $job["ID"]; ?>" >View Details</button></th>
+												<th style="width: 46%"><button class="btn btn-primary shadow" onclick="addmyJobFunction('<?php echo $job["ID"]; ?>', '<?php echo $job["title"]; ?>')">Add to Shortlist</button></th>
+												<?php
+													$u = new User();
+													if ($u->isLoggedIn()) {
+												?>
+												<th style="width: 8%"><div style="border: 1px solid transparent"><a href="#" onclick="copyTextToClipboard('<?php echo $this->url("/be-volunteer/job_search", "role", $job["ID"]); ?>'); return false;"><span class="glyphicon glyphicon-share"></span></a></div></th>
+												<?php
+													}
+												?>
 											</tr>
 										</thead>
 									</table>

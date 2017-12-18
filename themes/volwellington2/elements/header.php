@@ -22,10 +22,10 @@ defined('C5_EXECUTE') or die('Access Denied.')
 		<!--[if lte IE 8]>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
 		<![endif]-->
-		<link rel="stylesheet" href="<?php echo $this->getThemePath()?>/css/bootstrap.min.css" >
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" >
 		<link rel="stylesheet" type="text/css" href="<?php echo $view->getStylesheet('main.less')?>" >
 		<?php Loader::element('header_required');?>
-		<script src="<?php echo $this->getThemePath()?>/js/bootstrap.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 		<script type="text/javascript">
 			$(document).ready(function() {
 				$('.dropdown-toggle').dropdown();
