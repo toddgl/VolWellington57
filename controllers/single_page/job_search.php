@@ -73,7 +73,7 @@ class JobSearch extends PageController
 	public function getDetail() {
 		$jobID = $_POST['key'];
     $conn = \Database::connection('jobsearch');
-    $sql = "SELECT  ID, descrip, skills, training, reimbursement, personality, dayshours, policeck, eveonly
+    $sql = "SELECT  ID, title, descrip, skills, training, reimbursement, personality, dayshours, policeck, eveonly
     FROM jobs
     WHERE id = ?";
 
@@ -86,18 +86,18 @@ class JobSearch extends PageController
 		$details = $stmt->fetch();
 
 		echo json_encode($details, JSON_FORCE_OBJECT);
-    exit;
+		exit;
 	}
 
 
 	public function getCategory(){
-   	$dbc = \Database::connection('jobsearch');
+		$dbc = \Database::connection('jobsearch');
 		$cats = $dbc->fetchAll("SELECT `posid`,`scat` FROM `seekcats` ORDER BY `scat`  ");
 		return $cats;
 	}
 
 	public function getKeywords(){
-   	$dbc = \Database::connection('jobsearch');
+		$dbc = \Database::connection('jobsearch');
 		$cats = $dbc->fetchAll("SELECT * FROM `keywords` WHERE `status` = 1 order by 'keyword'");
 		return $cats;
 	}
@@ -136,6 +136,21 @@ class JobSearch extends PageController
 		return $loc;
 	}
 
+	public function role($roleID = null)
+	{
+		$filters = array(
+			'roleId'=>FILTER_VALIDATE_INT,
+		);
+		$options = array(
+		);
+  		//Search the database
+		$roleId = filter_var($roleID, $filters['roleId'], $options['roleId']);
+		if (!empty($roleId)) {
+			$this->searchJobDataImpl("", "", "", $roleId, 0);
+			$this->set('displayRoleDetail', $roleId);
+		}
+	}
+
 	public function searchJobData() {
 		$filters = array(
 			'keyword'=>FILTER_SANITIZE_STRING,
@@ -151,8 +166,6 @@ class JobSearch extends PageController
 			)
 		);
   		//Search the database
-  		$dbc = \Database::connection('jobsearch');
-		$pageSize = 20;
     	$category = $this->get('sCategory');
     	$location = $this->test_input($this->get('sLocation'));
     	$keyword = filter_var($this->get("sWord"),$filters['keyword'], $options['keyword']);
@@ -160,7 +173,18 @@ class JobSearch extends PageController
 		$page = filter_var($this->get("sPage"),$filters['page'], $options['page']);
 		if (empty($page))
 			$page = 0;
+			
+		$this->searchJobDataImpl($category, $location, $keyword, $roleId, $page);
 
+   		$this->set('resultCategory', $this->get('sCategory'));
+   		$this->set('resultLocation', $this->get('sLocation'));
+   		$this->set('resultKeyword', $this->get("sWord"));
+	}
+
+	private function searchJobDataImpl($category, $location, $keyword, $roleId, $page) {
+		$pageSize = 20;
+
+  		$dbc = \Database::connection('jobsearch');
    		$sql =  "SELECT  `title`, `keyword`, `jobsub`, `descrip`, `ID`, 'policeck', 'eveonly', 'reimbursement' FROM `jobs`";
 		$where = "WHERE `status` = 1";
 		if (!empty($category)) {
@@ -176,6 +200,8 @@ class JobSearch extends PageController
 				$where .= " OR `ID` = ?";
 			}
     		$where .= " )";
+		} else if (!empty($roleId)) {
+    		$where .= " AND `ID` = ?";
 		}
 		$order .= " ORDER BY `dateposted` DESC, `ID` ASC LIMIT " . ($pageSize + 1) . " OFFSET " . ($page * $pageSize);
 		$sql = $sql . $where . $order;
@@ -196,17 +222,17 @@ class JobSearch extends PageController
 				$stmt->bindValue($bindIdx, $roleId);
 				$bindIdx++;
 			}
+		} else if (!empty($roleId)) {
+			$stmt->bindValue($bindIdx, $roleId);
+			$bindIdx++;
 		}
 		$stmt->execute();
 		$results = $stmt->fetchAll();
    		$this->set('resultPosted', $results);
-   		$this->set('resultCategory', $this->get('sCategory'));
-   		$this->set('resultLocation', $this->get('sLocation'));
-   		$this->set('resultKeyword', $this->get("sWord"));
    		$this->set('resultPage', $page);
    		$this->set('resultPageSize', $pageSize);
 	}
-
+	
 	public function jobRegister() {
 		$jobSubmission = $_POST['jobData'];
 		$filters = array(

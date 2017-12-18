@@ -47,54 +47,60 @@ defined('C5_EXECUTE') or die('Access Denied.')
 			var id = $(e.relatedTarget).data('id');
 			//alert(id);
 			$(this).find('.modal-title').text('Role detail for Job ID: ' + id);
-				$.ajaxSetup ({
-			// Disable caching of AJAX responses
+			$.ajaxSetup ({
+				// Disable caching of AJAX responses
 				cache: false
-				});
+			});
 			$.ajax({
 				type: 'POST',
 				url: "<?=$view->action('getDetail')?>",
 				datatype: 'json',
 				data: ({ key: id}),
-			cache: false,
-				}).done(function(data, textStatus, jqXHR){
-					var result = $.parseJSON(data);
-					// alert(data);
-					if (result['descrip'] === undefined) {
-						// pass
-			}
-			else {
-						$('#tdescrip').html('Role Description:  ');
-				$('#descrip').html(result['descrip']);
-			}
-					if (result['skills'] === undefined) {
-						// pass
-			}
-			else {
-						$('#tskills').html('Special skills required:  ');
-				$('#skills').html(result['skills']);
-			}
-			if (result['personality'] === undefined) {
+				cache: false,
+			}).done(function(data, textStatus, jqXHR){
+				var result = $.parseJSON(data);
+				// alert(data);
+				if (result['title'] === undefined) {
 					// pass
-			}
-			else {
-						$('#tpersonality').html('Expected personality:  ');
-				$('#personality').html(result['personality']);
 				}
-			if (result['dayshours'] === undefined) {
-						// pass
-			}
-			else {
-						$('#tdayshours').html('Days, Hours for role:  ');
-						$('#dayshours').html(result['dayshours']);
-			}
-			if (result['training'] === undefined) {
-						// pass
-			}
-			else {
-						$('#ttraining').html('Training provided:  ');
-						$('#training').html(result['training']);
-			}
+				else {
+					$('#detailTitle').html(result['title'] + ' (ID: ' + id + ')');
+				}
+				if (result['descrip'] === undefined) {
+					// pass
+				}
+				else {
+					$('#tdescrip').html('Role Description:  ');
+					$('#descrip').html(result['descrip']);
+				}
+				if (result['skills'] === undefined) {
+					// pass
+				}
+				else {
+					$('#tskills').html('Special skills required:  ');
+					$('#skills').html(result['skills']);
+				}
+				if (result['personality'] === undefined) {
+					// pass
+				}
+				else {
+					$('#tpersonality').html('Expected personality:  ');
+					$('#personality').html(result['personality']);
+				}
+				if (result['dayshours'] === undefined) {
+					// pass
+				}
+				else {
+					$('#tdayshours').html('Days, Hours for role:  ');
+					$('#dayshours').html(result['dayshours']);
+				}
+				if (result['training'] === undefined) {
+					// pass
+				}
+				else {
+					$('#ttraining').html('Training provided:  ');
+					$('#training').html(result['training']);
+				}
 			if ((result['eveonly'] == 0 ) || (result['eveonly'] === undefined)) {
 						// clear modal data
 						$('#teveonly').html('');
@@ -139,6 +145,13 @@ defined('C5_EXECUTE') or die('Access Denied.')
 			}
 			});
 		});
+		
+		<?php
+			// If displayRoleDetail is set, display details of the role whose id is displayRoleDetail
+			if (!empty($displayRoleDetail)) {
+				echo "$('button[data-id=\"" . $displayRoleDetail . "\"][data-target=\"#myModal\"]').trigger( 'click' );\n";
+			}
+		?>
 	});
 
 	$(window).on ('load', function() {
@@ -471,7 +484,7 @@ defined('C5_EXECUTE') or die('Access Denied.')
 										<thead>
 											<tr>
 												<th style="width: 50%"><button type="button" class="btn btn-primary shadow" data-toggle="modal" data-target="#myModal" data-id="<?php echo $job_id= $job["ID"]; ?>" >View Details</button></th>
-											<th style="width: 50%"><button class="btn btn-primary shadow" onclick="addmyJobFunction('<?php echo $job["ID"]; ?>', '<?php echo $job["title"]; ?>')">Add to Shortlist</button></th>
+												<th style="width: 50%"><button class="btn btn-primary shadow" onclick="addmyJobFunction('<?php echo $job["ID"]; ?>', '<?php echo $job["title"]; ?>')">Add to Shortlist</button></th>
 											</tr>
 										</thead>
 									</table>
@@ -504,7 +517,7 @@ defined('C5_EXECUTE') or die('Access Denied.')
     <div class="modal-content">
       	<div class="modal-header">
         	<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
-        	<h4 class="modal-title">
+        	<h4 class="modal-title" id="detailTitle">
         	</h4>
       	</div>
       	<div class="modal-body">
