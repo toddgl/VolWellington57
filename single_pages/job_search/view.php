@@ -8,6 +8,29 @@ defined('C5_EXECUTE') or die('Access Denied.')
 	Raven.config('https://606f3fd66dd04223a83abba161de7248@sentry.io/247542').install();
 </script>
 
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+	  <?php if (Config::get('concrete.env.name') == 'prod') { ?>
+      appId            : '407446293006950',
+	  <?php } else { ?>
+      appId            : '157296625032750',
+	  <?php } ?>
+      autoLogAppEvents : true,
+      xfbml            : false,
+      version          : 'v2.11'
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "https://connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
+
 <script type="text/javascript">
 	var prefix = "roleShortlist-";  // Set localStorage key prefix
 	var maxItems = 10;  //Set LocalStorage shortlist limit
@@ -38,6 +61,14 @@ defined('C5_EXECUTE') or die('Access Denied.')
 			//console.log("Change: " + name + " to " + check);
 		});
 		
+		$("#myModalFB").click(function() {
+			return fbShare('<?php echo $this->url("/be-volunteer/job_search", "role"); ?>', $('#myModal .modal-header button').data('id'));
+		});
+		
+		$("#myModalAdd").click(function() {
+			addmyJobFunction($('#myModal .modal-header button').data('id'), $('#myModal .modal-header button').data('title'));
+		});
+
 		$('#myModal').on('shown.bs.modal', function(e) {
 			var id = $(e.relatedTarget).data('id');
 			gtag('event', 'view_item', {'items': [{'id': id, 'category': 'role'}]});
@@ -60,6 +91,8 @@ defined('C5_EXECUTE') or die('Access Denied.')
 			}).done(function(data, textStatus, jqXHR){
 				var result = $.parseJSON(data);
 				// alert(data);
+				$("#myModal .modal-header button").data("id", id); 
+				$("#myModal .modal-header button").data("title", result['title']); 
 				if (result['title'] === undefined) {
 					// pass
 				}
@@ -101,33 +134,33 @@ defined('C5_EXECUTE') or die('Access Denied.')
 					$('#ttraining').html('Training provided:  ');
 					$('#training').html(result['training']);
 				}
-			if ((result['eveonly'] == 0 ) || (result['eveonly'] === undefined)) {
+				if ((result['eveonly'] == 0 ) || (result['eveonly'] === undefined)) {
 						// clear modal data
 						$('#teveonly').html('');
 						$('#eveonly').html('');
-			}
-			else {
+				}
+				else {
 						$('#teveonly').html('Specific Arrangements:');
 						$('#eveonly').html('This role is Evenings Only');
-			}
-			if ((result['reimbursement'] == 0 ) || (result['reimbursement'] === undefined)) {
+				}
+				if ((result['reimbursement'] == 0 ) || (result['reimbursement'] === undefined)) {
 						$('#treimbursement').html('Reimbursements:');
 						$('#reimbursement').html('No');
-			}
-			else {
+				}
+				else {
 						$('#treimbursement').html('Reimbursements   :');
 						$('#reimbursement').html('Yes');
-			}
-			if ((result['policeck'] == 0 ) || (result['policeck'] === undefined)) {
+				}
+				if ((result['policeck'] == 0 ) || (result['policeck'] === undefined)) {
 						// pass
 						$('#tpolice').html('');
 						$('#police').html('');
-			}
-			else {
+				}
+				else {
 						$('#tpolice').html('Please Note:  ');
 						$('#police').html('The Organisation has stipulated that this role will require a Police Check');
-			}
-				}).fail(function(jqXHR, textStatus, errorThrown){
+				}
+			}).fail(function(jqXHR, textStatus, errorThrown){
 				if (textStatus === 'parsererror') {
 				alert('Requested JSON parse failed.');
 				} else if (textStatus === 'timeout') {
@@ -176,7 +209,7 @@ defined('C5_EXECUTE') or die('Access Denied.')
 			cache: false,
 		}).done(function(data, textStatus, jqXHR){
 			var result = $.parseJSON(data);
-			//alert(result["success"]);
+			$("#myModal").modal('hide');
 			if (result["success"] == 'true') {
 				$('#noOnlineRegistrationModal').modal('show');
 				gtag('event', 'role_must_be_registered_by_phone', {'value': id});
@@ -403,6 +436,17 @@ defined('C5_EXECUTE') or die('Access Denied.')
 
 	   document.body.removeChild( textArea );
 	}
+	
+	function fbShare(urlPrefix, roleId) {
+		FB.ui(
+			{
+				method: 'share',
+				href: urlPrefix + '/' + roleId
+			},
+			function(response){}
+		);
+		return false;
+	}
 </script>
 
 	<div class="container">
@@ -498,21 +542,27 @@ defined('C5_EXECUTE') or die('Access Denied.')
 									</div>
 									<div class="lt-dk-blue-wrapper">
 										<table class="table">
-										<thead>
-											<tr>
-												<th style="width: 46%"><button type="button" class="btn btn-primary shadow" data-toggle="modal" data-target="#myModal" data-id="<?php echo $job_id= $job["ID"]; ?>" >View Details</button></th>
-												<th style="width: 46%"><button class="btn btn-primary shadow" onclick="addmyJobFunction('<?php echo $job["ID"]; ?>', '<?php echo $job["title"]; ?>')">Add to Shortlist</button></th>
-												<?php
-													$u = new User();
-													if ($u->isLoggedIn()) {
-												?>
-												<th style="width: 8%"><div style="border: 1px solid transparent"><a href="#" onclick="copyTextToClipboard('<?php echo $this->url("/be-volunteer/job_search", "role", $job["ID"]); ?>'); return false;"><span class="glyphicon glyphicon-share"></span></a></div></th>
-												<?php
-													}
-												?>
-											</tr>
-										</thead>
-									</table>
+											<thead>
+												<tr>
+													<th style="width: 46%"><button type="button" class="btn btn-primary shadow" data-toggle="modal" data-target="#myModal" data-id="<?php echo $job_id= $job["ID"]; ?>" >View Details</button></th>
+													<th style="width: 46%"><button class="btn btn-primary shadow" onclick="addmyJobFunction('<?php echo $job["ID"]; ?>', '<?php echo $job["title"]; ?>')">Add to Shortlist</button></th>
+													<th style="width: 8%">
+														<?php
+															$u = new User();
+															if ($u->isLoggedIn()) {
+														?>
+														<div style="border: 1px solid transparent">
+															<a href="#" onclick="copyTextToClipboard('<?php echo $this->url("/be-volunteer/job_search", "role", $job["ID"]); ?>'); return false;"><i class="fa fa-link" aria-hidden="true"></i></a>
+														</div>
+														<?php
+															}
+														?>
+														<div style="border: 1px solid transparent">
+															<a href="#" onclick="return fbShare('<?php echo $this->url("/be-volunteer/job_search", "role"); ?>', '<?php echo $job["ID"]; ?>')"><i class="fa fa-facebook-square fa-lg" aria-hidden="true"></i></a></div>
+													</th>
+												</tr>
+											</thead>
+										</table>
 									</div>
 								<?php }
 								$prevDisabled = ($resultPage == 0);
@@ -541,9 +591,8 @@ defined('C5_EXECUTE') or die('Access Denied.')
     <!-- Modal content-->
     <div class="modal-content">
       	<div class="modal-header">
-        	<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
-        	<h4 class="modal-title" id="detailTitle">
-        	</h4>
+        	<button type="button" class="close" data-dismiss="modal" data-id="" data-title=""><span aria-hidden="true">&times;</span></button>
+        	<h4 class="modal-title" id="detailTitle"></h4>
       	</div>
       	<div class="modal-body">
 			<div class="row">
@@ -612,8 +661,17 @@ defined('C5_EXECUTE') or die('Access Denied.')
 			</div>
 		</div>
 		<div class="modal-footer">
-			<!--<button type="button" class="btn btn-primary center-block" data-dismiss="modal">Add to Shortlist</button>-->
-			<button type="button" class="btn btn-primary center-block" data-dismiss="modal">Close</button>
+			<div class="row">
+				<div class="col-xs-5">
+					<button type="button" class="btn btn-primary center-block" data-dismiss="modal">Close</button>
+				</div>
+				<div class="col-xs-5">
+					<button id="myModalAdd" class="btn btn-primary center-block">Add to Shortlist</button>
+				</div>
+				<div class="col-xs-2">
+					<a href="#" id="myModalFB" class="pull-right"><i class="fa fa-facebook-square fa-lg" aria-hidden="true"></i></a>
+				</div>
+			</div>
 		</div>
 	</div>
   </div>
