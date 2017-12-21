@@ -62,7 +62,7 @@ defined('C5_EXECUTE') or die('Access Denied.')
 		});
 		
 		$("#myModalFB").click(function() {
-			return fbShare('<?php echo $this->url("/be-volunteer/job_search", "role"); ?>', $('#myModal .modal-header button').data('id'));
+			return fbShare('<?php echo $this->url("/be-volunteer/job_search", "role"); ?>', $('#myModal .modal-header button').data('id'), $('#myModal .modal-header button').data('title').replace(/[\r\n]+/g," "), $('#myModal #descrip').html().replace(/[\r\n]+/g," "));
 		});
 		
 		$("#myModalAdd").click(function() {
@@ -437,14 +437,28 @@ defined('C5_EXECUTE') or die('Access Denied.')
 	   document.body.removeChild( textArea );
 	}
 	
-	function fbShare(urlPrefix, roleId) {
-		FB.ui(
-			{
-				method: 'share',
-				href: urlPrefix + '/' + roleId
+	function fbShare(urlPrefix, roleId, title, description) {
+		FB.ui({
+			method: 'share_open_graph',
+			action_type: 'og.shares',
+			action_properties: JSON.stringify({
+				object : {
+				   'og:url': urlPrefix + '/' + roleId,
+				   'og:title': "Volunteer Role - " + title,
+				   'og:description': description,
+				   'og:image': '<?php echo BASE_URL . $this->getThemePath(); ?>/images/VolunteerWellington_white_with_red_bg.png'
+				}
+			})
 			},
-			function(response){}
-		);
+			// callback
+			function(response) {
+			if (response && !response.error_message) {
+				// then get post content
+				//alert('successfully posted. Status id : '+response.post_id);
+			} else {
+				//alert('Something went error.');
+			}
+		});
 		return false;
 	}
 </script>
@@ -558,7 +572,7 @@ defined('C5_EXECUTE') or die('Access Denied.')
 															}
 														?>
 														<div style="border: 1px solid transparent">
-															<a href="#" onclick="return fbShare('<?php echo $this->url("/be-volunteer/job_search", "role"); ?>', '<?php echo $job["ID"]; ?>')"><i class="fa fa-facebook-square fa-lg" aria-hidden="true"></i></a></div>
+															<a href="#" onclick="return fbShare('<?php echo $this->url("/be-volunteer/job_search", "role"); ?>', '<?php echo $job["ID"]; ?>', '<?php echo trim(preg_replace('/\s\s+/', ' ', $job["title"])); ?>', '<?php echo trim(preg_replace('/\s\s+/', ' ', $job["descrip"])); ?>')"><i class="fa fa-facebook-square fa-lg" aria-hidden="true"></i></a></div>
 													</th>
 												</tr>
 											</thead>
