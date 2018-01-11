@@ -21,7 +21,7 @@ $(document).ready(function() {
 	});
 
 	$('#forumModal').on('shown.bs.modal', function(e) {
-		gtag('event', 'view_item', {'items': [{'id': id, 'category': 'forum'}]});
+		gtag('event', 'view_item', {'event_label': 'forum', 'items': [{'id': id, 'category': 'forum'}]});
 	});
 
 	$('#forumModal').on('show.bs.modal', function(e) {
@@ -83,7 +83,7 @@ if(valid) {
 		//alert(textStatus);
 		$('#forumModal').modal('hide');
 		$('#dialogSuccessModal').modal('show');
-		gtag('event', 'purchase', {'items': [{'id': id, 'category': 'forum'}]});
+		gtag('event', 'purchase', {'event_label': 'forum', 'items': [{'id': id, 'category': 'forum'}]});
 	}).fail(function(jqXHR, textStatus, errorThrown){
 		// alert(errorThrown);
 		$('#forumModal').modal('hide');

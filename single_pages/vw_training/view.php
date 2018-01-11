@@ -33,7 +33,7 @@ $(document).ready(function() {
 	});
 
 	$('#wkspModal').on('shown.bs.modal', function(e) {
-		gtag('event', 'view_item', {'items': [{'id': id, 'category': 'training'}]});
+		gtag('event', 'view_item', {'event_label': 'training', 'items': [{'id': id, 'category': 'training'}]});
 	});
 
 	$('#wkspModal').on('show.bs.modal', function(e) {
@@ -202,7 +202,7 @@ if(valid) {
 		//alert(textStatus);
 		$('#wkspModal').modal('hide');
 		$('#dialogSuccessModal').modal('show');
-		gtag('event', 'purchase', {'items': [{'id': id, 'category': 'training'}]});
+		gtag('event', 'purchase', {'event_label': 'training', 'items': [{'id': id, 'category': 'training'}]});
 	}).fail(function(jqXHR, textStatus, errorThrown){
 		// alert(errorThrown);
 		$('#wkspModal').modal('hide');

@@ -18,7 +18,7 @@ $(document).ready(function() {
 
 function volProjectFunction() {
 	$('#volProjectModal').modal('show');
-	gtag('event', 'begin_checkout', {'items': [{'category': 'project'}]});
+	gtag('event', 'begin_checkout', {'event_label': 'project', 'items': [{'category': 'project'}]});
 };
 
 function regEVProject() {
@@ -73,7 +73,7 @@ function regEVProject() {
 			//alert(textStatus);
 			$('#volProjectModal').modal('hide');
 			$('#dialogSuccessModal').modal('show');
-			gtag('event', 'purchase', {'items': [{'category': 'project'}]});
+			gtag('event', 'purchase', {'event_label': 'project', 'items': [{'category': 'project'}]});
 		}).fail(function(jqXHR, textStatus, errorThrown){
 			// alert(errorThrown);
 			$('#volProjectModal').modal('hide');

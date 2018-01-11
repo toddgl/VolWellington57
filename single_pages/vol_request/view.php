@@ -25,7 +25,7 @@ $(document).ready(function() {
 
 function volRequestFunction() {
 	$('#volRequestModal').modal('show');
-	gtag('event', 'begin_checkout', {'items': [{'category': 'volunteer'}]});
+	gtag('event', 'begin_checkout', {'event_label': 'volunteer', 'items': [{'category': 'volunteer'}]});
 };
 
 function sendVolRequest() {
@@ -112,7 +112,7 @@ function sendVolRequest() {
 			//alert(textStatus);
 			$('#volRequestModal').modal('hide');
 			$('#dialogSuccessModal').modal('show');
-			gtag('event', 'purchase', {'items': [{'category': 'volunteer'}]});
+			gtag('event', 'purchase', {'event_label': 'volunteer', 'items': [{'category': 'volunteer'}]});
 		}).fail(function(jqXHR, textStatus, errorThrown){
 			// alert(errorThrown);
 			$('#volRequestModal').modal('hide');

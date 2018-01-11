@@ -17,7 +17,7 @@ $(document).ready(function() {
 
 function mbrRegisterFunction() {
 	$('#mbrRegisterModal').modal('show');
-	gtag('event', 'begin_checkout', {'items': [{'category': 'member'}]});
+	gtag('event', 'begin_checkout', {'event_label': 'member', 'items': [{'category': 'member'}]});
 };
 
 function sendMbrRegister() {
@@ -115,7 +115,7 @@ function sendMbrRegister() {
 			//alert(textStatus);
 			$('#mbrRegisterModal').modal('hide');
 			$('#dialogSuccessModal').modal('show');
-			gtag('event', 'purchase', {'items': [{'category': 'member'}]});
+			gtag('event', 'purchase', {'event_label': 'member', 'items': [{'category': 'member'}]});
 		}).fail(function(jqXHR, textStatus, errorThrown){
 			// alert(errorThrown);
 			$('#mbrRegisterModal').modal('hide');

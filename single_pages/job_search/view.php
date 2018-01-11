@@ -71,7 +71,8 @@ defined('C5_EXECUTE') or die('Access Denied.')
 
 		$('#myModal').on('shown.bs.modal', function(e) {
 			var id = $(e.relatedTarget).data('id');
-			gtag('event', 'view_item', {'items': [{'id': id, 'category': 'role'}]});
+			var title = $(e.relatedTarget).data('title');
+			gtag('event', 'view_item', {'event_label': title, 'items': [{'id': id, 'category': 'role'}]});
 		});
 
 		$('#myModal').on('show.bs.modal', function(e) {
@@ -212,7 +213,7 @@ defined('C5_EXECUTE') or die('Access Denied.')
 			$("#myModal").modal('hide');
 			if (result["success"] == 'true') {
 				$('#noOnlineRegistrationModal').modal('show');
-				gtag('event', 'role_must_be_registered_by_phone', {'value': id});
+				gtag('event', 'role_must_be_registered_by_phone', {'event_label': title, 'value': id});
 			}
 			else {
 				// add job to storage
@@ -227,7 +228,7 @@ defined('C5_EXECUTE') or die('Access Denied.')
 						//console.log("inside addmyJob Click function job id: " + id + "added.");
 						RewriteFromStorage();
 						$('#addedToShortlistModal').modal('show');
-						gtag('event', 'add_to_cart', {'items': [{'id': id, 'category': 'role'}]});
+						gtag('event', 'add_to_cart', {'event_label': title, 'items': [{'id': id, 'category': 'role'}]});
 					} else {
 						$('#alreadyInShortlistModal').modal('show');
 					}
@@ -259,7 +260,7 @@ defined('C5_EXECUTE') or die('Access Denied.')
                                 localStorage.removeItem(id);
 								console.log("Job id: " + id + " removed from local storage")
                                 RewriteFromStorage();
-								gtag('event', 'remove_from_cart', {'items': [{'id': id, 'category': 'role'}]});
+								gtag('event', 'remove_from_cart', {'event_label': value, 'items': [{'id': id, 'category': 'role'}]});
                             })
                           )
             );
@@ -325,7 +326,7 @@ defined('C5_EXECUTE') or die('Access Denied.')
 				clearShortlist();
 				$('#JobRegisterModal').modal('hide');
 				$('#dialogSuccessModal').modal('show');
-				gtag('event', 'purchase', {'items': gaRoles});
+				gtag('event', 'purchase', {'event_label': 'roles', 'items': gaRoles});
 			}).fail(function(jqXHR, textStatus, errorThrown){
 				// alert(errorThrown);
 				$('#JobRegisterModal').modal('hide');
@@ -412,7 +413,7 @@ defined('C5_EXECUTE') or die('Access Denied.')
 		if (hasRoles === true)
 		{
 			$('#JobRegisterModal').modal('show');
-			gtag('event', 'begin_checkout', {'items': gaRoles});
+			gtag('event', 'begin_checkout', {'event_label': 'roles', 'items': gaRoles});
 		} else {
 			$('#NoShortlistedJobsModal').modal('show');
 		}
