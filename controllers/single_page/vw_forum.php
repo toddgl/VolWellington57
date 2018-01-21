@@ -126,7 +126,7 @@ class VwForum extends PageController
         'tel' => $tel,
         'email' => $email,
         'regdate' => date('Y-m-d'),
-        'status' => 0
+        'status' => 1
       ));
 
       for ($x = 1; $x <= 5; $x++) {
