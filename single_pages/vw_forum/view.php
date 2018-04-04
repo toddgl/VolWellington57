@@ -40,11 +40,33 @@ $(document).ready(function() {
 		}).done(function(data, textStatus, jqXHR){
 			var result = $.parseJSON(data);
 			var linebreak = document.createElement('br');
+			var closedate = new Date(result['cd']);
+			var forumdate = new Date(result['fdate']);
+			var dateoptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+
+			// Changes 20180313 to support non-vw forum display
+			if (result['cc'] == "1") {
+        nonvw.style.visibility='visible';
+        nonvw.style.display='block';
+				isvw.style.visibility='hidden';
+        isvw.style.display='none';
+				if (result['fee'] ==1) {
+					$('#nonvwforumcosts').html(result['feeam']);
+				}
+				$('#nonvwforumdescript').html('RSVP: by ' + closedate.toLocaleDateString("en-GB", dateoptions) + ' to ' + linkify(result['ccem']) + ' Please include which community organisation you represent in your email.');
+    	}
+    	if (result['cc'] == "0") {
+        nonvw.style.visibility='hidden';
+        nonvw.style.display='none';
+				isvw.style.visibility='visible';
+        isvw.style.display='block';
+    	}
+
 			//alert(data);
 			$('.modal-title').html(result['wksp']);
 			$('#description').html(result['bodytxt1'] + ' ' + result['bodytxt2'] + ' ' + result['bodytxt3'] + ' ' + result['bodytxt4'] + ' ' + result['bodytxt5']);
 			$('#where').html(result['where1'] + ' ' + result['where2'] + ' ' + result['where3'] + ' ' + result['city']);
-			$('#when').html(result['fdate'] + ' - ' + result['wktime']);
+			$('#when').html(forumdate.toLocaleDateString("en-GB", dateoptions) + ' - ' + result['wktime']);
 			$('#facilitator').html(result['who']);
 		}).fail(function(jqXHR, textStatus, errorThrown){
 			alert("error");
@@ -94,6 +116,24 @@ if(valid) {
 	};
 };
 
+function linkify(inputText) {
+    var replacedText, replacePattern1, replacePattern2, replacePattern3;
+
+    //URLs starting with http://, https://, or ftp://
+    replacePattern1 = /(\b(https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gim;
+    replacedText = inputText.replace(replacePattern1, '<a href="$1" target="_blank">$1</a>');
+
+    //URLs starting with "www." (without // before it, or it'd re-link the ones done above).
+    replacePattern2 = /(^|[^\/])(www\.[\S]+(\b|$))/gim;
+    replacedText = replacedText.replace(replacePattern2, '$1<a href="http://$2" target="_blank">$2</a>');
+
+    //Change email addresses to mailto:: links.
+    replacePattern3 = /(([a-zA-Z0-9\-\_\.])+@[a-zA-Z\_]+?(\.[a-zA-Z]{2,6})+)/gim;
+    replacedText = replacedText.replace(replacePattern3, '<a href="mailto:$1">$1</a>');
+
+    return replacedText;
+}
+
 function validateForm() {
 	var valid = true;
 	$("#forumModal input[required=required], #forumModal textarea[required=required], #forumModal select[required=required], #forumModal input[type=email], #forumModal input[type=number], #forumModal input[type=date]").each(function() {
@@ -137,17 +177,17 @@ function getDate(txtDate)
   var currVal = txtDate;
   if(currVal == '')
     return null;
-   
-  //Declare Regex 
+
+  //Declare Regex
   var rxDatePattern = /^(\d{1,2})(\/|-)(\d{1,2})(\/|-)(\d{4})$/;
   var dtArray = currVal.match(rxDatePattern); // is format OK?
- 
+
   if (dtArray != null) {
     //Checks for dd/mm/yyyy format.
     var dtMonth = dtArray[3];
     var dtDay= dtArray[1];
     var dtYear = dtArray[5];
- 
+
     if (dtMonth < 1 || dtMonth > 12)
       return null;
     else if (dtDay < 1 || dtDay> 31)
@@ -162,7 +202,7 @@ function getDate(txtDate)
     }
     return new Date(dtYear, dtMonth - 1, dtDay);
   }
-  
+
   var rxDatePattern = /^(\d{4})(\/|-)(\d{1,2})(\/|-)(\d{1,2})$/;
   var dtArray = currVal.match(rxDatePattern); // is format OK?
 
@@ -171,7 +211,7 @@ function getDate(txtDate)
     var dtMonth = dtArray[3];
     var dtDay= dtArray[5];
     var dtYear = dtArray[1];
- 
+
     if (dtMonth < 1 || dtMonth > 12)
       return null;
     else if (dtDay < 1 || dtDay> 31)
@@ -195,17 +235,17 @@ function isDate(txtDate)
   var currVal = txtDate;
   if(currVal == '')
     return true;
-   
-  //Declare Regex 
+
+  //Declare Regex
   var rxDatePattern = /^(\d{1,2})(\/|-)(\d{1,2})(\/|-)(\d{4})$/;
   var dtArray = currVal.match(rxDatePattern); // is format OK?
- 
+
   if (dtArray != null) {
     //Checks for dd/mm/yyyy format.
     var dtMonth = dtArray[3];
     var dtDay= dtArray[1];
     var dtYear = dtArray[5];
- 
+
     if (dtMonth < 1 || dtMonth > 12)
       return false;
     else if (dtDay < 1 || dtDay> 31)
@@ -220,7 +260,7 @@ function isDate(txtDate)
     }
     return true;
   }
-  
+
   var rxDatePattern = /^(\d{4})(\/|-)(\d{1,2})(\/|-)(\d{1,2})$/;
   var dtArray = currVal.match(rxDatePattern); // is format OK?
 
@@ -229,7 +269,7 @@ function isDate(txtDate)
     var dtMonth = dtArray[3];
     var dtDay= dtArray[5];
     var dtYear = dtArray[1];
- 
+
     if (dtMonth < 1 || dtMonth > 12)
       return false;
     else if (dtDay < 1 || dtDay> 31)
@@ -294,7 +334,7 @@ $( document ).tooltip({
                   </td>
                 </tr>
                 <?php
-                } 
+                }
 		}
 		?>
             </tbody>
@@ -346,6 +386,7 @@ $( document ).tooltip({
 						<div class="text-center"><h4>Registration:</h4></div>
 					</div>
 				</div>
+				<div id="isvw">
     			<form class="form-horizontal" id="forumRegisterForm">
 					<div class="form-group required">
 						<label  class="col-sm-4 control-label" for="inputnum">Number of Attendees: </label>
@@ -396,27 +437,20 @@ $( document ).tooltip({
 			  		   <span class="help-block"></span>
 						</div>
 					</div>
-											<div class="form-group required">
-												<label  class="col-sm-4 control-label" for="inputCity">City</label>
-												  <div class="col-sm-6">
-													<select name="city" class="form-control" id="inputcity" required="required">
-														<option selected="" value="">Select</option>
-														<?php
-															foreach($cities as $city) { ?>
-																<option value="<?php echo $city["city"]; ?>"><?php echo $city["city"]; ?></option>
-															<?php }
-														?>
-	     											</select>
-														<span class="help-block"></span>
-													</div>
-											</div>
-<!--					<div class="form-group required">
-        		<label class="col-sm-4 control-label" for="inputcity">City: </label>
-						<div class="col-sm-6">
-        			<input class="form-control" type="text" id="inputcity" placeholder="City" required="required">
-			  		   <span class="help-block"></span>
-						</div>
-					</div>-->
+					<div class="form-group required">
+						<label  class="col-sm-4 control-label" for="inputCity">City</label>
+						  <div class="col-sm-6">
+							<select name="city" class="form-control" id="inputcity" required="required">
+								<option selected="" value="">Select</option>
+								<?php
+									foreach($cities as $city) { ?>
+										<option value="<?php echo $city["city"]; ?>"><?php echo $city["city"]; ?></option>
+									<?php }
+								?>
+									</select>
+								<span class="help-block"></span>
+							</div>
+					</div>
     			<div class="form-group required">
         		<label class="col-sm-4 control-label" for="inputtel">Phone: </label>
 						<div class="col-sm-6">
@@ -440,6 +474,21 @@ $( document ).tooltip({
 							</div>
 					</div>
 				</form>
+			</div>
+			<div id="nonvw">
+				<form class="form-horizontal" id="nonVWRegisterForm">
+					<div class="modal-detail col-sm-offset-1" id="nonvwforumcosts"></div>
+					<div class="modal-detail col-sm-offset-1" id="nonvwforumdescript"></div>
+					<div class="form-group">
+							<div class="col-sm-6">
+								<!-- empty -->
+							</div>
+							<div class="col-sm-6">
+								<button type="button" class="btn btn-primary center-block" data-dismiss="modal">Close</button>
+							</div>
+					</div>
+				</form>
+			</div>
 			</div>
       	</div>
     </div>

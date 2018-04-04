@@ -281,7 +281,7 @@ class MemberRegister extends PageController
     <ul>
     <li><label>Board President/Chairperson: </label><b> &nbsp;$orgPresident</b></li>
     <li><label>Executive Director/Manager: </label><b> &nbsp;$orgCeo</b></li>
-    <li><label>Volunteer Manager/Coordinator: </label><b> &nbsp;$orgVolcoord</b></li>
+    <li><label>Manager of Volunteers: </label><b> &nbsp;$orgVolcoord</b></li>
     <li><label>Our Volunteer Manager is paid: </label><b> &nbsp;$orgVmpaid</b></li>
     <li><label>Work hours of Volunteer Manager: </label><b> &nbsp;$orgVmwork</b></li>
     <li><label>Number of paid staff: </label><b> &nbsp;$orgNopaid</b></li>

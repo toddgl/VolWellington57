@@ -39,7 +39,7 @@ defined('C5_EXECUTE') or die('Access Denied.')
 	    $(".to-truncate").dotdotdot({
 			height: 120
 	    });
-   
+
 		$('#myModal').on('hidden.bs.modal', function () {
 			$('#myModal').removeData('bs.modal');
 			$('#myModal').find('.modal-content').empty;
@@ -51,20 +51,20 @@ defined('C5_EXECUTE') or die('Access Denied.')
 			if (check == true) {
 				$("#inputEmail").attr("disabled", "disabled");
 				$("#inputEmail").val("");
-				$("#inputEmail").removeAttr("required"); 
-				$("#inputEmail").parent().parent().removeClass("required"); 
+				$("#inputEmail").removeAttr("required");
+				$("#inputEmail").parent().parent().removeClass("required");
 			} else {
-				$("#inputEmail").removeAttr("disabled"); 
+				$("#inputEmail").removeAttr("disabled");
 				$("#inputEmail").attr("required", "required");
 				$("#inputEmail").parent().parent().addClass("required");
 			}
 			//console.log("Change: " + name + " to " + check);
 		});
-		
+
 		$("#myModalFB").click(function() {
 			return fbShare('<?php echo $this->url("/be-volunteer/job_search", "role"); ?>', $('#myModal .modal-header button').data('id'), $('#myModal .modal-header button').data('title').replace(/[\r\n]+/g," "), $('#myModal #descrip').html().replace(/[\r\n]+/g," "));
 		});
-		
+
 		$("#myModalAdd").click(function() {
 			addmyJobFunction($('#myModal .modal-header button').data('id'), $('#myModal .modal-header button').data('title'));
 		});
@@ -92,8 +92,8 @@ defined('C5_EXECUTE') or die('Access Denied.')
 			}).done(function(data, textStatus, jqXHR){
 				var result = $.parseJSON(data);
 				// alert(data);
-				$("#myModal .modal-header button").data("id", id); 
-				$("#myModal .modal-header button").data("title", result['title']); 
+				$("#myModal .modal-header button").data("id", id);
+				$("#myModal .modal-header button").data("title", result['title']);
 				if (result['title'] === undefined) {
 					// pass
 				}
@@ -179,7 +179,7 @@ defined('C5_EXECUTE') or die('Access Denied.')
 			}
 			});
 		});
-		
+
 		<?php
 			// If displayRoleDetail is set, display details of the role whose id is displayRoleDetail
 			if (!empty($displayRoleDetail)) {
@@ -385,7 +385,7 @@ defined('C5_EXECUTE') or die('Access Denied.')
 			inputMobile.parent().find("> span.help-block").text("At least one contact number is required");
 			valid = false;
 		}
-		
+
 		return valid;
 	}
 
@@ -437,7 +437,7 @@ defined('C5_EXECUTE') or die('Access Denied.')
 
 	   document.body.removeChild( textArea );
 	}
-	
+
 	function fbShare(urlPrefix, roleId, title, description) {
 		FB.ui({
 			method: 'share_open_graph',
@@ -586,9 +586,9 @@ defined('C5_EXECUTE') or die('Access Denied.')
 								<ul class="pager">
 									<li class="previous <?php if ($prevDisabled) echo "disabled"; ?>"><a href="#" onclick="return navigateToPage(<?php echo $prevDisabled ? -1 : $resultPage - 1; ?>);">&larr; Previous</a></li>
 									<li class="next <?php if ($nextDisabled) echo "disabled"; ?>"><a href="#" onclick="return navigateToPage(<?php echo $nextDisabled ? -1 : $resultPage + 1; ?>);">Next &rarr;</a></li>
-								</ul>															
+								</ul>
 								<?php }
-							} ?>							
+							} ?>
 					</div>
 				</div>
 				<div class="col-md-3">
@@ -754,7 +754,7 @@ defined('C5_EXECUTE') or die('Access Denied.')
 									<div class="form-group">
                     	<label  class="col-sm-4 control-label" for="inputSuburb">Suburb</label>
                     	<div class="col-sm-8">
-							<input type="text" class="form-control" id="inputSuburb" placeholder="Suburb"/>
+							<input type="text" class="form-control" id="inputSuburb" maxlength="25" placeholder="Suburb"/>
 							<span class="help-block"></span>
                     	</div>
                   </div>

@@ -169,17 +169,17 @@ function getDate(txtDate)
   var currVal = txtDate;
   if(currVal == '')
     return null;
-   
-  //Declare Regex 
+
+  //Declare Regex
   var rxDatePattern = /^(\d{1,2})(\/|-)(\d{1,2})(\/|-)(\d{4})$/;
   var dtArray = currVal.match(rxDatePattern); // is format OK?
- 
+
   if (dtArray != null) {
     //Checks for dd/mm/yyyy format.
     var dtMonth = dtArray[3];
     var dtDay= dtArray[1];
     var dtYear = dtArray[5];
- 
+
     if (dtMonth < 1 || dtMonth > 12)
       return null;
     else if (dtDay < 1 || dtDay> 31)
@@ -194,7 +194,7 @@ function getDate(txtDate)
     }
     return new Date(dtYear, dtMonth - 1, dtDay);
   }
-  
+
   var rxDatePattern = /^(\d{4})(\/|-)(\d{1,2})(\/|-)(\d{1,2})$/;
   var dtArray = currVal.match(rxDatePattern); // is format OK?
 
@@ -203,7 +203,7 @@ function getDate(txtDate)
     var dtMonth = dtArray[3];
     var dtDay= dtArray[5];
     var dtYear = dtArray[1];
- 
+
     if (dtMonth < 1 || dtMonth > 12)
       return null;
     else if (dtDay < 1 || dtDay> 31)
@@ -227,17 +227,17 @@ function isDate(txtDate)
   var currVal = txtDate;
   if(currVal == '')
     return true;
-   
-  //Declare Regex 
+
+  //Declare Regex
   var rxDatePattern = /^(\d{1,2})(\/|-)(\d{1,2})(\/|-)(\d{4})$/;
   var dtArray = currVal.match(rxDatePattern); // is format OK?
- 
+
   if (dtArray != null) {
     //Checks for dd/mm/yyyy format.
     var dtMonth = dtArray[3];
     var dtDay= dtArray[1];
     var dtYear = dtArray[5];
- 
+
     if (dtMonth < 1 || dtMonth > 12)
       return false;
     else if (dtDay < 1 || dtDay> 31)
@@ -252,7 +252,7 @@ function isDate(txtDate)
     }
     return true;
   }
-  
+
   var rxDatePattern = /^(\d{4})(\/|-)(\d{1,2})(\/|-)(\d{1,2})$/;
   var dtArray = currVal.match(rxDatePattern); // is format OK?
 
@@ -261,7 +261,7 @@ function isDate(txtDate)
     var dtMonth = dtArray[3];
     var dtDay= dtArray[5];
     var dtYear = dtArray[1];
- 
+
     if (dtMonth < 1 || dtMonth > 12)
       return false;
     else if (dtDay < 1 || dtDay> 31)
@@ -445,7 +445,7 @@ function isDate(txtDate)
 													</div>
 											</div>
 											<div class="form-group required">
-													<label  class="col-sm-4 control-label" for="inputCoordinator">Volunteer Coordinator</label>
+													<label  class="col-sm-4 control-label" for="inputCoordinator">Manager of Volunteers</label>
 												  <div class="col-sm-8">
 															<input type="text" class="form-control" id="inputCoordinator" placeholder="Name" required="required"/>
 			  		   <span class="help-block"></span>
