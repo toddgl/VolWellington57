@@ -91,13 +91,13 @@ function sendVolRequest() {
 			volrContact.stdte = "";
 		} else {
 			volrContact.stdte = formatDate(stdteTmp);
-		} 
+		}
 		var edteTmp = getDate($("#inputEndDate").val());
 		if (edteTmp == null) {
 			volrContact.edte = "";
 		} else {
 			volrContact.edte = formatDate(edteTmp);
-		} 
+		}
 		jsonData.push({volrContact: volrContact});
 		//alert (JSON.stringify(jsonData));
 
@@ -170,17 +170,17 @@ function getDate(txtDate)
   var currVal = txtDate;
   if(currVal == '')
     return null;
-   
-  //Declare Regex 
+
+  //Declare Regex
   var rxDatePattern = /^(\d{1,2})(\/|-)(\d{1,2})(\/|-)(\d{4})$/;
   var dtArray = currVal.match(rxDatePattern); // is format OK?
- 
+
   if (dtArray != null) {
     //Checks for dd/mm/yyyy format.
     var dtMonth = dtArray[3];
     var dtDay= dtArray[1];
     var dtYear = dtArray[5];
- 
+
     if (dtMonth < 1 || dtMonth > 12)
       return null;
     else if (dtDay < 1 || dtDay> 31)
@@ -195,7 +195,7 @@ function getDate(txtDate)
     }
     return new Date(dtYear, dtMonth - 1, dtDay);
   }
-  
+
   var rxDatePattern = /^(\d{4})(\/|-)(\d{1,2})(\/|-)(\d{1,2})$/;
   var dtArray = currVal.match(rxDatePattern); // is format OK?
 
@@ -204,7 +204,7 @@ function getDate(txtDate)
     var dtMonth = dtArray[3];
     var dtDay= dtArray[5];
     var dtYear = dtArray[1];
- 
+
     if (dtMonth < 1 || dtMonth > 12)
       return null;
     else if (dtDay < 1 || dtDay> 31)
@@ -228,17 +228,17 @@ function isDate(txtDate)
   var currVal = txtDate;
   if(currVal == '')
     return true;
-   
-  //Declare Regex 
+
+  //Declare Regex
   var rxDatePattern = /^(\d{1,2})(\/|-)(\d{1,2})(\/|-)(\d{4})$/;
   var dtArray = currVal.match(rxDatePattern); // is format OK?
- 
+
   if (dtArray != null) {
     //Checks for dd/mm/yyyy format.
     var dtMonth = dtArray[3];
     var dtDay= dtArray[1];
     var dtYear = dtArray[5];
- 
+
     if (dtMonth < 1 || dtMonth > 12)
       return false;
     else if (dtDay < 1 || dtDay> 31)
@@ -253,7 +253,7 @@ function isDate(txtDate)
     }
     return true;
   }
-  
+
   var rxDatePattern = /^(\d{4})(\/|-)(\d{1,2})(\/|-)(\d{1,2})$/;
   var dtArray = currVal.match(rxDatePattern); // is format OK?
 
@@ -262,7 +262,7 @@ function isDate(txtDate)
     var dtMonth = dtArray[3];
     var dtDay= dtArray[5];
     var dtYear = dtArray[1];
- 
+
     if (dtMonth < 1 || dtMonth > 12)
       return false;
     else if (dtDay < 1 || dtDay> 31)
@@ -296,6 +296,10 @@ function isDate(txtDate)
 
 			<div class="col-md-6">
      		<h3 style="text-align: center;">Request for Volunteers</h3>
+				<?php
+	  			$areaContent0 = new Area('Content0');
+	  			$areaContent0->display($c);
+	  		?>
        	<h3 class="bg-secondary white" style="center">Policies for Volunteer Role Registration</h3>
         <?php
   				$areaContent1 = new Area('Content1');
