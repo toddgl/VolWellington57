@@ -173,7 +173,7 @@ class JobSearch extends PageController
 		$page = filter_var($this->get("sPage"),$filters['page'], $options['page']);
 		if (empty($page))
 			$page = 0;
-			
+
 		$this->searchJobDataImpl($category, $location, $keyword, $roleId, $page);
 
    		$this->set('resultCategory', $this->get('sCategory'));
@@ -232,7 +232,7 @@ class JobSearch extends PageController
    		$this->set('resultPage', $page);
    		$this->set('resultPageSize', $pageSize);
 	}
-	
+
 	public function jobRegister() {
 		$jobSubmission = $_POST['jobData'];
 		$filters = array(
@@ -341,6 +341,9 @@ class JobSearch extends PageController
 		$volReDate = date('Y-m-d');
     	$volCreateDate = new \DateTime($volReDate);
 		$displayCreateDate = $volCreateDate->format('d/m/Y');
+
+		// Add the Volunteer Health & safety brochure this is to go out as an attachment to the volunteers email
+    $attachment = \Concrete\Core\File\File::getByID(97);
 
 
 		$conn = \Database::connection('jobsearch');
@@ -579,6 +582,7 @@ class JobSearch extends PageController
 			if (!empty($volEmail)) {
 				$mailVolContent .= "
 				<p>The organisation(s) who registered the role(s) you have chosen has been sent your application(s).   If you don’t hear from them within 48 hours we recommend you contact them directly using the organisation contact information above.</p>
+				<p>It is important to Volunteer Wellington that all of the volunteers we work with or refer have a safe and enjoyable experience whilst undertaking their voluntary roles. As a volunteer, you must take reasonable care of your own safety and take care not to do anything which could harm another person. Please read the attached document 'Health and Safety when volunteering'.</p>
 				<p>If you have any questions or would like to discuss your options further please email Volunteer Wellington at <a href=mailt:info@volunteerwellington.nz>info@volunteerwellington.nz</a> or phone 04 499 4570</p>
 				";
 
@@ -592,6 +596,7 @@ class JobSearch extends PageController
 				$mailService->replyto('office@volunteerwellington.nz', 'Online Role Registration');
 				$mailService->setSubject('Volunteer Wellington OnLine Role Registration');
 				$mailService->setBodyHTML($mailVolContent);
+				$mailService->addAttachment($attachment);
 
 				// Send email
 				$mailService->sendMail();
