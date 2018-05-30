@@ -88,6 +88,34 @@ defined('C5_EXECUTE') or die('Access Denied.')
       </div>
     </div>
 		<div class="row">
+      <div class="col-md-8">
+				<?php
+					$areaBusinessContent = new Area('Business_Content');
+					$areaBusinessContent->display($c);
+				?>
+        <?php
+					if (empty($businessfriends)) { ?>
+        		<!-- pass -->
+        <?php
+					} else { ?>
+						<ul>
+						<?php
+            foreach ($businessfriends as $businessfriend) {
+              if (empty($businessfriend["web"])) { ?>
+                <li><?php echo $businessfriend["name"]; ?></li>
+              <?php
+              } else { ?>
+							<li><a href="<?php echo $businessfriend["web"]; ?>"><?php echo $businessfriend["name"]; ?></a></li>
+              <?php }
+            }?>
+						<ul>
+					<?php	} ?>
+      </div>
+      <div class="col-md-4">
+         <!-- Unused -->
+      </div>
+    </div>
+		<div class="row">
 			<div class="col-md-8">
 				<?php
 					$areaInKindContent = new Area('InKind_Content');
