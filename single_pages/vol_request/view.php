@@ -49,6 +49,7 @@ function sendVolRequest() {
 		volrContact.jtel = $("#inputContactTel").val();
 		volrContact.ref = $("#inputReferralPerson").val();
 		volrContact.training = $("#inputTraining").val();
+		volrContact.hstraining = $("#inputHSTraining").val();
 		if ($("#inputHasReimburse").is(":checked")) {
 			volrContact.reimbursement = 1;
 		} else {
@@ -418,28 +419,35 @@ function isDate(txtDate)
 		                    	<label  class="col-sm-4 control-label" for="inputContactEmail">Email</label>
 		                    	<div class="col-sm-8">
 		                        <input type="email" class="form-control" id="inputContactEmail" placeholder="Email" required="required"/>
-			  		   <span class="help-block"></span>
+			  		   							<span class="help-block"></span>
 		                    	</div>
 		                  </div>
 											<div class="form-group required">
 													<label  class="col-sm-4 control-label" for="inputContactTel">Contact Telephone</label>
 													<div class="col-sm-8">
 															<input type="text" class="form-control" id="inputContactTel" placeholder="Contact Telephone" required="required"/>
-			  		   <span class="help-block"></span>
+			  		   								<span class="help-block"></span>
 													</div>
 											</div>
 											<div class="form-group required">
 													<label  class="col-sm-4 control-label" for="inputReferralPerson">Referrals Person</label>
 												  <div class="col-sm-8">
 															<input type="text" class="form-control" id="inputReferralPerson" placeholder="Referrals Person" required="required"/>
-			  		   <span class="help-block"></span>
+			  		   								<span class="help-block"></span>
 													</div>
 											</div>
 											<div class="form-group required">
 													<label  class="col-sm-4 control-label" for="inputTraining">What training is provided (Please explain when and where the training is, length of training, whether there is any cost to the volunteer)</label>
 												  <div class="col-sm-8">
 														<textarea class="form-control" id="inputTraining" rows="6" placeholder="Training" required="required"></textarea>
-			  		   <span class="help-block"></span>
+			  		   							<span class="help-block"></span>
+													</div>
+											</div>
+											<div class="form-group required">
+													<label  class="col-sm-4 control-label" for="inputHSTraining">What Health & Safety training is provided</label>
+												  <div class="col-sm-8">
+														<textarea class="form-control" id="inputHSTraining" rows="6" placeholder="Health & Safety Training" required="required"></textarea>
+			  		   							<span class="help-block"></span>
 													</div>
 											</div>
 											<div class="form-group">

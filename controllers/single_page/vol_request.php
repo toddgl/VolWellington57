@@ -49,6 +49,7 @@ class VolRequest extends PageController
       'jtel'=>FILTER_SANITIZE_STRING,
       'ref'=>FILTER_SANITIZE_STRING,
       'training'=>FILTER_SANITIZE_STRING,
+      'hstraining'=>FILTER_SANITIZE_STRING,
       'reimbursement'=>FILTER_SANITIZE_NUMBER_INT,
       'dayshours'=>FILTER_SANITIZE_STRING,
       'personality'=>FILTER_SANITIZE_STRING,
@@ -102,6 +103,9 @@ class VolRequest extends PageController
       'training'=>array(
         'flags'=>FILTER_NULL_ON_FAILURE
     	),
+      'hstraining'=>array(
+        'flags'=>FILTER_NULL_ON_FAILURE
+    	),
       'reimbursement'=>array(
         'flags'=>FILTER_NULL_ON_FAILURE
     	),
@@ -141,6 +145,7 @@ class VolRequest extends PageController
     $reqJtel = filter_var($inputs[0]['volrContact']['jtel'],$filters['jtel'], $options['jtel']);
     $reqRef = filter_var($inputs[0]['volrContact']['ref'],$filters['ref'], $options['ref']);
     $reqTraining = filter_var($inputs[0]['volrContact']['training'],$filters['training'], $options['training']);
+    $reqHSTraining = filter_var($inputs[0]['volrContact']['hstraining'],$filters['hstraining'], $options['hstraining']);
     $rawReimbursement = filter_var($inputs[0]['volrContact']['reimbursement'],$filters['reimbursement'], $options['reimbursement']);
     if ($rawReimbursement==1) {
       $reqReimbursement='Yes';
@@ -241,6 +246,7 @@ class VolRequest extends PageController
     <li class=\"spacer\"><label>Supervisor:</label><b> &nbsp; $reqSupervisor</b></li>
     <li class=\"spacer\"><label>Job Description:</label><b> &nbsp; $reqDescrip</b></li>
     <li class=\"spacer\"><label>Training offered:</label><b> &nbsp; $reqTraining</b></li>
+    <li class=\"spacer\"><label>Health & Safety Training provided:</label><b> &nbsp; $reqHSTraining</b></li>
     <li class=\"spacer\"><label>Special Skills needed:</label><b> &nbsp; $reqSkills</b></li>
     <li class=\"spacer\"><label>Type of personality:</label><b> &nbsp; $reqPersonality</b></li>
     <li class=\"spacer\"><label>On-Line:</label><b> &nbsp; $reqOnline</b></li>
@@ -268,6 +274,7 @@ class VolRequest extends PageController
         'jtel' => $reqJtel,
         'ref' => $reqRef,
         'training' => $reqTraining,
+        'hstraining' => $reqHSTraining,
         'reimbursement' => $rawReimbursement,
         'dateposted' => $reqDateposted,
         'dayshours' => $reqDayshours,

@@ -59,6 +59,43 @@ function regEVProject() {
 			evProject.ischallenge = 0;
 		}
     evProject.currentyear = new Date().getFullYear();
+		if ($("#ProjCoordRadio").is(":checked")) {
+			evProject.hsname = $("#inputSupervisorName").val();
+	    evProject.hstel = $("#inputContactTel").val();
+	    evProject.hsemail = $("#inputContactEmail").val();
+		} else {
+			evProject.hsname = $("#OtherName").val();
+	    evProject.hstel = $("#OtherTel").val();
+	    evProject.hsemail = $("#OtherEmail").val();
+		}
+		evProject.hsinduct = $("#inputHSInduction").val();
+		evProject.hstasks = $("#inputHSTasks").val();
+		evProject.hsrisks = $("#inputHSRisks").val();
+		if ($("#HSBriefChk").is(":checked")) {
+			evProject.isbrief = 1;
+		} else {
+			evProject.isbrief = 0;
+		}
+		if ($("#HSSupervisionChk").is(":checked")) {
+			evProject.issuper = 1;
+		} else {
+			evProject.issuper = 0;
+		}
+		if ($("#HSEquipChk").is(":checked")) {
+			evProject.isequip = 1;
+		} else {
+			evProject.isequip = 0;
+		}
+		if ($("#HSAdviceChk").is(":checked")) {
+			evProject.isadvice = 1;
+		} else {
+			evProject.isadvice = 0;
+		}
+		evProject.othernotes = $("#inputHSOther").val();
+		evProject.hsequip = $("#inputHSProEquip").val();
+		evProject.hsreport = $("#inputHSReporting").val();
+		evProject.hsother = $("#inputHSAdditional").val();
+
 		jsonData.push({evProject: evProject});
 		//alert (JSON.stringify(jsonData));
 
@@ -127,17 +164,17 @@ function getDate(txtDate)
   var currVal = txtDate;
   if(currVal == '')
     return null;
-   
-  //Declare Regex 
+
+  //Declare Regex
   var rxDatePattern = /^(\d{1,2})(\/|-)(\d{1,2})(\/|-)(\d{4})$/;
   var dtArray = currVal.match(rxDatePattern); // is format OK?
- 
+
   if (dtArray != null) {
     //Checks for dd/mm/yyyy format.
     var dtMonth = dtArray[3];
     var dtDay= dtArray[1];
     var dtYear = dtArray[5];
- 
+
     if (dtMonth < 1 || dtMonth > 12)
       return null;
     else if (dtDay < 1 || dtDay> 31)
@@ -152,7 +189,7 @@ function getDate(txtDate)
     }
     return new Date(dtYear, dtMonth - 1, dtDay);
   }
-  
+
   var rxDatePattern = /^(\d{4})(\/|-)(\d{1,2})(\/|-)(\d{1,2})$/;
   var dtArray = currVal.match(rxDatePattern); // is format OK?
 
@@ -161,7 +198,7 @@ function getDate(txtDate)
     var dtMonth = dtArray[3];
     var dtDay= dtArray[5];
     var dtYear = dtArray[1];
- 
+
     if (dtMonth < 1 || dtMonth > 12)
       return null;
     else if (dtDay < 1 || dtDay> 31)
@@ -185,17 +222,17 @@ function isDate(txtDate)
   var currVal = txtDate;
   if(currVal == '')
     return true;
-   
-  //Declare Regex 
+
+  //Declare Regex
   var rxDatePattern = /^(\d{1,2})(\/|-)(\d{1,2})(\/|-)(\d{4})$/;
   var dtArray = currVal.match(rxDatePattern); // is format OK?
- 
+
   if (dtArray != null) {
     //Checks for dd/mm/yyyy format.
     var dtMonth = dtArray[3];
     var dtDay= dtArray[1];
     var dtYear = dtArray[5];
- 
+
     if (dtMonth < 1 || dtMonth > 12)
       return false;
     else if (dtDay < 1 || dtDay> 31)
@@ -210,7 +247,7 @@ function isDate(txtDate)
     }
     return true;
   }
-  
+
   var rxDatePattern = /^(\d{4})(\/|-)(\d{1,2})(\/|-)(\d{1,2})$/;
   var dtArray = currVal.match(rxDatePattern); // is format OK?
 
@@ -219,7 +256,7 @@ function isDate(txtDate)
     var dtMonth = dtArray[3];
     var dtDay= dtArray[5];
     var dtYear = dtArray[1];
- 
+
     if (dtMonth < 1 || dtMonth > 12)
       return false;
     else if (dtDay < 1 || dtDay> 31)
@@ -246,18 +283,44 @@ function isDate(txtDate)
 	});
 });*/
 
+function toggleOtherTextboxVisible()
+  {
+    if (document.getElementById('OtherRadio').checked) {
+			document.getElementById('OtherLabel').style.display = 'block';
+      document.getElementById('OtherName').style.display = 'block';
+			document.getElementById('OtherTel').style.display = 'block';
+			document.getElementById('OtherEmail').style.display = 'block';
+    }
+    else if (document.getElementById('ProjCoordRadio').checked) {
+			document.getElementById('OtherLabel').style.display = 'none';
+			document.getElementById('OtherName').style.display = 'none';
+			document.getElementById('OtherTel').style.display = 'none';
+			document.getElementById('OtherEmail').style.display = 'none';
+		}
+  }
+
+function toggleOtherHSVisible()
+	{
+		if (document.getElementById('HSOtherChk').checked) {
+			document.getElementById('inputHSOther').style.display = 'block';
+		}
+		else {
+			document.getElementById('inputHSOther').style.display = 'none';
+		}
+	}
+
+
 </script>
 
-<div class="container-fluid">
+<div class="container">
 	<div class="row">
-		<div class="bg-lred vol-font white shadow">
+		<div class="col-md-7">
      	<h3 style="text-align: center;">Project Registration</h3>
-    </div>
-   </div>
-  </div>
-  <div class="container">
-  	<div class="row">
-  		<div class="col-md-7">
+			<?php
+				$areaContent0 = new Area('Content0');
+				$areaContent0->display($c);
+			?>
+
        	<h3 class="bg-secondary white" style="center">Policies for Project Registration</h3>
         <?php
   				$areaContent1 = new Area('Content1');
@@ -267,7 +330,7 @@ function isDate(txtDate)
 
 
 				<div class="form-group">
-					<div class="col-xs-offset-4 col-xs-10">
+						<div class="text-center">
 						<!-- Button trigger modal -->
 						<button class="btn btn-primary shadow" id="btnProjRegister" onclick="volProjectFunction()">Confirm</button>
 					</div>
@@ -275,7 +338,10 @@ function isDate(txtDate)
 
     	</div>
     	<div class="col-md-5">
-				<!-- Empty -->
+				<?php
+					$areaRightContent = new Area('RightContent');
+					$areaRightContent->display($c);
+				?>
 			</div>
 		</div>
 	</div>
@@ -362,10 +428,10 @@ function isDate(txtDate)
                 	<label class="col-sm-4 control-label" for="isMember">We are a member of Volunteer Wellington: </label>
             				<div class="col-sm-6">
                     	<label>
-                        <input type="radio" name="memberRadios" id="isMember" checked="checked">Yes
+                        <input type="radio" name="memberRadios" id="isMember" checked="checked">  Yes
             					</label>
                       <label>
-                        <input type="radio" name="memberRadios" id="isNotMember">No
+                        <input type="radio" name="memberRadios" id="isNotMember">  No
                       </label>
                     </div>
                 	</div>
@@ -373,21 +439,21 @@ function isDate(txtDate)
 		                <label  class="col-sm-4 control-label" for="inputSupervisorName">Person to whom volunteer is responsible</label>
 		                  <div class="col-sm-8">
 		                    <input type="text" class="form-control" id="inputSupervisorName" placeholder="Supervisor Names" required="required" />
-					  <span class="help-block"></span>
+					  						<span class="help-block"></span>
 		                  </div>
 		              </div>
                   <div class="form-group required " >
 										<label  class="col-sm-4 control-label" for="inputContactTel">Contact Telephone</label>
 										<div class="col-sm-8">
 											<input type="text" class="form-control" id="inputContactTel" placeholder="Contact Telephone" required="required" />
-				  <span class="help-block"></span>
+				  						<span class="help-block"></span>
 										</div>
 									</div>
 		              <div class="form-group required " >
 		                <label  class="col-sm-4 control-label" for="inputContactEmail">Email</label>
 		                <div class="col-sm-8">
 		                  <input type="email" class="form-control" id="inputContactEmail" placeholder="Email" required="required" />
-				  <span class="help-block"></span>
+				  						<span class="help-block"></span>
 		                </div>
 		              </div>
                   <div class="subHeading">Other Details</div>
@@ -395,17 +461,17 @@ function isDate(txtDate)
 		                <label  class="col-sm-4 control-label" for="inputDayHours">Specific days and hours</label>
 		                  <div class="col-sm-8">
 		                    <input type="text" class="form-control" id="inputDayHours" placeholder="Days and Hours"/>
-				  <span class="help-block"></span>
+				  						<span class="help-block"></span>
 		                  </div>
 		              </div>
                   <div class="form-group">
                     <label class="col-sm-4 control-label" for="isWeekend">This project is planned for: </label>
             				<div class="col-sm-6">
                     	<label>
-                        <input type="radio" name="weekRadios" id="isWeekend" checked="checked">Weekends
+                        <input type="radio" name="weekRadios" id="isWeekend" checked="checked">  Weekends
             					</label>
                       <label>
-                        <input type="radio" name="weekRadios" id="isWeekdays">Weekdays
+                        <input type="radio" name="weekRadios" id="isWeekdays">  Weekdays
                       </label>
                   	</div>
                 	</div>
@@ -413,14 +479,14 @@ function isDate(txtDate)
 										<label  class="col-sm-4 control-label" for="inputJobAddress">Job Street address</label>
 										<div class="col-sm-8">
 											<input type="text" class="form-control" id="inputJobAddress" placeholder="Job Street address"/>
-				  <span class="help-block"></span>
+				  						<span class="help-block"></span>
 										</div>
 									</div>
 									<div class="form-group">
 		                <label  class="col-sm-4 control-label" for="inputJobSuburb">Job Suburb</label>
 		                <div class="col-sm-8">
 		                  <input type="text" class="form-control" id="inputJobSuburb" placeholder="Job Suburb"/>
-				  <span class="help-block"></span>
+				  						<span class="help-block"></span>
 		                </div>
 		              </div>
 									<div class="form-group">
@@ -440,16 +506,103 @@ function isDate(txtDate)
 										<label  class="col-sm-4 control-label" for="inputVolNumbers" >Number of Volunteers needed</label>
 										<div class="col-sm-8">
 											<input type="number" class="form-control" id="inputVolNumbers" placeholder="Number, e.g. 2" required="required" />
-				  <span class="help-block"></span>
+				  						<span class="help-block"></span>
 										</div>
 									</div>
 									<div class="form-group">
 										<label  class="col-sm-4 control-label" for="inputComments" >Additional comments</label>
 										<div class="col-sm-8">
 											<textarea class="form-control" id="inputComments" rows="6" placeholder="Comments" ></textarea>
-				  <span class="help-block"></span>
+				  						<span class="help-block"></span>
 										</div>
 									</div>
+									<div class="subHeading">Health & Safety</div>
+                    <div class="form-group">
+											<div>
+												<label  class="col-sm-4 control-label" for="inputDelivery" >Who from your organisation will be delivering the Health and Safety Induction on the day?</label>
+												<div class="col-sm-8">
+		                    	<label>
+		                        <input type="radio" name="HSRadios" id="ProjCoordRadio" value="Project Coordinator" onchange="javascript:toggleOtherTextboxVisible()" />  Project Coordinator
+													</label>
+		                      <label>
+		                        <input type="radio" name="HSRadios" id="OtherRadio" value="Others" required="required" onchange="javascript:toggleOtherTextboxVisible()" />  Other
+		                      </label>
+		                  	</div>
+											</div>
+											<div>
+												<label  class="col-sm-4 control-label" id="OtherLabel" for="inputDelivery" style="display:none" >Please specify name and contact details. </label>
+												<div class="col-sm-8">
+		                    	<input class="form-control" id="OtherName" type="text" placeholder="Name required" style="display:none" />
+													<input class="form-control" id="OtherTel" type="text"  placeholder="Phone contact required" style="display:none" />
+													<input class="form-control" id="OtherEmail" type="text" placeholder="Email required" style="display:none" />
+													<span class="help-block"></span>
+												</div>
+											</div>
+										</div>
+										<div class="form-group">
+											<label  class="col-sm-4 control-label" for="inputHSInduction" >What information is included in the induction process?</label>
+											<div class="col-sm-8">
+												<textarea class="form-control" id="inputHSInduction" rows="6" required="required" placeholder="Your Answer" ></textarea>
+					  						<span class="help-block"></span>
+											</div>
+										</div>
+										<div class="form-group">
+											<label  class="col-sm-4 control-label" for="inputHSTasks" >What tasks or activities are planned for the day?</label>
+											<div class="col-sm-8">
+												<textarea class="form-control" id="inputHSTasks" rows="6" required="required" placeholder="Your Answer" ></textarea>
+					  						<span class="help-block"></span>
+											</div>
+										</div>
+										<div class="form-group">
+											<label  class="col-sm-4 control-label" for="inputHSRisks" >What hazards or risks have you identified for this project? (eg ladders, tools, animals, water)</label>
+											<div class="col-sm-8">
+												<textarea class="form-control" id="inputHSRisks" rows="6" required="required" placeholder="Your Answer" ></textarea>
+					  						<span class="help-block"></span>
+											</div>
+										</div>
+										<div class="form-group">
+											<label  class="col-sm-4 control-label" for="inputHSChk" >How will you manage/mitigate any hazards/risks associated with the tasks/activities?</label>
+											<div class="col-sm-8">
+												<label>
+													<input type="checkbox" id="HSBriefChk" />  Volunteer briefing/induction (incl. evacuation procedure, emergency exits)
+												</label>
+												<label>
+													<input type="checkbox" id="HSSupervisionChk" />  On-site supervision
+												</label>
+												<label>
+													<input type="checkbox" id="HSEquipChk" />  Personal Protective Equipment
+												</label>
+												<label>
+													<input type="checkbox" id="HSAdviceChk" />  Advice about appropriate clothing/footwear provided prior to the project
+												</label>
+												<label>
+													<input type="checkbox" id="HSOtherChk" value="Others" onchange="javascript:toggleOtherHSVisible()" />  Other
+												</label>
+												<textarea class="form-control" id="inputHSOther" rows="6" style="display:none" placeholder="Your Answer" ></textarea>
+					  						<span class="help-block"></span>
+											</div>
+										</div>
+										<div class="form-group">
+											<label  class="col-sm-4 control-label" for="inputHSProEquip" >What personal protective equipment will you be providing?</label>
+											<div class="col-sm-8">
+												<textarea class="form-control" id="inputHSProEquip" rows="6" required="required" placeholder="Your Answer" ></textarea>
+					  						<span class="help-block"></span>
+											</div>
+										</div>
+										<div class="form-group">
+											<label  class="col-sm-4 control-label" for="inputHSReporting" >How will you report any accidents (if any) that occur on the volunteering project?</label>
+											<div class="col-sm-8">
+												<textarea class="form-control" id="inputHSReporting" rows="6" required="required" placeholder="Your Answer" ></textarea>
+												<span class="help-block"></span>
+											</div>
+										</div>
+										<div class="form-group">
+											<label  class="col-sm-4 control-label" for="inputHSAdditional" >Any other additional health and safety information?</label>
+											<div class="col-sm-8">
+												<textarea class="form-control" id="inputHSAdditional" rows="6" required="required" placeholder="Your Answer" ></textarea>
+												<span class="help-block"></span>
+											</div>
+										</div>
 									<div class="form-group">
 										<div class="col-sm-6">
 		                  <button type="button" class="btn btn-primary center-block" onClick="regEVProject();" >Register Project</button>

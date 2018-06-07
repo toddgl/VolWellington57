@@ -54,7 +54,22 @@ class RegEvProj extends PageController
            'comments'=>FILTER_SANITIZE_STRING,
            'wends'=>FILTER_SANITIZE_STRING,
            'mem'=>FILTER_SANITIZE_STRING,
-           'ischallenge'=>FILTER_SANITIZE_NUMBER_INT
+           'ischallenge'=>FILTER_SANITIZE_NUMBER_INT,
+           'hsname'=>FILTER_SANITIZE_STRING,
+           'hstel'=>FILTER_SANITIZE_STRING,
+			     'hsemail'=>FILTER_SANITIZE_STRING,
+           'hsinduct'=>FILTER_SANITIZE_STRING,
+           'hstasks'=>FILTER_SANITIZE_STRING,
+			     'hsrisks'=>FILTER_SANITIZE_STRING,
+           'isbrief'=>FILTER_SANITIZE_NUMBER_INT,
+           'issuper'=>FILTER_SANITIZE_NUMBER_INT,
+           'isequip'=>FILTER_SANITIZE_NUMBER_INT,
+           'isadvice'=>FILTER_SANITIZE_NUMBER_INT,
+           'othernotes'=>FILTER_SANITIZE_STRING,
+           'hsequip'=>FILTER_SANITIZE_STRING,
+           'hsreport'=>FILTER_SANITIZE_STRING,
+			     'hsother'=>FILTER_SANITIZE_STRING
+
 		       );
 		       $options = array(
     	      'agency'=>array(
@@ -100,20 +115,62 @@ class RegEvProj extends PageController
             'flags'=>FILTER_NULL_ON_FAILURE
     	    ),
             'volnums'=>array(
-        'flags'=>FILTER_NULL_ON_FAILURE
-    	),
-      'comments'=>array(
-        'flags'=>FILTER_NULL_ON_FAILURE
-    	),
-      'wends'=>array(
-        'flags'=>FILTER_NULL_ON_FAILURE
-    	),
-      'mem'=>array(
-        'flags'=>FILTER_NULL_ON_FAILURE
-    	),
-      'ischallenge'=>array(
-        'flags'=>FILTER_NULL_ON_FAILURE
-    	)
+            'flags'=>FILTER_NULL_ON_FAILURE
+    	    ),
+            'comments'=>array(
+            'flags'=>FILTER_NULL_ON_FAILURE
+          ),
+            'wends'=>array(
+            'flags'=>FILTER_NULL_ON_FAILURE
+          ),
+            'mem'=>array(
+            'flags'=>FILTER_NULL_ON_FAILURE
+          ),
+            'ischallenge'=>array(
+            'flags'=>FILTER_NULL_ON_FAILURE
+          ),
+            'hsname'=>array(
+            'flags'=>FILTER_NULL_ON_FAILURE
+          ),
+            'hstel'=>array(
+            'flags'=>FILTER_NULL_ON_FAILURE
+          ),
+            'hsemail'=>array(
+            'flags'=>FILTER_NULL_ON_FAILURE
+          ),
+            'hsinduct'=>array(
+            'flags'=>FILTER_NULL_ON_FAILURE
+          ),
+            'hstasks'=>array(
+            'flags'=>FILTER_NULL_ON_FAILURE
+          ),
+            'hsrisks'=>array(
+            'flags'=>FILTER_NULL_ON_FAILURE
+          ),
+            'isbrief'=>array(
+            'flags'=>FILTER_NULL_ON_FAILURE
+          ),
+            'issuper'=>array(
+            'flags'=>FILTER_NULL_ON_FAILURE
+          ),
+            'isequip'=>array(
+            'flags'=>FILTER_NULL_ON_FAILURE
+          ),
+            'isadvice'=>array(
+            'flags'=>FILTER_NULL_ON_FAILURE
+          ),
+            'othernotes'=>array(
+            'flags'=>FILTER_NULL_ON_FAILURE
+          ),
+            'hsequip'=>array(
+            'flags'=>FILTER_NULL_ON_FAILURE
+          ),
+            'hsreport'=>array(
+            'flags'=>FILTER_NULL_ON_FAILURE
+          ),
+            'hsother'=>array(
+            'flags'=>FILTER_NULL_ON_FAILURE
+          )
 		);
 
     $agency = filter_var($inputs[0]['evProject']['agency'],$filters['agency'], $options['agency']);
@@ -160,6 +217,41 @@ class RegEvProj extends PageController
     else {
       $volnums=intval($volnums);
     }
+
+    $hsname = filter_var($inputs[0]['evProject']['hsname'],$filters['hsname'], $options['hsname']);
+    $hstel  = filter_var($inputs[0]['evProject']['hstel'],$filters['hstel'], $options['hstel']);
+    $hsemail = filter_var($inputs[0]['evProject']['hsemail'],$filters['hsemail'], $options['hsemail']);
+    $hsinduct = filter_var($inputs[0]['evProject']['hsinduct'],$filters['hsinduct'], $options['hsinduct']);
+    $hstasks = filter_var($inputs[0]['evProject']['hstasks'],$filters['hstasks'], $options['hstasks']);
+    $hsrisks = filter_var($inputs[0]['evProject']['hsrisks'],$filters['hsrisks'], $options['hsrisks']);
+    $isbrief = filter_var($inputs[0]['evProject']['isbrief'],$filters['isbrief'], $options['isbrief']);
+    if ($isbrief==1) {
+      $brief='Yes';
+    } else {
+      $brief='No';
+    }
+    $issuper = filter_var($inputs[0]['evProject']['issuper'],$filters['issuper'], $options['issuper']);
+    if ($issuper==1) {
+      $super='Yes';
+    } else {
+      $super='No';
+    }
+    $isequip = filter_var($inputs[0]['evProject']['isequip'],$filters['isequip'], $options['isequip']);
+    if ($isequip==1) {
+      $equip='Yes';
+    } else {
+      $equip='No';
+    }
+    $isadvice = filter_var($inputs[0]['evProject']['isadvice'],$filters['isadvice'], $options['isadvice']);
+    if ($isadvice==1) {
+      $advice='Yes';
+    } else {
+      $advice='No';
+    }
+    $othernotes= filter_var($inputs[0]['evProject']['othernotes'],$filters['othernotes'], $options['othernotes']);
+    $hsequip = filter_var($inputs[0]['evProject']['hsequip'],$filters['hsequip'], $options['hsequip']);
+    $hsreport = filter_var($inputs[0]['evProject']['hsreport'],$filters['hsreport'], $options['hsreport']);
+    $hsother = filter_var($inputs[0]['evProject']['hsother'],$filters['hsother'], $options['hsother']);
 
 
     $conn = \Database::connection('jobsearch');
@@ -213,6 +305,27 @@ class RegEvProj extends PageController
         <li><label>Weekends/weekdays: </label><b> &nbsp;$wends</b></li>
         <li><label>Estimated no. of Volunteers: </label><b> &nbsp;$volnums</b></li>
         </ul>
+      </fieldset>
+      <fieldset>
+        <legend>HEALTH AND SAFETY DETAILS</legend>
+        <ul>
+          <li><label>Health & Safety Contact: </label><b> &nbsp;$hsname</b></li>
+          <li><label>Telephone: </label><b> &nbsp;$hstel</b></li>
+          <li><label>Email: </label><b> &nbsp;$hsemail</b></li>
+          <li><label>Induction outline: </label><b> &nbsp;$hsinduct</b></li>
+          <li><label>Outline of project tasks: </label><b> &nbsp;$hstasks</b></li>
+          <li><label>Health & Safety hazards identified: </label><b> &nbsp;$hsrisks</b></li>
+          <legend>Risk Mitigation Methods: </legend>
+          <ul>
+            <li><label>On-site supervision: </label><b> &nbsp;$super</b></li>
+            <li><label>Protective Equipment: </label><b> &nbsp;$equip</b></li>
+            <li><label>Advice on clothing/footwear: </label><b> &nbsp;$advice</b></li>
+            <li><label>Other: </label><b> &nbsp;$othernotes</b></li>
+          </ul>
+          <li><label>Protective equipment that will be provided: </label><b> &nbsp;$hsequip</b></li>
+          <li><label>Incident Reporting: </label><b> &nbsp;$hsreport</b></li>
+          <li><label>Additional Health and Safety information: </label><b> &nbsp;$hsother</b></li>
+        </ul>
       </fieldset> ";
 
       $conn->insert('eitctempjobs',
@@ -244,7 +357,28 @@ class RegEvProj extends PageController
         'wends' => $wends,
         'mem' => $mem,
         'ischallenge' => $ischallenge
-    ));
+      ));
+
+      $conn->insert('eitctemphs',
+      array(
+        'id' => NULL,
+        'jobid' => $jobid,
+        'hsname' => $hsname,
+        'hstel' => $hstel,
+        'hsemail' => $hsemail,
+        'dateposted' => date('Y-m-d'),
+        'hsinduct' => $hsinduct,
+        'hstasks' => $hstasks,
+        'hsrisks' => $hsrisks,
+        'isbrief' => $isbrief,
+        'issuper' => $issuper,
+        'isequip' => $isequip,
+        'isadvice' => $isadvice,
+        'othernotes' => $othernotes,
+        'hsequip' => $hsequip,
+        'hsreport' => $hsreport,
+        'hsother' => $hsother
+      ));
 
     // Send EV Project Request to VW office
     $mailService = Core::make('mail');

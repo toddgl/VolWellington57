@@ -63,6 +63,9 @@ class MemberRegister extends PageController
       'veval'=>FILTER_SANITIZE_NUMBER_INT,
       'reimb'=>FILTER_SANITIZE_NUMBER_INT,
       'vref'=>FILTER_SANITIZE_NUMBER_INT,
+      'hspolicy'=>FILTER_SANITIZE_NUMBER_INT,
+      'hstraining'=>FILTER_SANITIZE_NUMBER_INT,
+      'hsrisks'=>FILTER_SANITIZE_NUMBER_INT,
       'mission'=>FILTER_SANITIZE_STRING,
       'services'=>FILTER_SANITIZE_STRING
 		);
@@ -149,6 +152,15 @@ class MemberRegister extends PageController
         'flags'=>FILTER_NULL_ON_FAILURE
     	),
       'vref'=>array(
+        'flags'=>FILTER_NULL_ON_FAILURE
+    	),
+      'hspolicy'=>array(
+        'flags'=>FILTER_NULL_ON_FAILURE
+    	),
+      'hstraining'=>array(
+        'flags'=>FILTER_NULL_ON_FAILURE
+    	),
+      'hsrisks'=>array(
         'flags'=>FILTER_NULL_ON_FAILURE
     	),
       'mission'=>array(
@@ -248,6 +260,24 @@ class MemberRegister extends PageController
     } else {
       $orgVref='No';
     }
+    $rawHSPolicy = filter_var($inputs[0]['mbrContact']['hspolicy'],$filters['hspolicy'], $options['hspolicy']);
+    if ($rawHSPolicy==1) {
+      $orgHSPolicy='Yes';
+    } else {
+      $orgHSPolicy='No';
+    }
+    $rawHSTraining = filter_var($inputs[0]['mbrContact']['hstraining'],$filters['hstraining'], $options['hstraining']);
+    if ($rawHSTraining==1) {
+      $orgHSTraining='Yes';
+    } else {
+      $orgHSTraining='No';
+    }
+    $rawHSRisks = filter_var($inputs[0]['mbrContact']['hsrisks'],$filters['hsrisks'], $options['hsrisks']);
+    if ($rawHSRisks==1) {
+      $orgHSRisks='Yes';
+    } else {
+      $orgHSRisks='No';
+    }
     $orgMission = filter_var($inputs[0]['mbrContact']['mission'],$filters['mission'], $options['mission']);
     if (empty($orgMission)) {
       $orgMission='Nil';
@@ -309,6 +339,14 @@ class MemberRegister extends PageController
     <li><label>Reimburse out-of-pocket expenses: </label><b> &nbsp;$orgReimb</b></li>
     <li><label>Provide a reference after a period of service: </label><b> &nbsp;$orgVref</b></li>
     </ul>
+    </fieldset>
+    <fieldset>
+    <legend>VOLUNTEER HEALTH & SAFETY PROGRAMME</legend>
+    <ul>
+    <li><label>We have an Health & Safety Policy: </label><b> &nbsp;$orgHSPolicy</b></li>
+    <li><label>We provide Health & Safety volunteer induction training: </label><b> &nbsp;$orgHSTraining</b></li>
+    <li><label>We have identified the Health & Safety risks associated with our operation: </label><b> &nbsp;$orgHSRisks</b></li>
+    </ul>
     </fieldset>";
 
 
@@ -355,7 +393,10 @@ class MemberRegister extends PageController
         'volint' => $rawVolint,
         'veval' => $rawVeval,
         'reimb' => $rawReimb,
-        'vref' => $rawVref
+        'vref' => $rawVref,
+        'hspolicy' => $rawHSPolicy,
+        'hstraining' => $rawHSTraining,
+        'hsrisks' => $rawHSRisks
       ));
 
       // Only insert into mswebtemp if agency doesn't exist

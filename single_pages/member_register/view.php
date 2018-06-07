@@ -101,8 +101,23 @@ function sendMbrRegister() {
 		} else {
 			mbrContact.vref = 0;
 		}
+		if ($("#inputHSPolicy").is(":checked")) {
+			mbrContact.hspolicy = 1;
+		} else {
+			mbrContact.hspolicy = 0;
+		}
+		if ($("#inputHSTraining").is(":checked")) {
+			mbrContact.hstraining = 1;
+		} else {
+			mbrContact.hstraining = 0;
+		}
+		if ($("#inputHSRisks").is(":checked")) {
+			mbrContact.hsrisks = 1;
+		} else {
+			mbrContact.hsrisks = 0;
+		}
 		jsonData.push({mbrContact: mbrContact});
-		//alert (JSON.stringify(jsonData));
+		// alert (JSON.stringify(jsonData));
 
 		$.ajax({
 			type: 'POST',
@@ -621,6 +636,42 @@ function isDate(txtDate)
         								<div class="col-sm-8">
           								<div class="checkbox left-checkbox">
             								<input type="checkbox" id="inputVolRefs" value ="">
+          								</div>
+        								</div>
+											</div>
+											<div class="form-group">
+												<div class="col-sm-4">
+          								<div class="checkbox left-checkbox">
+            								<label>Have an Health & Safety Policy</label>
+          								</div>
+        								</div>
+        								<div class="col-sm-8">
+          								<div class="checkbox left-checkbox">
+            								<input type="checkbox" id="inputHSPolicy" value ="">
+          								</div>
+        								</div>
+											</div>
+											<div class="form-group">
+												<div class="col-sm-4">
+          								<div class="checkbox left-checkbox">
+            								<label>Provide Health & Safety training</label>
+          								</div>
+        								</div>
+        								<div class="col-sm-8">
+          								<div class="checkbox left-checkbox">
+            								<input type="checkbox" id="inputHSTraining" value ="">
+          								</div>
+        								</div>
+											</div>
+											<div class="form-group">
+												<div class="col-sm-4">
+          								<div class="checkbox left-checkbox">
+            								<label>Health & Safety Risks have been identified</label>
+          								</div>
+        								</div>
+        								<div class="col-sm-8">
+          								<div class="checkbox left-checkbox">
+            								<input type="checkbox" id="inputHSRisks" value ="">
           								</div>
         								</div>
 											</div>
