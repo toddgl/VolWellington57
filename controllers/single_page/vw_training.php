@@ -17,7 +17,8 @@ class VwTraining extends PageController
     $sql = "SELECT  `id`, `wksp`, `when`, `wkdte`, `who`, `wkno`, `wktime`
     FROM `trainwksp`
     WHERE `status` = 1
-    AND `wkdte` >= CURDATE()";
+    AND `wkdte` >= CURDATE()
+    ORDER BY `wkdte` ASC";
 	  $stmt = $conn->prepare($sql);
 	  $stmt->execute();
 	   $results = $stmt->fetchAll();

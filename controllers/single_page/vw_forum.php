@@ -19,7 +19,8 @@ class VwForum extends PageController
 	FROM `fora`
 	WHERE `year` = ?
     AND  `status` = 1
-    AND `cd` >= CURDATE()";
+    AND `cd` >= CURDATE()
+    ORDER BY `cd` ASC";
 	$stmt = $conn->prepare($sql);
     $stmt->bindValue(1, $year);
 	$stmt->execute();
