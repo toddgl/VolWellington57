@@ -583,7 +583,7 @@ class JobSearch extends PageController
 				$mailVolContent .= "
 				<p>The organisation(s) who registered the role(s) you have chosen has been sent your application(s).   If you don’t hear from them within 48 hours we recommend you contact them directly using the organisation contact information above.</p>
 				<p>It is important to Volunteer Wellington that all of the volunteers we work with or refer have a safe and enjoyable experience whilst undertaking their voluntary roles. As a volunteer, you must take reasonable care of your own safety and take care not to do anything which could harm another person. Please read the attached document 'Health and Safety when volunteering'.</p>
-				<p>If you have any questions or would like to discuss your options further please email Volunteer Wellington at <a href=mailt:info@volunteerwellington.nz>info@volunteerwellington.nz</a> or phone 04 499 4570</p>
+				<p>If you have any questions or would like to discuss your options further please email Volunteer Wellington at &nbsp; <a href=mailt:info@volunteerwellington.nz> info@volunteerwellington.nz</a> or phone 04 499 4570</p>
 				";
 
 				// send registeration to the volunteer
