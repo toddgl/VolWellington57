@@ -68,7 +68,8 @@ $(document).ready(function() {
 			feeRadioBtns.appendChild(cost1Btn);
 			$("#radio_1").attr('checked', 'checked');
 			if (result['wlab2'].length === 0) {
-				// pass
+				// Empty #cost2
+				$('#cost2').html(result['wlab2'] + result['fee2']);
 			}
 			else {
 				// List the Price
@@ -79,7 +80,8 @@ $(document).ready(function() {
 				feeRadioBtns.appendChild(cost2Btn);
 			}
 			if (result['wlab3'].length === 0) {
-				// pass
+				// Empty #cost3
+				$('#cost3').html(result['wlab3'] + result['fees3']);
 			}
 			else {
 				// List the Price
@@ -90,7 +92,8 @@ $(document).ready(function() {
 				feeRadioBtns.appendChild(cost3Btn);
 			}
 			if (result['wlab4'].length === 0) {
-				// pass
+				// Empty #cost4
+				$('#cost4').html(result['wlab4'] + result['fees4']);
 			}
 			else {
 				// List the Price
@@ -101,7 +104,8 @@ $(document).ready(function() {
 				feeRadioBtns.appendChild(cost4Btn);
 			}
 			if (result['wlab5'].length === 0) {
-				// pass
+				// Empty #cost5
+				$('#cost5').html(result['wlab5'] + result['fees5']);
 			}
 			else {
 				// List the Price
@@ -112,7 +116,8 @@ $(document).ready(function() {
 				feeRadioBtns.appendChild(cost5Btn);
 			}
 			if (result['wlab6'].length === 0) {
-				// pass
+				// Empty #cost6
+				$('#cost6').html(result['wlab6'] + result['fees6']);
 			}
 			else {
 				// List the Price
@@ -286,7 +291,7 @@ $( document ).tooltip({
                 </tr>
                 <?php
                 }
-              } 
+              }
               ?>
             </tbody>
           </table>
@@ -310,7 +315,7 @@ $( document ).tooltip({
         	<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
         	<h4 class="modal-title"></h4>
 		</div>
-		<div class="modal-body">			
+		<div class="modal-body">
 			<div class="row">
 				<div class="modal-detail col-sm-offset-1" id="description"></div>
 				<br>
@@ -339,6 +344,7 @@ $( document ).tooltip({
 					<div class="modal-detail" id="cost3"></div>
 					<div class="modal-detail" id="cost4"></div>
 					<div class="modal-detail" id="cost5"></div>
+					<div class="modal-detail" id="cost6"></div>
 				</div>
 			</div>
 			<div class="row">
