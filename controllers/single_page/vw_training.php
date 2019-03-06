@@ -94,11 +94,6 @@ class VwTraining extends PageController
     $tel = filter_var($inputs[0]['volContact']['tel'],$filters['tel'], $options['tel']);
     $email = filter_var($inputs[0]['volContact']['email'],$filters['email'], $options['email']);
     $ismem = filter_var($inputs[0]['volContact']['mem'],$filters['mem'], $options['mem']);
-    if ($ismem==1) {
-      $mem='Yes';
-    } else {
-      $mem='No';
-    }
     $org = filter_var($inputs[0]['volContact']['org'],$filters['org'], $options['org']);
     $ib = filter_var($inputs[0]['volContact']['ib'],$filters['ib'], $options['ib']);
     $chq = filter_var($inputs[0]['volContact']['cheq'],$filters['cheq'], $options['cheq']);
@@ -205,7 +200,7 @@ class VwTraining extends PageController
     <br />\$$amount</p>
     <p>~~~~~~~~~~~~~</p>
     <p><b>VW Member:</b>
-    <br />$mem</p>
+    <br />$ismem</p>
     <p>~~~~~~~~~~~~~</p>
     <p><b>Payment by:</b>";
     if($ib==1){
