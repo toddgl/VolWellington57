@@ -13,7 +13,9 @@ defined('C5_EXECUTE') or die('Access Denied.')
 window.onload = function() {
 
 	$('#feeRadioBtns').on('click', function(e) {
+		if ($('#inputnum').val()) {
 		calcTotalCost()
+		};
 	});
 
 	$('#inputnum').on('change', function(e) {
@@ -434,7 +436,7 @@ $( document ).tooltip({
 						<div class="col-sm-6">
         			<input class="form-control" type="text" id="inputamount" placeholder="Calculated Cost" readonly="readonly">
                 <label>
-                    <input type="radio" name="paymentRadios" id="ibPayment" checked="checked">Internet Banking Acc No 06-0513-0116471-25. <br />Include your name and the Reference
+                    <input type="radio" name="paymentRadios" id="ibPayment" checked="checked">Internet Banking Acc No 06-0513-0116471-25. <br />Include your name and the workshop name
 								</label>
                 <label>
                     <input type="radio" name="paymentRadios" id="chkPayment">By Check. Pay to <strong>Volunteer Wellington</strong><br />Send to: <strong>Volunteer Wellington, PO Box 24130, Wellington.</strong>
