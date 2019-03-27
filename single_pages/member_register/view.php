@@ -13,7 +13,49 @@ $(document).ready(function() {
 			$('#mbrRegisterModal').removeData('bs.modal');
 			$('#mbrRegisterModal').find('.modal-content').empty;
 	});
+		document.getElementById("feeAmount").readOnly = true;
+		$("#orgcountlist").hide();
+		$('input:radio[name="affiliated"]').change(function() {
+			if ($(this).val() == 'Yes') {
+				$('#feeAmount').val('POA');
+				$("#labelmultibranch").hide();
+				$("#radiomultibranch").hide();
+				$("#labelOrgTurnOver").hide();
+				$("#orgTurnOverlist").hide();
+				$("#orgTurnOverlist").get(0).selectedIndex = 0;
+				$("#orgcountlist").get(0).selectedIndex = 0;
+			} else {
+				$('#feeAmount').val('');
+				$("#orgTurnOverlist").get(0).selectedIndex = 0;
+				$("#orgcountlist").get(0).selectedIndex = 0;
+				$("#labelmultibranch").show();
+				$("#radiomultibranch").show();
+				$("#labelOrgTurnOver").show();
+				$("#orgcountlist").show();
+			}
+		});
+		$('input:radio[name="multibranch"]').change(function() {
+			if ($(this).val() == 'Yes') {
+				$("#orgcountlist").show();
+				$("#labelOrgTurnOver").hide();
+				$("#orgTurnOverlist").hide();
+				$("#orgTurnOverlist").get(0).selectedIndex = 0;
+			} else {
+				$("#orgcountlist").hide();
+				$("#labelOrgTurnOver").show();
+				$("#orgTurnOverlist").show();
+				$("#orgcountlist").get(0).selectedIndex = 0;
+			}
+		});
+		$("#orgcountlist").change (function () {
+			$('#feeAmount').val(this.value);
+		});
+		$("#orgTurnOverlist").change (function () {
+			$('#feeAmount').val(this.value);
+		});
+
 });
+
 
 function mbrRegisterFunction() {
 	$('#mbrRegisterModal').modal('show');
@@ -38,6 +80,27 @@ function sendMbrRegister() {
 		mbrContact.phone = $("#inputDayPhone").val();
 		mbrContact.mobile = $("#inputMobile").val();
 		mbrContact.email = $("#inputEmail").val();
+		if ($("#affiliatedyes").is(":checked")) {
+			mbrContact.affiliated = "Yes";
+		} else {
+			mbrContact.affiliated = "No";
+		}
+		if ($("#multibranchyes").is(":checked")) {
+			mbrContact.multibranch = "Yes";
+		} else {
+			mbrContact.multibranch = "No";
+		}
+		if ($("#orgcountlist")[0].selectedIndex <= 0) {
+			mbrContact.branches = "N/A";
+		} else {
+			mbrContact.branches = $("#orgcountlist :selected").text();
+		}
+		if ($("#orgTurnOverlist")[0].selectedIndex <= 0) {
+			mbrContact.grossannual = "N/A";
+		} else {
+			mbrContact.grossannual = $("#orgTurnOverlist :selected").text();
+		}
+		mbrContact.memfee = $("#feeAmount").val();
 		mbrContact.president = $("#inputChairPerson").val();
 		mbrContact.ceo = $("#inputExecutivePerson").val();
 		mbrContact.volcoord = $("#inputCoordinator").val();
@@ -445,6 +508,71 @@ function isDate(txtDate)
 		                    	</div>
 		                  </div>
 											<div class="subHeading">Joining Information</div>
+											<div class="form-group">
+													<div class="col-sm-4">
+														<div class="checkbox left-checkbox">
+															<label>Is this for an Affiliated Membership?</label>
+														</div>
+													</div>
+													<div class="col-sm-8">
+														<label>
+															<input type="radio" id="affiliatedyes" name="affiliated" value="Yes" >Yes
+														</label>
+														<label>
+															<input type="radio" id="affiliatedno" name="affiliated" value="No" checked="checked">No
+														</label>
+													</div>
+											</div>
+											<div class="form-group">
+													<div class="col-sm-4">
+														<div class="checkbox left-checkbox" id="labelmultibranch">
+															<label>Is this an organisation with multiple branches?</label>
+														</div>
+													</div>
+													<div class="col-sm-8" id="radiomultibranch">
+														<label>
+															<input type="radio" id="multibranchyes" name="multibranch" value="Yes" >Yes
+														</label>
+														<label>
+															<input type="radio" id="multibranchno" name="multibranch" value="No" checked="checked" > No
+														</label>
+														<select name="orgno" class="form-control" id="orgcountlist">
+															<option selected="" value="">Select</option>
+															<?php
+																$a = array ("7", "8");
+																foreach($agencyfees as $agencyfee) {
+																	if (in_array($agencyfee["id"], $a, true)) { ?>
+																	<option value="<?php echo $agencyfee["amount"]; ?>"><?php echo $agencyfee["detail"]; ?></option>
+																<?php }}
+															?>
+															</select>
+													</div>
+											</div>
+											<div class="form-group">
+													<div class="col-sm-4">
+														<div class="checkbox left-checkbox" id="labelOrgTurnOver">
+															<label>Select organisation annual gross income</label>
+														</div>
+													</div>
+													<div class="col-sm-8">
+														<select name="orgturnover" class="form-control" id="orgTurnOverlist">
+															<option selected="" value="">Select</option>
+															<?php
+																$a = array ("1", "2", "3", "4", "5", "6", "12", "13");
+																foreach($agencyfees as $agencyfee) {
+																	if (in_array($agencyfee["id"], $a, true)) { ?>
+																	<option value="<?php echo $agencyfee["amount"]; ?>"><?php echo $agencyfee["detail"]; ?></option>
+																<?php }}
+															?>
+															</select>
+													</div>
+											</div>
+											<div class="form-group">
+													<label  class="col-sm-4 control-label" for="feeDetermination">Membership Fee</label>
+													<div class="col-sm-8">
+																<input type="text" class="form-control" id="feeAmount" />
+													</div>
+											</div>
 											<div class="form-group required">
 													<label  class="col-sm-4 control-label" for="inputChairPerson">Board President / Chairperson</label>
 												  <div class="col-sm-8">

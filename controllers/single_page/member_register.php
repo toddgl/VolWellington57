@@ -13,7 +13,7 @@ class MemberRegister extends PageController
   {
     //query to get current membership fees
     $conn = \Database::connection('jobsearch');
-		$sql = "SELECT  `amount`, `detail`
+		$sql = "SELECT  `id`, `amount`, `detail`
 		FROM `agencyfees`
 		ORDER BY `order`";
 		$stmt = $conn->prepare($sql);
@@ -46,6 +46,11 @@ class MemberRegister extends PageController
 			'phone'=>FILTER_SANITIZE_STRING,
       'mobile'=>FILTER_SANITIZE_STRING,
 			'email'=>FILTER_VALIDATE_EMAIL,
+      'affiliated'=>FILTER_SANITIZE_STRING,
+      'multibranch'=>FILTER_SANITIZE_STRING,
+      'branches'=>FILTER_SANITIZE_STRING,
+      'grossannual'=>FILTER_SANITIZE_STRING,
+      'memfee'=>FILTER_SANITIZE_STRING,
       'president'=>FILTER_SANITIZE_STRING,
       'ceo'=>FILTER_SANITIZE_STRING,
       'volcoord'=>FILTER_SANITIZE_STRING,
@@ -101,6 +106,21 @@ class MemberRegister extends PageController
         'flags'=>FILTER_NULL_ON_FAILURE
     	),
       'email'=>array(
+        'flags'=>FILTER_NULL_ON_FAILURE
+    	),
+      'affiliated'=>array(
+        'flags'=>FILTER_NULL_ON_FAILURE
+    	),
+      'multibranch'=>array(
+        'flags'=>FILTER_NULL_ON_FAILURE
+    	),
+      'branches'=>array(
+        'flags'=>FILTER_NULL_ON_FAILURE
+    	),
+      'grossannual'=>array(
+        'flags'=>FILTER_NULL_ON_FAILURE
+    	),
+      'memfee'=>array(
         'flags'=>FILTER_NULL_ON_FAILURE
     	),
       'president'=>array(
@@ -182,6 +202,11 @@ class MemberRegister extends PageController
     $orgPhone = filter_var($inputs[0]['mbrContact']['phone'],$filters['phone'], $options['phone']);
     $orgMobile = filter_var($inputs[0]['mbrContact']['mobile'],$filters['mobile'], $options['mobile']);
     $orgEmail = filter_var($inputs[0]['mbrContact']['email'],$filters['email'], $options['email']);
+    $orgAffiliated = filter_var($inputs[0]['mbrContact']['affiliated'],$filters['affiliated'], $options['affiliated']);
+    $orgmultibranch = filter_var($inputs[0]['mbrContact']['multibranch'],$filters['multibranch'], $options['multibranch']);
+    $orgBranches = filter_var($inputs[0]['mbrContact']['branches'],$filters['branches'], $options['branches']);
+    $orgGrossAnnual = filter_var($inputs[0]['mbrContact']['grossannual'],$filters['grossannual'], $options['grossannual']);
+    $orgMemFee = filter_var($inputs[0]['mbrContact']['memfee'],$filters['memfee'], $options['memfee']);
     $orgPresident = filter_var($inputs[0]['mbrContact']['president'],$filters['president'], $options['president']);
     $orgCeo = filter_var($inputs[0]['mbrContact']['ceo'],$filters['ceo'], $options['ceo']);
     $orgVolcoord = filter_var($inputs[0]['mbrContact']['volcoord'],$filters['volcoord'], $options['volcoord']);
@@ -309,6 +334,11 @@ class MemberRegister extends PageController
     <fieldset>
     <legend>JOINING FEE INFORMATION</legend>
     <ul>
+    <li><label>Affiliated Membership Request: </label><b> &nbsp;$orgAffiliated</b></li>
+    <li><label>Multi-branch Organisation: </label><b> &nbsp;$orgmultibranch</b></li>
+    <li><label>Number of Branches: </label><b> &nbsp;$orgBranches</b></li>
+    <li><label>Annual Gross Income: </label><b> &nbsp;$orgGrossAnnual</b></li>
+    <li><label>Membership Fee: </label><b> &nbsp;$orgMemFee</b></li>
     <li><label>Board President/Chairperson: </label><b> &nbsp;$orgPresident</b></li>
     <li><label>Executive Director/Manager: </label><b> &nbsp;$orgCeo</b></li>
     <li><label>Manager of Volunteers: </label><b> &nbsp;$orgVolcoord</b></li>
@@ -413,14 +443,15 @@ class MemberRegister extends PageController
   		$mailService->load('mail_template');
 
       // Set email parameters
-      $mailService->to('julie@volunteerwellington.nz, aileen@volunteerwellington.nz, office@volunteerwellington.nz');
+      $mailService->to('g.todd@internet.co.nz');
+      // $mailService->to('julie@volunteerwellington.nz, aileen@volunteerwellington.nz, office@volunteerwellington.nz');
       $mailService->from('Registrationonline@volunteerwellington.org.nz');
   		$mailService->replyto('office@volunteerwellington.nz', 'Online Member Registration');
   		$mailService->setSubject('OnLine Membership registration form');
   		$mailService->setBodyHTML($mailContent);
 
   		// Send email
-  		$mailService->sendMail();
+  		//$mailService->sendMail();
 
       // Send email to Member Request Organisation
   		$mailService = Core::make('mail');
