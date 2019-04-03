@@ -238,8 +238,11 @@ class JobSearch extends PageController
 		$filters = array(
 			'fname'=>FILTER_SANITIZE_STRING,
 			'lname'=>FILTER_SANITIZE_STRING,
+			'add1'=>FILTER_SANITIZE_STRING,
+			'add2'=>FILTER_SANITIZE_STRING,
 			'suburb'=>FILTER_SANITIZE_STRING,
 			'city'=>FILTER_SANITIZE_STRING,
+			'pcode'=>FILTER_SANITIZE_STRING,
 			'phone'=>FILTER_SANITIZE_NUMBER_INT,
 			'evetel'=>FILTER_SANITIZE_NUMBER_INT,
 			'mobile'=>FILTER_SANITIZE_NUMBER_INT,
@@ -262,10 +265,19 @@ class JobSearch extends PageController
 			'lname'=>array(
         'flags'=>FILTER_NULL_ON_FAILURE
     	),
+			'add1'=>array(
+        'flags'=>FILTER_NULL_ON_FAILURE
+    	),
+			'add2'=>array(
+        'flags'=>FILTER_NULL_ON_FAILURE
+    	),
 			'suburb'=>array(
         'flags'=>FILTER_NULL_ON_FAILURE
     	),
 			'city'=>array(
+        'flags'=>FILTER_NULL_ON_FAILURE
+    	),
+			'pcode'=>array(
         'flags'=>FILTER_NULL_ON_FAILURE
     	),
 			'tel'=>array(
@@ -317,8 +329,11 @@ class JobSearch extends PageController
 
 		// set variables for email
 		$volName=filter_var($inputs[0]['volContact']['fname'], $filters['fname'], $options['fname']). ' ' .filter_var($inputs[0]['volContact']['lname'], $filters['lname'], $options['lname']);
+		$volAdd1=filter_var($inputs[0]['volContact']['add1'], $filters['add1'], $options['add1']);
+		$volAdd2=filter_var($inputs[0]['volContact']['add2'], $filters['add2'], $options['add2']);
 		$volSuburb=filter_var($inputs[0]['volContact']['suburb'], $filters['suburb'], $options['suburb']);
 		$volCity=filter_var($inputs[0]['volContact']['city'], $filters['city'], $options['city']);
+		$volPcode=filter_var($inputs[0]['volContact']['pcode'], $filters['pcode'], $options['pcode']);
 		$volPhone=filter_var($inputs[0]['volContact']['phone'], $filters['phone'], $options['phone']);
 		$volEvetel=filter_var($inputs[0]['volContact']['evetel'], $filters['evetel'], $options['evetel']);
 		$volMobile=filter_var($inputs[0]['volContact']['mobile'], $filters['mobile'], $options['mobile']);
@@ -371,12 +386,13 @@ class JobSearch extends PageController
 			<ul>
 			<li><label>ID</label><b> &nbsp; $reg_id</b></li>
 			<li><label>Name</label><b> &nbsp; $volName</b></li>
+			<li><label>Address Line 1</label><b> &nbsp; $volAdd1</b></li>
+			<li><label>Address Line 2</label><b> &nbsp; $volAdd2</b></li>
 			<li><label>Suburb</label><b> &nbsp; $volSuburb</b></li>
 			<li><label>City</label><b> &nbsp; $volCity</b></li>
+			<li><label>Post Code</label><b> &nbsp; $volPcode</b></li>
 			<li><label><b>Contact details</b></label><b> (at least one must have been entered)</b></li>
 			<li><label>Phone</label><b> &nbsp; $volPhone</b></li>
-			<li><label>Mobile</label><b> &nbsp; $volMobile</b></li>
-			<li><label>Evening phone</label><b> &nbsp; $volEvetel</b></li>
 			<li><label>Email</label><b> &nbsp; <a href=\"mailto:$volEmail\">$volEmail</a></b></li>
 			<li><label>Nearest VW Office</label><b> &nbsp; $volOffice</b></li>
 			<li><label>Reason to Volunteer</label><b> &nbsp; $volReason</b></li>
@@ -423,7 +439,10 @@ class JobSearch extends PageController
 				'refugee'=>$volRefugee,
 				'wi' => 0,
 				'status' => 1,
-				'reason'=>$volReason
+				'reason'=>$volReason,
+				'add1' =>$volAdd1,
+				'add2' =>$volAdd2,
+				'pcode' =>$volPcode
 			);
 			$conn->insert('webregister', $webregister);
 
@@ -481,12 +500,13 @@ class JobSearch extends PageController
 					<ul>
 					<li><label>ID</label><b> &nbsp; $reg_id</b> (Use this if you want to contact Volunteer Wellington concerning this volunteer)</li>
 					<li><label>Name</label><b> &nbsp; $volName</b></li>
+					<li><label>Address Line 1</label><b> &nbsp; $volAdd1</b></li>
+					<li><label>Address Line 2</label><b> &nbsp; $volAdd2</b></li>
 					<li><label>Suburb</label><b> &nbsp; $volSuburb</b></li>
 					<li><label>City</label><b> &nbsp; $volCity</b></li>
+					<li><label>Post Code</label><b> &nbsp; $volPcode</b></li>
 					<li><label><b>Contact details</b></label><b>(at least one must have been entered)</b></li>
 					<li><label>Phone</label><b> &nbsp; $volPhone</b></li>
-					<li><label>Mobile</label><b> &nbsp; $volMobile</b></li>
-					<li><label>Evening phone</label><b> &nbsp; $volEvetel</b></li>
 					<li><label>Email</label><b> &nbsp; <a href=\"mailto:$volEmail\">$volEmail</a></b></li>
 					</ul>
 					</fieldset>

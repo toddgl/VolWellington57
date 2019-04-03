@@ -279,11 +279,12 @@ defined('C5_EXECUTE') or die('Access Denied.')
 			var volContact ={};
 			volContact.fname = $("#inputFirstName").val();
 			volContact.lname = $("#inputLastName").val();
+			volContact.add1	= $("#inputAddress1").val();
+			volContact.add2	= $("#inputAddress2").val();
 			volContact.suburb = $("#inputSuburb").val();
 			volContact.city = $("#cityList").val();
+			volContact.pcode = $("#inputPostcode").val();
 			volContact.phone = $("#inputPhone").val();
-			volContact.evetel = $("#inputEveningTel").val();
-			volContact.mobile = $("#inputMobile").val();
 			volContact.email = $("#inputEmail").val();
 			volContact.gender = $("#genderList").val();
 			volContact.ageband = $("#ageBand").val();
@@ -374,15 +375,11 @@ defined('C5_EXECUTE') or die('Access Denied.')
 		});
 		// Check that at least one contact number is provided
 		var inputPhone = $("#inputPhone");
-		var inputEveningTel = $("#inputEveningTel");
-		var inputMobile = $("#inputMobile");
-		if (!inputPhone.val() && !inputEveningTel.val() && !inputMobile.val()) {
+		//var inputEveningTel = $("#inputEveningTel");
+		//var inputMobile = $("#inputMobile");
+		if (!inputPhone.val()) {
 			inputPhone.parent().parent().addClass('has-error');
-			inputPhone.parent().find("> span.help-block").text("At least one contact number is required");
-			inputEveningTel.parent().parent().addClass('has-error');
-			inputEveningTel.parent().find("> span.help-block").text("At least one contact number is required");
-			inputMobile.parent().parent().addClass('has-error');
-			inputMobile.parent().find("> span.help-block").text("At least one contact number is required");
+			inputPhone.parent().find("> span.help-block").text("A contact phone number is required");
 			valid = false;
 		}
 
@@ -731,31 +728,31 @@ defined('C5_EXECUTE') or die('Access Denied.')
                     	</div>
                   </div>
 				  <div class="form-group">
-                    	<label  class="col-sm-4 control-label" for="inputPhone">Day time phone</label>
+                    	<label  class="col-sm-4 control-label" for="inputPhone">Contact Phone Number</label>
                     	<div class="col-sm-8">
 							<input type="text" class="form-control" id="inputPhone" placeholder="Phone"/>
 							<span class="help-block"></span>
                     	</div>
                   </div>
-				  <div class="form-group">
-                    	<label  class="col-sm-4 control-label" for="inputEveningTel">Evening phone</label>
+									<div class="form-group">
+                    	<label  class="col-sm-4 control-label" for="inputAddress1">Address Line 1</label>
                     	<div class="col-sm-8">
-							<input type="text" class="form-control" id="inputEveningTel" placeholder="Evening Phone"/>
-							<span class="help-block"></span>
+												<input type="text" class="form-control" id="inputAddress1" maxlength="25" placeholder="Address 1"/>
+												<span class="help-block"></span>
                     	</div>
                   </div>
 									<div class="form-group">
-                    	<label  class="col-sm-4 control-label" for="inputMobile">Mobile</label>
+                    	<label  class="col-sm-4 control-label" for="inputAddress2">Address Line 2</label>
                     	<div class="col-sm-8">
-							<input type="text" class="form-control" id="inputMobile" placeholder="Mobile"/>
-							<span class="help-block"></span>
+												<input type="text" class="form-control" id="inputAddress2" maxlength="25" placeholder="Address 2"/>
+												<span class="help-block"></span>
                     	</div>
                   </div>
 									<div class="form-group">
                     	<label  class="col-sm-4 control-label" for="inputSuburb">Suburb</label>
                     	<div class="col-sm-8">
-							<input type="text" class="form-control" id="inputSuburb" maxlength="25" placeholder="Suburb"/>
-							<span class="help-block"></span>
+												<input type="text" class="form-control" id="inputSuburb" maxlength="25" placeholder="Suburb"/>
+												<span class="help-block"></span>
                     	</div>
                   </div>
 					<div class="form-group">
@@ -771,6 +768,13 @@ defined('C5_EXECUTE') or die('Access Denied.')
 									?>
 								</select>
 								<span class="help-block"></span>
+							</div>
+					</div>
+					<div class="form-group">
+							<label  class="col-sm-4 control-label" for="inputPostcode">Post Code</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" id="inputPostcode" maxlength="4" placeholder="Post Code"/>
+	 						<span class="help-block"></span>
 							</div>
 					</div>
 									<div class="form-group required">

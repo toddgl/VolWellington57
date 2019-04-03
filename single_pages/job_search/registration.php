@@ -17,14 +17,16 @@ defined('C5_EXECUTE') or die('Access Denied.')
 		<div class="col-md-3"><?php echo $webregister['email']; ?>&nbsp;</div>
 		<div class="col-md-3">Day time phone:</div>
 		<div class="col-md-3"><?php echo $webregister['phone']; ?>&nbsp;</div>
-		<div class="col-md-3">Evening phone:</div>
-		<div class="col-md-3"><?php echo $webregister['evetel']; ?>&nbsp;</div>
-		<div class="col-md-3">Mobile:</div>
-		<div class="col-md-3"><?php echo $webregister['mobile']; ?>&nbsp;</div>
-		<div class="col-md-3">Suburb:</div>
+		<div class="col-md-3">Phone:</div>
+		<div class="col-md-3"><?php echo $webregister['add1']; ?>&nbsp;</div>
+		<div class="col-md-3">Address Line 1:</div>
+		<div class="col-md-3"><?php echo $webregister['add2']; ?>&nbsp;</div>
+		<div class="col-md-3">Address Line 2:</div>
 		<div class="col-md-3"><?php echo $webregister['suburb']; ?>&nbsp;</div>
 		<div class="col-md-3">City:</div>
 		<div class="col-md-3"><?php echo $webregister['city']; ?>&nbsp;</div>
+		<div class="col-md-3">Postcode:</div>
+		<div class="col-md-3"><?php echo $webregister['pcode']; ?>&nbsp;</div>
 		<div class="col-md-3">Age band:</div>
 		<div class="col-md-3"><?php echo $webregister['ageband']; ?>&nbsp;</div>
 		<div class="col-md-3">Gender:</div>
@@ -70,4 +72,3 @@ defined('C5_EXECUTE') or die('Access Denied.')
 				</div>
 		</div>
 </div>
-
