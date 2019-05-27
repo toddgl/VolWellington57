@@ -1,4 +1,4 @@
-<?php  
+<?php
 namespace Application\Block\VwOffice;
 
 use Concrete\Core\Block\BlockController;
@@ -9,20 +9,20 @@ use Loader;
 
 
 class Controller extends BlockController {
-	
+
 	protected $btName = 'vw_Office';
 	protected $btDescription = 'Blocks for office contact';
 	protected $btTable = 'btDCVwOffice';
-	
+
 	protected $btInterfaceWidth = "700";
 	protected $btInterfaceHeight = "450";
-	
+
 	protected $btCacheBlockRecord = true;
 	protected $btCacheBlockOutput = true;
 	protected $btCacheBlockOutputOnPost = true;
 	protected $btCacheBlockOutputForRegisteredUsers = false;
 	protected $btCacheBlockOutputLifetime = CACHE_LIFETIME;
-	
+
 	public function getSearchableContent() {
 		$content = array();
 		$content[] = $this->field_1_textbox_text;
@@ -31,7 +31,7 @@ class Controller extends BlockController {
 	}
 
 	public function view() {
-		$this->set('field_2_image', (empty($this->field_2_image_fID) ? null : $this->get_image_object($this->field_2_image_fID, 180, 180, true)));
+		$this->set('field_2_image', (empty($this->field_2_image_fID) ? null : $this->get_image_object($this->field_2_image_fID, 160, 160, true)));
 		$this->set('field_3_wysiwyg_content', $this->translateFrom($this->field_3_wysiwyg_content));
 	}
 
@@ -66,10 +66,10 @@ class Controller extends BlockController {
 			$ih = Loader::helper('image');
 			$image = $ih->getThumbnail($file, $width, $height, $crop);
 		}
-	
+
 		return $image;
 	}
-	
+
 	//Helper function for external URLs
 	public function valid_url($url) {
 		if ((strpos($url, 'http') === 0) || (strpos($url, 'mailto') === 0)) {
@@ -82,7 +82,7 @@ class Controller extends BlockController {
 			return 'http://' . $url;
 		}
 	}
-	
+
 //WYSIWYG HELPER FUNCTIONS (COPIED FROM "CONTENT" BLOCK):
 	function translateFromEditMode($text) {
 		// now we add in support for the links
