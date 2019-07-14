@@ -137,6 +137,10 @@ function validateForm() {
 			$(this).parent().parent().addClass('has-error');
 			$(this).parent().find("> span.help-block").text("Invalid email address");
 			valid = false;
+		} else if($(this).attr("id")=="inputContactTel"  && !$(this).val().match(/^\(?([0-9]{2,4})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{0,4})$/)){
+			$(this).parent().parent().addClass('has-error');
+			$(this).parent().find("> span.help-block").text("Only a single valid contact phone number can be submitted, e.g (04)1234567 or (027)-123-4567 or 041234567 or 04 123 4567");
+			valid = false;
 		} else if($(this).attr("type")=="number" && $(this).val()!="" && !$(this).val().match(/^\d+$/)){
 			$(this).parent().parent().addClass('has-error');
 			$(this).parent().find("> span.help-block").text("A number is expected");
@@ -151,6 +155,7 @@ function validateForm() {
 			valid = false;
 		}
 	});
+
 	return valid;
 }
 
@@ -425,7 +430,7 @@ function isDate(txtDate)
 											<div class="form-group required">
 													<label  class="col-sm-4 control-label" for="inputContactTel">Contact Telephone</label>
 													<div class="col-sm-8">
-															<input type="text" class="form-control" id="inputContactTel" placeholder="Contact Telephone" required="required"/>
+															<input type="text" class="form-control" id="inputContactTel" placeholder="Single Contact Telephone Only" required="required"/>
 			  		   								<span class="help-block"></span>
 													</div>
 											</div>
