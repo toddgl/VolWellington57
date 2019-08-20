@@ -17,8 +17,10 @@ window.onload = function() {
 		calcTotalCost()
 		};
 	});
-
 	$('#inputnum').on('change', function(e) {
+		calcTotalCost()
+	});
+	$('#inputnum').on('click', function(e) {
 		calcTotalCost()
 	});
 };
@@ -28,6 +30,7 @@ $(document).ready(function() {
 		$('#wkspModal').on('hidden.bs.modal', function () {
 			$('#wkspModal').removeData('bs.modal');
 			$('#wkspModal').find('.modal-content').empty;
+			$('#wkspModal').find('form').trigger('reset');
 	});
 		$('#dialogModal').on('hidden.bs.modal', function () {
 			$('#dialogModal').removeData('bs.modal');
