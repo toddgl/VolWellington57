@@ -212,6 +212,9 @@ defined('C5_EXECUTE') or die('Access Denied.')
 			var result = $.parseJSON(data);
 			$("#myModal").modal('hide');
 			if (result["success"] == 'true') {
+				document.getElementById("welEmail").innerHTML = '<a href=' + '"' + 'mailto:jo@volunteerwellington.nz,info@volunteerwellington.nz?subject=Enquiry%20From%20Website%20-%20ID: ' + id + '"' + '>click here to email</a>';
+				document.getElementById("huttEmail").innerHTML = '<a href=' + '"' + 'mailto:managerhutt@volunteerwellington.nz,info@volunteerwellington.nz?subject=Enquiry%20From%20Website%20-%20ID:' + id + '"' + '>click here to email</a>';
+				document.getElementById("poriruaEmail").innerHTML = '<a href=' + '"' + 'mailto:managerporirua@volunteerwellington.nz,info@volunteerwellington.nz?subject=Enquiry%20From%20Website%20-%20ID:' + id + '"' + '>click here to email</a>';
 				$('#noOnlineRegistrationModal').modal('show');
 				gtag('event', 'role_must_be_registered_by_phone', {'event_label': title, 'value': id});
 			}
@@ -949,11 +952,14 @@ defined('C5_EXECUTE') or die('Access Denied.')
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
            	<span aria-hidden="true">&times;</span>
-		</button>
-        <h4 class="modal-title alert alert-warning" id="noOnlineRegistrationModalLabel">Warning</h4>
+				</button>
+        <h4 class="modal-title alert alert-warning" id="noOnlineRegistrationModalLabel">Applying for this role requires a different process</h4>
       </div>
       <div class="modal-body">
-        <p>You cannot register online for this role. <b>If the role interests you</b> contact the Volunteer Wellington Office nearest you and arrange an interview. Otherwise select other roles.</p>
+        <p>To find out more and/or apply for this role please contact the Volunteer Wellington Office nearest you.</p>
+				<p>Wellington – 04 499 4570 or <span id="welEmail"></span></p>
+				<p>Lower Hutt – 04 566 6786 or <a href=<span id="huttEmail"></span>>click here to email</a></p>
+				<p>Porirua – 04 237 5355 or <a href=<span id="poriruaEmail"></span>>click here to email</a></p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary center-block" data-dismiss="modal">Close</button>
