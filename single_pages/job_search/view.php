@@ -796,7 +796,7 @@ defined('C5_EXECUTE') or die('Access Denied.')
 											</div>
 									</div>
 									<div class="form-group required">
-											<label  class="col-sm-4 control-label" for="genderList">What is your gender?</label>
+											<label  class="col-sm-4 control-label" for="genderList">Gender</label>
 										  <div class="col-sm-8">
 													<select class="form-control" name="gender" id="genderList" required="required">
             								<option selected="" value="">Select</option>
