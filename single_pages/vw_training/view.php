@@ -25,6 +25,7 @@ window.onload = function() {
 	});
 };
 var id;
+var ccurl;
 
 $(document).ready(function() {
 		$('#wkspModal').on('hidden.bs.modal', function () {
@@ -62,6 +63,22 @@ $(document).ready(function() {
 		}).done(function(data, textStatus, jqXHR){
 			var result = $.parseJSON(data);
 			var linebreak = document.createElement('br');
+
+			// Changes 20191201 to support non-vw workshop display
+			if (result['cc'] == "1") {
+        nonvw.style.visibility='visible';
+        nonvw.style.display='block';
+				isvw.style.visibility='hidden';
+        isvw.style.display='none';
+				//$('#nonvwwkspdescript').html('Register at ' + linkify(result['ccwww']));
+				ccurl = result['ccwww'];
+    	}
+    	if (result['cc'] == "0") {
+        nonvw.style.visibility='hidden';
+        nonvw.style.display='none';
+				isvw.style.visibility='visible';
+        isvw.style.display='block';
+    	}
 			//alert(data);
 			$('.modal-title').html(result['wksp']);
 			$('#description').html(result['bodytxt1'] + ' ' + result['bodytxt2'] + ' ' + result['bodytxt3'] + ' ' + result['bodytxt4'] + ' ' + result['bodytxt5']);
@@ -223,6 +240,29 @@ if(valid) {
 	};
 };
 
+function reqRegister() {
+		var win = window.open(ccurl,"_blank");
+		win.focus();
+};
+
+function linkify(inputText) {
+    var replacedText, replacePattern1, replacePattern2, replacePattern3;
+
+    //URLs starting with http://, https://, or ftp://
+    replacePattern1 = /(\b(https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gim;
+    replacedText = inputText.replace(replacePattern1, '<a href="$1" target="_blank">$1</a>');
+
+    //URLs starting with "www." (without // before it, or it'd re-link the ones done above).
+    replacePattern2 = /(^|[^\/])(www\.[\S]+(\b|$))/gim;
+    replacedText = replacedText.replace(replacePattern2, '$1<a href="http://$2" target="_blank">$2</a>');
+
+    //Change email addresses to mailto:: links.
+    replacePattern3 = /(([a-zA-Z0-9\-\_\.])+@[a-zA-Z\_]+?(\.[a-zA-Z]{2,6})+)/gim;
+    replacedText = replacedText.replace(replacePattern3, '<a href="mailto:$1">$1</a>');
+
+    return replacedText;
+}
+
 function validateForm() {
 var valid = true;
 $("#wkspModal input[required=required], #wkspModal textarea[required=required], #wkspModal select[required=required], #wkspModal input[type=email], #wkspModal input[type=number], #wkspModal input[type=date]").each(function() {
@@ -342,7 +382,7 @@ $( document ).tooltip({
 				</div>
 			</div>
 			<div class="row">
-				<div class= "col-sm-3"><strong>Costs:</strong></div>
+				<div class= "col-sm-3"><strong>Fees:</strong></div>
 				<div class="col-sm-8">
 					<div class="modal-detail" id="cost1"></div>
 					<div class="modal-detail" id="cost2"></div>
@@ -364,6 +404,7 @@ $( document ).tooltip({
 					<div class="text-center"><h4>Registration:</h4></div>
 				</div>
 			</div>
+			<div id="isvw">
     		<form class="form-horizontal" id="wkspRegisterForm">
 					<div class="form-group required">
 						<label  class="col-sm-4 control-label" for="inputnum">Number of Attendees: </label>
@@ -463,6 +504,22 @@ $( document ).tooltip({
 							</div>
 					</div>
 			</form>
+		</div>
+		<div id="nonvw">
+			<form class="form-horizontal" id="nonVWRegisterForm">
+				<div class="modal-detail col-sm-offset-1" id="nonvwwkspdescript"></div>
+				<div class="form-group">
+						<div class="col-sm-6">
+							<div class="col-sm-6">
+								<button type="button" class="btn btn-primary center-block" onClick="reqRegister();" >Register for Workshop</button>
+							</div>
+						</div>
+						<div class="col-sm-6">
+							<button type="button" class="btn btn-primary center-block" data-dismiss="modal">Close</button>
+						</div>
+				</div>
+			</form>
+		</div>
 		</div>
    	</div>
   </div>
