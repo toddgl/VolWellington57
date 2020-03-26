@@ -257,6 +257,7 @@ class JobSearch extends PageController
 			'reason'=>FILTER_SANITIZE_STRING,
 			'office'=>FILTER_SANITIZE_STRING,
 			'emvol'=>FILTER_SANITIZE_NUMBER_INT,
+			'c19'=>FILTER_SANITIZE_NUMBER_INT,
 		);
 		$options = array(
     	'fname'=>array(
@@ -321,6 +322,9 @@ class JobSearch extends PageController
 			'emvol'=>array(
         'flags'=>FILTER_NULL_ON_FAILURE
     	),
+			'c19'=>array(
+        'flags'=>FILTER_NULL_ON_FAILURE
+    	),
 		);
 
 
@@ -345,6 +349,12 @@ class JobSearch extends PageController
 			$volEmergency='Yes';
 		} else {
 			$volEmergency='No';
+		}
+		$rawCovid=filter_var($inputs[0]['volContact']['c19'], $filters['c19'], $options['c19']);
+		if ($rawCovid==1) {
+			$volCovid='Yes';
+		} else {
+			$volCovid='No';
 		}
 		$volGender=filter_var($inputs[0]['volContact']['gender'], $filters['gender'], $options['gender']);
 		$volAgeband=filter_var($inputs[0]['volContact']['ageband'], $filters['ageband'], $options['ageband']);
@@ -397,6 +407,7 @@ class JobSearch extends PageController
 			<li><label>Nearest VW Office</label><b> &nbsp; $volOffice</b></li>
 			<li><label>Reason to Volunteer</label><b> &nbsp; $volReason</b></li>
 			<li><label>Emergency volunteer list</label><b> &nbsp; $volEmergency</b></li>
+			<li><label>Covid-19 volunteer list</label><b> &nbsp; $volCovid</b></li>
 			<li><label><font color=\"#ffffff\">stats</font></label><b>Stats details</b></li>
 			<li><label>Gender</label><b> &nbsp; $volGender</b></li>
 			<li><label>Ageband</label><b> &nbsp; $volAgeband</b></li>
@@ -429,6 +440,7 @@ class JobSearch extends PageController
 				'email'=>$volEmail,
 				'createdate' => $volReDate,
 				'emvol'=>$rawEmergency,
+				'c19'=>$rawCovid,
 				'gender'=>$volGender,
 				'ageband'=>$volAgeband,
 				'ethnicity'=>$volEthnicity,
@@ -565,13 +577,14 @@ class JobSearch extends PageController
 					$mailService->load('mail_template');
 
 					// Set email parameters
-					$mailService->to($agency_email);
+					$mailService->to('julie@volunteerwellington.nz');
+					//$mailService->to($agency_email);
 					$mailService->replyto('office@volunteerwellington.nz', 'Online Job Registration');
 					$mailService->setSubject('Volunteer Wellington OnLine Volunteer Registration');
 					$mailService->setBodyHTML($mailAgencyContent);
 
 					// Send email
-					$mailService->sendMail();
+					//$mailService->sendMail();
 
 					$webrefs[$job_id] = array(
 						'job_data'=>$job_data,
@@ -589,7 +602,8 @@ class JobSearch extends PageController
 			$mailService->load('mail_template');
 
 	    // Set email parameters
-			$mailService->to('info@volunteerwellington.nz, office@volunteerwellington.nz');
+			$mailService->to('julie@volunteerwellington.nz');
+			//$mailService->to('info@volunteerwellington.nz, office@volunteerwellington.nz');
 			$mailService->replyto('office@volunteerwellington.nz', 'Online Job Registration');
 			$mailService->setSubject('Volunteer Wellington OnLine Volunteer Registration');
 			$mailService->setBodyHTML($mailOfficeContent);

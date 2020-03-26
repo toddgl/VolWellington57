@@ -300,6 +300,11 @@ defined('C5_EXECUTE') or die('Access Denied.')
 			} else {
 				volContact.emvol = 0;
 			}
+			if ($("#volCovidList").is(":checked")) {
+				volContact.c19 = 1;
+			} else {
+				volContact.c19 = 0;
+			}
 			jsonData.push({volContact: volContact});
 			var gaRoles = [];
 			for(var i = 0; i < localStorage.length; i++)    //******* length
@@ -904,6 +909,16 @@ defined('C5_EXECUTE') or die('Access Denied.')
 											<label  class="col-sm-8 control-label" for="volEmergList">Are you willing to be added to a list of people to be contacted in the event of a emergency/disaster in the Wellington region please tick the box. Volunteer Wellington will need to keep your contact details for this purpose.</label>
   										<div class="col-sm-4">
 												<label><input type="checkbox" id="volEmergList" value="">Add me to the Emergency list</label>
+												<span class="help-block"></span>
+											</div>
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="checkbox">
+											<label  class="col-sm-8 control-label" for="volCovidList"><strong>Are you willing to be added to a list of volunteers for Covid-19 roles</strong> in the Wellington region. Please tick the box. Volunteer Wellington will need to keep your contact details for this purpose.</label>
+  										<div class="col-sm-4">
+												<input type="checkbox" class="css-checkbox" id="volCovidList" value="">
+												<label for="volCovidList" class="css-label">Add me to the Covid-19 list</label>
 												<span class="help-block"></span>
 											</div>
 										</div>
