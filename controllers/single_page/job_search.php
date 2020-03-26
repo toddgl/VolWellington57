@@ -577,14 +577,13 @@ class JobSearch extends PageController
 					$mailService->load('mail_template');
 
 					// Set email parameters
-					$mailService->to('julie@volunteerwellington.nz');
-					//$mailService->to($agency_email);
+					$mailService->to($agency_email);
 					$mailService->replyto('office@volunteerwellington.nz', 'Online Job Registration');
 					$mailService->setSubject('Volunteer Wellington OnLine Volunteer Registration');
 					$mailService->setBodyHTML($mailAgencyContent);
 
 					// Send email
-					//$mailService->sendMail();
+					$mailService->sendMail();
 
 					$webrefs[$job_id] = array(
 						'job_data'=>$job_data,
@@ -602,8 +601,7 @@ class JobSearch extends PageController
 			$mailService->load('mail_template');
 
 	    // Set email parameters
-			$mailService->to('julie@volunteerwellington.nz');
-			//$mailService->to('info@volunteerwellington.nz, office@volunteerwellington.nz');
+			$mailService->to('info@volunteerwellington.nz, office@volunteerwellington.nz');
 			$mailService->replyto('office@volunteerwellington.nz', 'Online Job Registration');
 			$mailService->setSubject('Volunteer Wellington OnLine Volunteer Registration');
 			$mailService->setBodyHTML($mailOfficeContent);
