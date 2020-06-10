@@ -25,7 +25,10 @@ window.onload = function() {
 	});
 };
 var id;
+var wkshptitle;
 var ccurl;
+var ccemail;
+var isccurl;
 
 $(document).ready(function() {
 		$('#wkspModal').on('hidden.bs.modal', function () {
@@ -65,13 +68,23 @@ $(document).ready(function() {
 			var linebreak = document.createElement('br');
 
 			// Changes 20191201 to support non-vw workshop display
+			wkshptitle = result['wksp'];
 			if (result['cc'] == "1") {
         nonvw.style.visibility='visible';
         nonvw.style.display='block';
 				isvw.style.visibility='hidden';
         isvw.style.display='none';
 				//$('#nonvwwkspdescript').html('Register at ' + linkify(result['ccwww']));
-				ccurl = result['ccwww'];
+				if (result['ccwww']==="") {
+					ccemail = result['ccem'];
+					$('#nonvwwkspdescript').html('Registration of this event is by email. Clicking on the Register for Workshop button will open a new email composer screen. Please include your name, the organisation and contact details before sending the email.');
+					isccurl = 0;
+				}
+				else {
+					ccurl = result['ccwww'];
+					$('#nonvwwkspdescript').html('Registration of this event is by our partner organisation. Clicking on the Register for Workshop button will take you to the registration website.');
+					isccurl = 1;
+				}
     	}
     	if (result['cc'] == "0") {
         nonvw.style.visibility='hidden';
@@ -241,8 +254,15 @@ if(valid) {
 };
 
 function reqRegister() {
+	if (isccurl == 1) {
 		var win = window.open(ccurl,"_blank");
 		win.focus();
+	}
+	else {
+		var mail = document.createElement("a");
+		mail.href = "mailto:" + ccemail + "?subject=Registration Notification - " + wkshptitle;
+		mail.click();
+	}
 };
 
 function linkify(inputText) {
